@@ -1,0 +1,15 @@
+time=2026-11-25T15:23:53+0800
+cwd=/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05
+branch=p1-fixes-20261125
+commit=42e30e80a40b36ef55d0d6811a928a8bd71af2d6
+status_porcelain=0
+old_pid=22668
+22668 02:15:04 /opt/homebrew/Cellar/python@3.12/3.12.15/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/.venv/bin/jxd-leads serve --data-dir /Users/dkai2024163.com/ai/data/jxd-leads/current --approved-data-dir /Users/dkai2024163.com/ai/data/jxd-leads/current --port 8765
+health={"app":"JXD-LEADS-001","version":"0.5.0","last_backup_ok_at":"2026-11-25T15:08:49+08:00","last_reminder_ok_at":"2026-11-25T15:23:50+08:00","backup_error":null,"reminder_error":null}
+listener=22668,
+migration_head=20261124_marketing_fields
+candidates=0
+projects=0
+audit=0
+1309e1c2fb1eab358296483aae9f048ba339dc246da06d87ded774cf6435e9b8  /Users/dkai2024163.com/ai/archive/jingxiaodian-leads-0.3.0-20261125/pre-cutover-final.db
+vault_existing=ok

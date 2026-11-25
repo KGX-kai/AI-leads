@@ -1,0 +1,194 @@
+{
+  "meta": {
+    "name": "JXD Growth Workspace Glass Dashboard",
+    "version": "0.4.0",
+    "date": "2026-11-16",
+    "mode": "dark",
+    "status": "design-preview",
+    "selectedVariant": "A",
+    "reference": "2026-11-16 深色专业玻璃态仪表板设计方案_方案一_v1",
+    "scope": "10 views, component states, overlays, responsive, view-model contract",
+    "independence": "not bound to the current JXD-LEADS-001 template or API shape"
+  },
+  "color": {
+    "background": "#1A1A1A",
+    "main": "#2D2D2D",
+    "navGlass": "rgba(45,45,45,0.8)",
+    "sidebarGlass": "rgba(45,45,45,0.6)",
+    "glassHero": "rgba(255,255,255,0.075)",
+    "glassCard": "rgba(255,255,255,0.06)",
+    "glassRow": "rgba(255,255,255,0.04)",
+    "cardFillMin": "6%",
+    "cardFillMax": "10%",
+    "borderSoft": "rgba(255,255,255,0.07)",
+    "border": "rgba(255,255,255,0.10)",
+    "borderBright": "rgba(255,255,255,0.30)",
+    "textPrimary": "#FFFFFF",
+    "textSecondary": "#CCCCCC",
+    "textTertiary": "#999999",
+    "orange": "#FF6B35",
+    "orangeLight": "#FFB347",
+    "orangePale": "rgba(255,107,53,0.15)",
+    "heroGlow": "rgba(255,107,53,0.11)",
+    "gold": "#FFD700",
+    "goldLight": "#FFC300",
+    "goldPale": "rgba(255,215,0,0.15)",
+    "goldAmbient": "rgba(255,179,71,0.025)",
+    "success": "#4CAF50",
+    "warning": "#FFC107",
+    "danger": "#F44336",
+    "info": "#2196F3"
+  },
+  "glass": {
+    "blurHero": "22px",
+    "blurCard": "22px",
+    "blurKpi": "20px",
+    "blurRow": "10px",
+    "blurNav": "24px",
+    "blurOverlay": "26px",
+    "saturate": "120%",
+    "insetHighlight": "inset 0 1px 0 rgba(255,255,255,0.11)",
+    "cardShadow": "0 24px 60px rgba(0,0,0,0.33)",
+    "heroShadow": "0 24px 60px rgba(0,0,0,0.30)",
+    "overlayShadow": "-24px 0 70px rgba(0,0,0,0.45)",
+    "modalShadow": "0 30px 90px rgba(0,0,0,0.55)"
+  },
+  "radius": {
+    "small": "8px",
+    "medium": "12px",
+    "card": "16px",
+    "hero": "20px",
+    "shell": "24px",
+    "pill": "999px"
+  },
+  "spacing": {
+    "xs": "8px",
+    "sm": "12px",
+    "md": "16px",
+    "lg": "20px",
+    "xl": "24px",
+    "2xl": "32px",
+    "3xl": "40px"
+  },
+  "typography": {
+    "display": "Poppins, PingFang SC, sans-serif",
+    "body": "Poppins, PingFang SC, sans-serif",
+    "pageTitle": "24px / 600",
+    "pageTitleMobile": "28px / 600",
+    "heroTitle": "24px / 600",
+    "headStatValue": "15px / 600",
+    "headStatLabel": "8px / 500",
+    "sectionTitle": "19px / 600",
+    "bodySize": "13px / 400",
+    "label": "9px / 500",
+    "micro": "8px / 500",
+    "metric": "30px / 600",
+    "tabularFigures": true
+  },
+  "layout": {
+    "sidebar": "256px",
+    "sidebarCollapsed": "84px",
+    "topbar": "80px",
+    "contentMax": "1480px",
+    "kpiColumns": 4,
+    "analysisColumns": "12-column grid",
+    "funnelSpan": 7,
+    "channelSpan": 5,
+    "trendSpan": 8,
+    "opportunitySpan": 4,
+    "pageHeadHeight": "44px",
+    "pageHeadSnapshotBreakpoint": "1100px",
+    "heroHeight": "158px",
+    "heroHeightMobile": "104px",
+    "opportunityHeight": "280px",
+    "avatarHero": "96px x 120px",
+    "avatarDetail": "128px x 160px",
+    "avatarRadius": "26px",
+    "avatarOverhang": "12px",
+    "views": [
+      "overview",
+      "leads",
+      "detail",
+      "projects",
+      "opportunities",
+      "schedule",
+      "analytics",
+      "reports",
+      "settings",
+      "system"
+    ]
+  },
+  "overlay": {
+    "zIndex": {
+      "page": 0,
+      "drawer": 100,
+      "nestedDrawer": 120,
+      "modal": 140,
+      "command": 160,
+      "toast": 2000
+    },
+    "widths": {
+      "drawerWide": "560px",
+      "drawerMedium": "470px",
+      "drawerNarrow": "390px",
+      "modal": "520px",
+      "modalSmall": "420px",
+      "command": "620px"
+    },
+    "scrim": "rgba(0,0,0,0.58)",
+    "scrimBlur": "5px",
+    "motion": "280ms",
+    "maxDrawerDepth": 2,
+    "rules": [
+      "Esc closes only the topmost layer",
+      "scrim click behaves like Esc",
+      "focus trap in the top panel; restore focus to trigger",
+      "body scroll locked and background inert while open",
+      "modal only for short tasks; long forms use a drawer",
+      "switching the main view closes all overlays"
+    ]
+  },
+  "states": {
+    "button": ["default", "hover", "focus", "active", "loading", "disabled", "glass", "danger"],
+    "field": ["default", "focus", "filled", "error", "disabled", "select", "textarea"],
+    "data": ["normal", "loading", "empty", "error", "no-result", "selected", "overdue"],
+    "switch": ["off", "on", "locked"],
+    "overlay": ["closed", "open", "behind"]
+  },
+  "breakpoints": {
+    "compactSidebar": "1240px",
+    "drawer": "1024px",
+    "singleColumn": "820px",
+    "mobile": "640px",
+    "small": "390px",
+    "tiny": "334px"
+  },
+  "motion": {
+    "ease": "cubic-bezier(0.25,0.46,0.45,0.94)",
+    "hover": "200ms",
+    "card": "300ms",
+    "drawer": "280ms",
+    "view": "500ms",
+    "chart": "700ms",
+    "parallax": "scroll-linked",
+    "reducedMotion": "respect prefers-reduced-motion"
+  },
+  "dataContract": {
+    "injection": "window.JXD_DASHBOARD_DATA",
+    "dateFormat": "YYYY-MM-DD",
+    "timeFormat": "HH:mm",
+    "unknown": "null or 未知; never estimate",
+    "stageEnum": ["待核实", "已联系", "需求确认", "报价 / 试样", "采购 / 复购"],
+    "recordRef": "type:id",
+    "entities": ["leads", "projects", "opportunities", "tasks", "reports", "notifications"]
+  },
+  "assets": {
+    "ownerAvatar": "assets/owner-avatar-v1.png",
+    "fonts": [
+      "assets/fonts/poppins-400.ttf",
+      "assets/fonts/poppins-500.ttf",
+      "assets/fonts/poppins-600.ttf",
+      "assets/fonts/poppins-700.ttf"
+    ]
+  }
+}

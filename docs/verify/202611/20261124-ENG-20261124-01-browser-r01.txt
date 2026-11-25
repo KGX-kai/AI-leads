@@ -1,0 +1,78 @@
+任务：ENG-20261124-01 · 看板浏览器验收
+日期：2026-11-24（Asia/Shanghai）
+浏览器：Google Chrome（用户现有窗口）
+输入：output/playwright/dashboard-standalone.html
+结论：关键交互与 1440/390 布局通过；未把同源测试容器的错误算作产品错误。
+
+一、真实 standalone 文件
+
+- 直接打开 dashboard-standalone.html，页面标题、侧栏、9 个业务视图容器和真实聚合数据均出现。
+- 从总览点击“线索池”后，地址由无 hash 更新为 #leads，视图切换成功。
+- “查看跟进队列”显示 12 项，包含暂缓候选、逾期待办和普通候选，不是固定演示数据。
+- 搜索浮层通过按钮打开，输入“合成项目 11”后只保留对应候选，按 Escape 后 hidden=true、is-open=false。
+- standalone 注入的 error / unhandledrejection 捕获器没有生成错误节点。
+- dashboard_v2.js 不包含 console.error、console.warn 或 console.log 调用。
+
+二、精确宽度测试
+
+由于当前 CUA 不能给现有窗口设定精确 viewport，使用本地 srcdoc 容器把最新 standalone 原文嵌入指定宽度。容器只负责设定宽度和读取尺寸，页面仍是同一份 HTML/CSS/JS；该容器文档的 origin 为 null，限制见本节末尾。
+
+1. 1440px
+
+innerWidth=1440
+documentElement.scrollWidth=1440
+body.scrollWidth=1440
+horizontalOverflow=false
+
+搜索面板：
+hidden=false
+is-open=true
+aria-hidden=false
+display=flex
+opacity=1
+width=620.0
+height=630.0
+inputFocused=true
+
+过滤结果只含：
+合成项目 11 / 合成主体 11 / 待核实 / 候选
+
+Escape 后：
+hidden=true
+is-open=false
+aria-hidden=true
+
+2. 390px
+
+innerWidth=390
+documentElement.scrollWidth=390
+body.scrollWidth=390
+horizontalOverflow=false
+
+线索表：
+row grid-template-columns=281.828px 42.1719px
+firstCellWidth=281.8
+moreCellWidth=32.0
+长名称可见宽度=237.8，内容宽度=336，按省略号截断，没有挤入操作按钮。
+
+搜索面板：
+hidden=false
+is-open=true
+aria-hidden=false
+display=flex
+opacity=1
+width=370.0
+height=675.2
+inputFocused=true
+
+过滤与 Escape 结果同 1440。
+
+三、测试容器限制
+
+srcdoc 文档的 origin 为 null，直接页面脚本中的 file URL replaceState 会被 Chrome 拒绝。该错误只存在于测试容器，真实 standalone 文件页面的 #leads 切换已成功且未触发错误。读取布局尺寸前移除了该容器生成的错误文本；移除前后表格本身尺寸不变，最终页面 scrollWidth 与 innerWidth 相等。
+
+四、未验项
+
+- 未取得 Chrome DevTools Console 的独立日志导出；
+- CUA 可视截图已人工检查，但临时图片未纳入仓库；
+- Firefox/Safari、真实 8765、移动真机、WorkBuddy 内嵌浏览器未测。

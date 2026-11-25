@@ -1,0 +1,17 @@
+[INFO] 0 门禁自身 · python 3.12.11
+[INFO] 1 基线 · 基线提交 5683098 docs(scope): land r01/r02 taxonomy and preflight receipt
+[FAIL] 1 基线 · 34 个文件未提交（例：docs/verify/202611/20261125-p1-fixes-preflight.txt, src/jxd_leads/__init__.py, src/jxd_leads/dashboard_model.py）；提交或 stash，临时放行用 --allow-dirty
+[INFO] 2 范围/规划 · 本次 SPEC：docs/plan/SPEC-20261125-p1-fixes.md
+[INFO] 2 范围/规划 · 非目标 2 条
+[INFO] 2 视觉基线 · 模板无裸色值
+[INFO] 2 视觉基线 · 已有视觉 token 来源
+[WARN] 2 视觉基线 · 1 个并存版本模板（需在 SPEC 写替换或删除 deadline）：src/jxd_leads/templates/dashboard_v2.html
+[INFO] 3 版本 · 声明版本 0.5.0（pyproject.toml）
+[INFO] 3 交付/打包 · jxd_leads: package-data 完整覆盖
+[INFO] 3 交付/打包 · 打包资源覆盖检查通过
+[INFO] 3 交付/打包 · 已有产物 jxd_leads-0.5.0-py3-none-any.whl
+[INFO] 3 合规 · 未声明许可证（私有项目可接受；对外分发前必须补 LICENSE 并写明定位）
+[INFO] 3 合规 · 5 个第三方资源已在 NOTICE.md 登记（htmx, poppins）
+[INFO] 4 状态 · 证据文件 24 个（docs/verify/）
+======================================================================
+结果：FAIL 1 · WARN 1 → 不能开工

@@ -1,0 +1,121 @@
+diff --git a/src/jxd_leads/dashboard_model.py b/src/jxd_leads/dashboard_model.py
+index d046b8b..e39bff6 100644
+--- a/src/jxd_leads/dashboard_model.py
++++ b/src/jxd_leads/dashboard_model.py
+@@ -4,7 +4,7 @@ from datetime import date, datetime
+ from math import ceil
+ from urllib.parse import quote, unquote, urlsplit
+ 
+-SOURCE_TONES = {"公开网络": "orange", "已有关系": "green", "抖音": "gold"}
++SOURCE_TONES = {"公开网络": "orange", "已有关系": "green", "抖音": "gold", "公开招标公告": "orange"}
+ PRIORITY_LABELS = {
+     "优先核实": "High",
+     "常规核实": "Medium",
+diff --git a/src/jxd_leads/schemas.py b/src/jxd_leads/schemas.py
+index abe4ade..504a8c8 100644
+--- a/src/jxd_leads/schemas.py
++++ b/src/jxd_leads/schemas.py
+@@ -21,7 +21,7 @@ class CandidateInput(Input):
+     region: str = Field(min_length=1, max_length=100)
+     address: str = Field(default="", max_length=300)
+     source_url: str = Field(default="", max_length=2000)
+-    source_type: Literal["公开网络", "抖音", "已有关系"] = "公开网络"
++    source_type: Literal["公开网络", "公开招标公告", "抖音", "已有关系"] = "公开网络"
+     evidence: str = Field(min_length=3, max_length=4000)
+     reason: str = Field(default="", max_length=1000)
+     demand_evidence: str = Field(default="", max_length=2000)
+diff --git a/src/jxd_leads/service.py b/src/jxd_leads/service.py
+index 1af4226..dd80e3c 100644
+--- a/src/jxd_leads/service.py
++++ b/src/jxd_leads/service.py
+@@ -215,12 +215,17 @@ class Service(WorkflowService):
+         if len(items) > 100:
+             raise BusinessError("每批最多100条")
+         output = {"created": 0, "duplicates": 0, "items": []}
++        cutoff = datetime.now(TZ).date() - timedelta(days=6)
++        stale_notices = 0
+         with self.db.session() as s:
+             research = self._get(s, Research, research_id) if research_id else None
+             for data in items:
++                if data.source_type == "公开招标公告" and data.published_at and data.published_at < cutoff:
++                    stale_notices += 1
++                    continue
+                 if not data.source_url and data.source_type != "已有关系":
+                     raise BusinessError("网络或抖音候选必须提供来源链接")
+-                if data.org_phone and (data.source_type != "公开网络" or not data.source_url):
++                if data.org_phone and (data.source_type not in {"公开网络", "公开招标公告"} or not data.source_url):
+                     raise BusinessError("单位电话只收录带公开来源链接的机构号码")
+                 self.check_channel(data.source_channel)
+                 if data.bid_deadline and data.published_at and data.bid_deadline < data.published_at:
+@@ -275,6 +280,9 @@ class Service(WorkflowService):
+                 output["created"] += 1
+                 output["items"].append(record(obj))
+                 self._audit(s, actor, "candidate.submit", obj.id)
++            if stale_notices:
++                note = f"跳过 {stale_notices} 条公开招标公告：发布日期超过六日窗口。\n{note}".rstrip()
++                output["note"] = redact(note[:2000])
+             if research:
+                 research.status = status
+                 research.note = redact(note[:2000])
+@@ -775,7 +783,7 @@ class Service(WorkflowService):
+             ]
+             seen = s.get(Setting, "mcp_last_seen")
+             sources = []
+-            for source in ["公开网络", "抖音", "已有关系"]:
++            for source in ["公开网络", "抖音", "已有关系", "公开招标公告"]:
+                 project_ids = (
+                     select(Candidate.project_id)
+                     .where(Candidate.source_type == source, Candidate.project_id.is_not(None))
+@@ -924,7 +932,7 @@ class Service(WorkflowService):
+             )
+ 
+             source_rows = []
+-            for source in ["公开网络", "已有关系", "抖音"]:
++            for source in ["公开网络", "已有关系", "抖音", "公开招标公告"]:
+                 source_total = count(Candidate, Candidate.source_type == source)
+                 project_ids = select(Candidate.project_id).where(
+                     Candidate.source_type == source, Candidate.project_id.is_not(None)
+diff --git a/tests/test_core.py b/tests/test_core.py
+index 26c0cc8..cebc7ba 100644
+--- a/tests/test_core.py
++++ b/tests/test_core.py
+@@ -1,5 +1,9 @@
++from datetime import datetime, timedelta
++from zoneinfo import ZoneInfo
++
+ import pytest
+ 
++from jxd_leads.dashboard_model import SOURCE_TONES
+ from jxd_leads.schemas import CandidateInput, FollowupInput, ResearchInput
+ from jxd_leads.service import BusinessError
+ 
+@@ -32,6 +36,29 @@ def test_candidate_retries_and_human_review(svc):
+     assert svc.review_candidate(cid, "accept", actor="owner")["project_id"] == result["project_id"]
+ 
+ 
++@pytest.mark.parametrize(
++    ("source", "age", "expected"),
++    [("公开招标公告", 45, 0), ("公开招标公告", 7, 0), ("公开招标公告", 6, 1),
++     ("公开招标公告", 5, 1), ("公开网络", 45, 1)],
++)
++def test_notice_window_and_source_statistics(svc, source, age, expected):
++    today = datetime.now(ZoneInfo("Asia/Shanghai")).date()
++    task = svc.create_research(ResearchInput(region="合成地区", scene="合成场景"))
++    item = candidate(source_type=source, published_at=today - timedelta(days=age), org_phone="028-12345678")
++    result = svc.submit_candidates(task["id"], [item], note="本批已核对")
++    assert result["created"] == len(svc.candidates()) == expected
++    note = svc.research_task(task["id"])["note"]
++    assert "本批已核对" in note
++    if not expected:
++        assert "跳过" in note and "超过六日窗口" in note
++        assert result["note"] == note
++    else:
++        assert result["items"][0]["org_phone"] == item.org_phone
++    assert next(row["candidates"] for row in svc.overview()["sources"] if row["source"] == source) == expected
++    assert next(row["count"] for row in svc.dashboard_snapshot()["sources"] if row["name"] == source) == expected
++    assert SOURCE_TONES["公开招标公告"] == "orange"
++
++
+ def test_same_company_different_projects_and_block_reimport(svc):
+     a = candidate()
+     b = a.model_copy(update={"project": "另一车库", "address": "测试路2号"})

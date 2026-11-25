@@ -1,0 +1,27 @@
+{% extends 'base.html' %}{% from 'ui.html' import hidden,empty %}{% block breadcrumb %}今日工作台{% endblock %}{% block content %}
+<div class="page-heading"><div><p class="eyebrow">TODAY / {{today}}</p><h1>把今天的机会，推进一步。</h1><p class="muted">查看新线索、处理跟进，让每个项目都有下一步。</p></div><a class="button primary" href="/research">＋ 新建获客任务</a></div>
+{% if reminder_result %}<p class="notice">提醒检查完成：命中 {{reminder_result.due}} 项；新提醒 {{reminder_result.new}} 项；此前已提醒或跳过 {{reminder_result.already}} 项。</p>{% endif %}
+<div class="stats"><a href="/candidates?status=pending"><span>待核实线索</span><strong>{{data.pending}}</strong><small>查看来源与匹配理由 ↗</small></a><a href="/projects"><span>客户项目</span><strong>{{data.projects}}</strong><small>按实际采购需求推进 ↗</small></a><a href="/reviews"><span>AI 建议待审</span><strong>{{data.proposals}}</strong><small>确认后才写入正式跟进 ↗</small></a><div><span>逾期跟进</span><strong class="{{'warning-text' if data.overdue else ''}}">{{data.overdue}}</strong><small>重新安排合适的联系时间</small></div></div>
+<section class="panel">
+  <nav class="actions" aria-label="queue sections">{% for key,label,total in queue_sections %}<a class="button" href="/?kind={{key}}">{{label}} {{total}}</a>{% endfor %}</nav>
+  <p>{% for view in views %}<a class="button" href="{{view.url}}">{{view.name}}</a>{% endfor %}</p>
+  <div class="panel-heading"><div><h2>今日处理队列</h2><p class="muted">每项显示对象、排队原因、下一步和日期；处理后回到当前筛选。</p></div><span class="badge">{{queue.total}} 项</span></div>
+  <div class="actions">
+    <form class="inline-form" method="get"><label>事项<select name="kind"><option value="">全部</option>{% for v,l in [('refusal','拒绝待复核'),('todo','跟进待办'),('inquiry','客户咨询'),('suggestion','AI建议'),('proposal','跟进建议'),('candidate','候选核实'),('watch','到期复核')] %}<option value="{{v}}" {% if kind==v %}selected{% endif %}>{{l}}</option>{% endfor %}</select></label><label>从<input type="date" name="date_from" value="{{date_from}}"></label><label>至<input type="date" name="date_to" value="{{date_to}}"></label><button>筛选</button></form>
+    <form hx-boost="true" method="post" action="/actions/check_reminders">{{hidden(csrf,'/')}}<button>检查提醒</button></form>
+  </div>
+  <details><summary>保存当前筛选为常用视图</summary><form hx-boost="true" method="post" action="/actions/save_view">{{hidden(csrf,'/')}}<input type="hidden" name="kind" value="{{kind}}"><input type="hidden" name="date_from" value="{{date_from}}"><input type="hidden" name="date_to" value="{{date_to}}"><label>视图名称<input name="name" required maxlength="40"></label><button>保存视图</button></form></details>
+  <div class="queue-list">
+    {% for item in queue['items'] %}
+    <article class="queue-item">
+      <div class="queue-item-head"><div><span class="badge">{{'到期复核' if item.kind=='watch' else {0:'优先复核',1:'已逾期',2:'客户咨询',3:'待本人审核',4:'安排跟进',5:'优先核实',6:'常规核实',7:'暂缓/排除复核'}.get(item.priority,'待处理')}}</span><h3><a class="text-link" href="{{item.target}}">{{item.title}}</a></h3></div><span class="queue-date">{{item.date_label}}：{{item.due|local_time if item.due|length>10 else item.due}}</span></div>
+      <p><strong>排队原因：</strong>{{item.reason}}</p>
+      <p><a class="queue-next" href="{{item.target}}">下一步：{{item.next_action}} →</a></p>
+    </article>
+    {% else %}{{empty('当前没有待处理事项','可以检查提醒、查看线索池，或创建一个明确范围的获客任务。')}}{% endfor %}
+  </div>
+  <div class="actions">{% if queue.page>1 %}<a class="button" href="?n={{queue.page-1}}&kind={{kind}}&date_from={{date_from}}&date_to={{date_to}}">上一页</a>{% endif %}{% if queue.page*queue.page_size<queue.total %}<a class="button" href="?n={{queue.page+1}}&kind={{kind}}&date_from={{date_from}}&date_to={{date_to}}">下一页</a>{% endif %}</div>
+</section>
+<div class="dashboard-grid"><section class="panel"><div class="panel-heading"><h2>下一步行动</h2><span class="badge">{{data.tasks|length}} 项待办</span></div>{% if data.tasks %}{% for t in data.tasks %}<div class="task-row"><form hx-boost="true" method="post" action="/actions/todo">{{hidden(csrf,'/')}}<input type="hidden" name="id" value="{{t.id}}"><button class="check" aria-label="完成：{{t.action}}">✓</button></form><div><a href="/projects/{{t.project_id}}"><strong>{{t.action}}</strong></a><p class="muted">{{t.project}}</p></div><span class="date {{'warning-text' if t.due_date<today else ''}}">{{t.due_date}}{% if t.due_date<today %} · 逾期{% endif %}</span></div>{% endfor %}{% else %}{{empty('今天还没有待办','创建项目并记录下一步，跟进事项会出现在这里。')}}{% endif %}</section><section class="panel"><div class="panel-heading"><h2>获客怎么开始</h2><span class="badge teal">三步</span></div><ol class="steps"><li><strong>确定一批目标</strong><p>设置地区和采购场景，默认寻找 10 条候选。</p></li><li><strong>交给 Codex 检索</strong><p>复制任务指令，候选及来源直接回到线索池。</p></li><li><strong>由你核实与联系</strong><p>确认具体项目、对接角色和需求，再报价或试样。</p></li></ol><a class="text-link" href="/research">打开获客任务 →</a></section></div>
+<section class="panel compact-panel"><div><h2>把已有关系接进来</h2><p class="muted">介绍人、项目和来源一起保存，后续不用重新查找。</p></div><div class="actions"><a class="button" href="/candidates#new">手工录入</a><a class="button" href="/import">导入表格</a></div></section>
+{% endblock %}

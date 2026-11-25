@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+# 开工门禁 · 预提交钩子 v4
+#
+# 设计要点（对应 GATE-SPEC §1、§2 的"硬"项）：
+#   1. 自包含：不依赖 scripts/preflight.py，删了它本钩子照常拦截敏感文件；
+#   2. 失败关闭：读不到暂存区就拒绝提交，而不是放行；
+#   3. 改名（R/C）同时看源路径与目标路径：`git mv notes.txt .env` 必须被拦；
+#   4. 删除（D）不拦：清理敏感文件是正当操作；
+#   5. 允许 `.gate-allowlist` 逐条放行（每条一行 glob，可写注释）。
+#
+# 兼容 macOS 自带 bash 3.2（不用 mapfile / ${var,,}）。
+
+set -u
+
+root=$(git rev-parse --show-toplevel 2>/dev/null) || {
+  echo "gate: 无法定位仓库根目录，拒绝提交（fail-closed）。" >&2
+  exit 1
+}
+
+allow_file="$root/.gate-allowlist"
+lower() { printf '%s' "$1" | tr '[:upper:]' '[:lower:]'; }
+
+matched_allow() {
+  local p=$1 pat
+  [ -f "$allow_file" ] || return 1
+  while IFS= read -r pat || [ -n "$pat" ]; do
+    case "$pat" in ''|\#*) continue ;; esac
+    # shellcheck disable=SC2254
+    case "$p" in $pat) return 0 ;; esac
+    case "${p##*/}" in $pat) return 0 ;; esac
+  done < "$allow_file"
+  return 1
+}
+
+is_sensitive() {
+  local p
+  p=$(lower "$1")
+  case "$p" in
+    *.sqlite3|*.sqlite3-shm|*.sqlite3-wal|*.sqlite|*.db) return 0 ;;
+    .env|*/.env|.env.*|*/.env.*) return 0 ;;
+    *.pem|*.key|*.p12|*.pfx|*.jks|*.keystore) return 0 ;;
+    id_rsa|*/id_rsa|id_ed25519|*/id_ed25519|id_ecdsa|*/id_ecdsa) return 0 ;;
+    data/*|backups/*) return 0 ;;
+    *secret*|*credential*|*token*|*password*|*passwd*) return 0 ;;
+  esac
+  return 1
+}
+
+blocked=()
+warned=()
+
+while IFS= read -r -d '' meta; do
+  [ -z "$meta" ] && continue
+  status=${meta##* }          # 形如 A / M / D / R100 / C75
+  IFS= read -r -d '' p1 || p1=""
+  case "$status" in
+    R*|C*)
+      IFS= read -r -d '' p2 || p2=""
+      source=$p1; target=$p2
+      ;;
+    *)
+      source=""; target=$p1
+      ;;
+  esac
+
+  case "$status" in
+    D*|D) continue ;;                       # 删除不拦
+  esac
+
+  if [ -n "$target" ] && is_sensitive "$target" && ! matched_allow "$target"; then
+    blocked+=("${target}（${status}）")
+  fi
+  if [ -n "$source" ] && is_sensitive "$source" && ! matched_allow "$source"; then
+    warned+=("$source → $target")
+  fi
+done < <(git -C "$root" diff --cached --raw -z --find-renames 2>/dev/null) || {
+  echo "gate: 读取暂存区失败，拒绝提交（fail-closed）。" >&2
+  exit 1
+}
+
+if [ ${#warned[@]} -gt 0 ]; then
+  for w in "${warned[@]}"; do
+    echo "gate[WARN]: 从敏感路径改名而来，确认内容是否也该排除：$w" >&2
+  done
+fi
+
+if [ ${#blocked[@]} -gt 0 ]; then
+  echo "gate[FAIL]: 暂存区里有不该入库的文件：" >&2
+  for b in "${blocked[@]}"; do
+    echo "        $b" >&2
+  done
+  cat >&2 <<'HINT'
+  处理：
+    1) git restore --staged <文件>            # 取消暂存
+    2) 把对应模式写进 .gitignore              # 防止再次误加
+    3) 确需入库的，写进 .gate-allowlist 并说明原因（一行一个 glob）
+  说明：本检查只覆盖"文件名/路径"层面的敏感项；内容级密钥扫描需要 CI（见 GATE-SPEC §6）。
+HINT
+  exit 1
+fi
+
+exit 0

@@ -1,0 +1,72 @@
+依赖版权行
+
+来源为所列版本安装发行包随附的版权声明。完整上游许可文件见各包的 dist-info 目录。
+
+fastapi 0.165.0 — MIT
+Copyright (c) 2018 Sebastián Ramírez
+
+uvicorn 0.54.0 — BSD-3-Clause
+Copyright © 2017-present, [Encode OSS Ltd](https://www.encode.io/).
+
+sqlalchemy 2.1.9 — MIT
+Copyright 2005-2026 SQLAlchemy authors and contributors <see AUTHORS file>.
+
+alembic 1.20.1 — MIT
+Copyright 2009-2026 Michael Bayer.
+
+jinja2 3.1.6 — BSD-3-Clause
+Copyright 2007 Pallets
+
+itsdangerous 2.2.0 — BSD-3-Clause
+Copyright 2011 Pallets
+
+cryptography 50.0.2 — Apache-2.0 OR BSD-3-Clause
+Copyright (c) Individual contributors.
+
+keyring 25.7.0 — MIT
+Copyright (c) 2025 <copyright holders>
+
+mcp 1.30.0 — MIT
+Copyright (c) 2024 Anthropic, PBC
+
+openpyxl 3.1.5 — MIT
+Copyright (c) 2010 openpyxl
+
+defusedxml 0.7.1 — PSF-2.0
+Copyright (c) 2013 by Christian Heimes
+
+filelock 4.3.1 — MIT
+Copyright (c) 2025 Bernát Gábor and contributors
+
+pytest 9.2.0 — MIT
+Copyright (c) 2004 Holger Krekel and others
+
+httpx 0.28.1 — BSD-3-Clause
+Copyright © 2019, [Encode OSS Ltd](https://www.encode.io/).
+
+ruff 0.17.6 — MIT
+Copyright (c) 2022 Charles Marsh
+Copyright (C) 2012-2018 Steven Myint
+Copyright (c) 2023 Jelle Zijlstra
+Copyright (C) 2011-2013 Tarek Ziade <tarek@ziade.org>
+Copyright (C) 2012-2016 Ian Cordasco <graffatcolmingov@gmail.com>
+Copyright (c) 2018 Nikita Sobolev
+Copyright (c) 2016 Łukasz Langa
+Copyright (c) 2020 Martin Thoma
+Copyright (c) 2013 Timothy Edmund Crosley
+Copyright (c) 2018 Anthony Sottile
+Copyright © 2006-2009 Johann C. Rocholl <johann@rocholl.net>
+Copyright © 2009-2014 Florent Xicluna <florent.xicluna@gmail.com>
+Copyright © 2014-2020 Ian Lee <IanLee1521@gmail.com>
+Copyright (c) 2012 GreenSteam, <http://greensteam.dk/>
+Copyright (c) 2014-2020 Amir Rachum, <http://amir.rachum.com/>
+Copyright (c) 2020 Sambhav Kothari, <https://github.com/samj1912>
+Copyright 2005-2011 Divmod, Inc.
+Copyright 2013-2014 Florent Xicluna
+Copyright (c) Microsoft Corporation. All rights reserved.
+Copyright (c) 2017 Anthony Sottile
+Copyright (c) Rome Tools, Inc. and its affiliates.
+Copyright (c) 2020 RustPython Team
+
+Unlicense
+本次列示的 18 个直接与开发依赖及 certifi 中，无以 Unlicense 作为发行包许可证的依赖。

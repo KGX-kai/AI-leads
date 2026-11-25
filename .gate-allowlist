@@ -1,0 +1,3 @@
+# 设计令牌是公开的视觉配置，不是访问令牌。
+docs/dashboard-tokens-v0.4.0.json
+docs/dashboard-theme-tokens-v0.4.1.json

@@ -1,0 +1,155 @@
+任务号：SATOSHI-REMOVAL | 命令：git status；grep；python3.12 -m build --wheel；unzip；Playwright Chromium；preflight.py . --run | 退出码：0 | commit sha：d51147e715dc315ccc0143fcffb533a4a7301a16
+日期：2026-11-25（文件名沿用任务指定的 20261124）
+工程：<repo>
+分支：feat/dashboard-v0.4.0
+结论：通过。Satoshi 字体文件、CSS 内嵌字体和业务文档引用已移除；旧分发物与旧构建目录已移出工程。
+
+一、原因与边界
+- Satoshi 官方条款禁止向外部个人或实体再分发；本人决定移除，不取得 ITF 书面许可。
+- 按任务限制，未修改 LICENSE / NOTICE / README / pyproject.toml 的 license 字段。
+- NOTICE.md 仍保留 5 处 Satoshi 历史文字（第 12-15、17 行），留待独立许可任务处理，不属本次可改范围。
+- docs/verify/ 历史证据未修改；实际文件名为
+  docs/verify/202611/20261124-ENG-20261117-01-backup-wal.txt。
+
+二、改动前基线
+- HEAD：b96c545ed17c74e4da555ff58ede58840223d6c8
+- dashboard_v2.css：1,111,462 bytes
+- dashboard_v2.css SHA-256：
+  fd7fc3a72edbb364ae5ace9d969fc0b381a99412418c4c90339c26c80c1655c1
+- Satoshi 文件：4 个，共 99,240 bytes
+  8a24f395b65048dea9dece6444525fa3adf180057d82c3f831095bff3feda5a0
+  50dca57f0b77918e0fb7dac998c3f5ef6b0c2a29657da97658a04f98ac532fc5
+  af02a72246f53ad49c44a591921edbd39ec8258a03d8cc2e0532aa1e497e85b4
+  353a7fbfb4475f0c31470a7449226006cb64211c71055ca9db860a8acdaa9f68
+
+三、改动文件
+删除：
+- src/jxd_leads/static/dashboard/satoshi-300.woff2
+- src/jxd_leads/static/dashboard/satoshi-400.woff2
+- src/jxd_leads/static/dashboard/satoshi-500.woff2
+- src/jxd_leads/static/dashboard/satoshi-700.woff2
+
+修改：
+- src/jxd_leads/static/dashboard_v2.css
+  删除 4 个 Satoshi @font-face 块；--font-body 改为 Poppins。
+  改后：978,498 bytes；
+  SHA-256 1b762f4510e6613930dd4e22d99dfca66b7478b3d6821164d237afe5334bffea。
+- docs/dashboard-tokens-v0.4.0.json
+  正文字体改为 Poppins；字体资产清单删除 4 个 Satoshi 文件。
+- docs/dashboard-spec-v0.4.0.md
+  正文字体说明改为 Poppins 400。
+- src/jxd_leads.egg-info/SOURCES.txt
+  删除 4 个 Satoshi 文件条目。该文件被 .gitignore 的 *.egg-info/ 忽略，属于构建生成文件；
+  当前磁盘内容已复核无 Satoshi。
+
+新增浏览器证据：
+- docs/verify/202611/satoshi-removal/browser-check.json
+- docs/verify/202611/satoshi-removal/overview-desktop-dark.png
+- docs/verify/202611/satoshi-removal/overview-mobile-dark.png
+
+构建产物：
+- 旧 jxd_leads-0.4.0-py3-none-any.whl，1,125,653 bytes，
+  SHA-256 f7e0f5606b129290b9bb1f1f76335773297a6ba2660759042b70d6a3a6ca4b2e。
+- 旧 jxd_leads-0.5.0-py3-none-any.whl，1,138,375 bytes，
+  SHA-256 2c3445be7eb4a9afee71b7ed71decd646d2d742f2fbf03e4a8cafa57586303f8。
+- 两个旧 wheel 已移到 <tmp>/jxd-satoshi-quarantine-20261125/，dist/ 内不再保留。
+- 旧 build/ 已移到同一隔离目录；build/ 已从新 wheel 重建，无 Satoshi。
+- 新 dist/jxd_leads-0.5.0-py3-none-any.whl，937,249 bytes，
+  SHA-256 2ae5f7630b99d6ae7a6b85412732cad562b6ab8922d825a25f581cc1f5b324a5。
+
+四、验证原始结果
+1. 业务文件扫描
+$ grep -ri satoshi src/ docs/ --exclude-dir=verify
+grep_exit=1
+说明：无命中。
+
+$ find src/jxd_leads/static/dashboard -maxdepth 1 -iname 'satoshi-*' | wc -l
+0
+
+2. wheel 与 CSS
+$ unzip -l dist/*0.5.0*.whl | grep -i satoshi
+wheel_satoshi_entries_exit=1
+
+$ unzip -p dist/*0.5.0*.whl jxd_leads/static/dashboard_v2.css | grep -i satoshi
+wheel_css_satoshi_exit=1
+
+wheel CSS SHA-256：
+1b762f4510e6613930dd4e22d99dfca66b7478b3d6821164d237afe5334bffea
+wheel 内 Satoshi 字符串计数：0
+wheel 内字体资产：
+owner-avatar.png
+poppins-400.ttf
+poppins-500.ttf
+poppins-600.ttf
+poppins-700.ttf
+
+$ find build -iname '*satoshi*'
+无输出。
+
+$ grep -i satoshi src/jxd_leads.egg-info/SOURCES.txt
+sources_grep_exit=1
+
+3. Poppins 内嵌字体完整性
+dashboard_v2.css @font-face 数量：4
+400 match=True decoded_sha256=cdedb1729acac414ed01744a11da7badb86adf13108e7bd3fa161b9323f7fe54
+500 match=True decoded_sha256=fcff04f4bec2b3636f05ed894dc1f9a752c4cb587ee49857ec7a82abaf6ca016
+600 match=True decoded_sha256=dae40ca7b35fe7501bda2e4140a6860b1db47330be5d3c8ab6971fd83a70e9a5
+700 match=True decoded_sha256=1984efdda0fbe207d7ac20feac2ba7c2768c92a90094b02a206c9d58cc30ff2e
+build/lib/jxd_leads/static/dashboard_v2.css 同 SHA-256、同 4 段匹配结果。
+
+4. 浏览器实测
+环境：新 0.5.0 wheel 冷安装，临时虚拟环境，临时 SQLite 合成数据，
+Vault.ephemeral()，127.0.0.1:8877，系统 Chrome headless。
+
+desktop 1440x1000：
+- bodyFontFamily：Poppins, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif
+- --font-body："Poppins", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif
+- FontFace：Poppins 400/500/600/700 显式加载均 True
+- document.fonts.status：loaded
+- 8 个业务视图最大页面级横向溢出：0
+- console errors：0；page errors：0；failed requests：0
+
+mobile 390x844：
+- bodyFontFamily：Poppins, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif
+- 8 个业务视图最大页面级横向溢出：0
+- console errors：0；page errors：0；failed requests：0
+
+网络：failedResponses=0；satoshiNetworkHits=0。
+截图目视：桌面卡片、图表、侧栏与移动端卡片、固定底栏均正常，无错位、截断或破版。
+截图：
+- docs/verify/202611/satoshi-removal/overview-desktop-dark.png
+- docs/verify/202611/satoshi-removal/overview-mobile-dark.png
+
+5. preflight
+$ python3 <codex-home>/skills/project-planning-gate/scripts/preflight.py . --run
+[INFO] 0 门禁自身 · python 3.11.18
+[INFO] 1 基线 · 基线提交 d51147e refactor(dashboard): remove Satoshi font assets
+[INFO] 1 基线 · 工作树干净
+[INFO] 2 范围/规划 · 本次 SPEC：docs/plan/SPEC-20261124-dashboard-v0.4.0.md
+[INFO] 2 范围/规划 · base_commit 1b12d42 是 HEAD 的祖先（SPEC 基于较早代码）
+[INFO] 2 范围/规划 · 非目标 7 条
+[INFO] 2 视觉基线 · 模板无裸色值
+[INFO] 2 视觉基线 · 已有视觉 token 来源
+[WARN] 2 视觉基线 · 1 个并存版本模板（需在 SPEC 写替换或删除 deadline）：src/jxd_leads/templates/dashboard_v2.html
+[INFO] 3 版本 · 声明版本 0.5.0（pyproject.toml）
+[WARN] 3 版本 · 源码手写版本 1 处：src/jxd_leads/web.py:0.5.0
+[INFO] 3 交付/打包 · jxd_leads: package-data 完整覆盖
+[INFO] 3 交付/打包 · 打包资源覆盖检查通过
+[INFO] 3 交付/打包 · 已有产物 jxd_leads-0.5.0-py3-none-any.whl
+[INFO] 3 合规 · 未声明许可证（私有项目可接受；对外分发前必须补 LICENSE 并写明定位）
+[INFO] 3 合规 · 5 个第三方资源已在 NOTICE.md 登记（htmx, poppins）
+[INFO] 3 交付/实跑 · 识别技术栈：python
+[WARN] 3 交付/实跑 · pytest：工具未安装/不可用，跳过
+[WARN] 3 交付/实跑 · ruff：工具未安装/不可用，跳过
+[INFO] 4 状态 · 证据文件 13 个（docs/verify/）
+======================================================================
+结果：FAIL 0 · WARN 4 → 可以开工（WARN 需自行判断）
+preflight_exit=0
+
+五、交付状态
+- 实现 commit：d51147e715dc315ccc0143fcffb533a4a7301a16
+- 当前分支：feat/dashboard-v0.4.0
+- dist/ 仅保留重建后的 0.5.0 wheel；build/ 已重建且无 Satoshi。
+- NOTICE.md 的 Satoshi 历史声明未改，作为后续独立许可任务。
+- 两个含 Satoshi 的旧 wheel 与旧 build/ 暂存于 <tmp>/jxd-satoshi-quarantine-20261125/，
+  不再位于工程内，也未 push、发布或外发。

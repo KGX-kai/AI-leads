@@ -1,0 +1,37 @@
+任务: ENG-20261124-01 WAL 修复 | 命令: pytest focused/full; ruff; git diff --check | 退出码: focused=0 full=0 ruff=0 diff=0 | commit: ca0e4d9f549cb0708474e1518672d011d4de5e79
+日期: 2026-11-24 Asia/Shanghai
+范围: 恢复保全的 WAL sidecar 修复并独立收口；未改看板、MCP、数据库 schema 或正式数据。
+路径占位: <repo> 为目标候选仓库；<existing-python> 为已有工程 .venv/bin/python。
+
+=== 恢复一致性 ===
+恢复后的 5 个 WAL 相关文件与保全前 SHA-256 一致。
+恢复方式: 从固定 stash fd3945a2c4e61c457c611e595341d4577026f1ca 读取 tracked tree；旧验证输出从 stash^3 读取。未执行 stash pop。
+EXIT=0
+
+=== 聚焦回归 ===
+命令: PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 <existing-python> -m pytest -q -p no:cacheprovider tests/test_data_contract.py -k 'verify_wal_database or same_day_backup_with_live_wal or default_backup_repairs or backup_verification'
+....                                                                     [100%]
+4 passed, 34 deselected, 1 warning in 0.47s
+EXIT=0
+
+=== 全量回归 ===
+命令: PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 <existing-python> -m pytest -q -p no:cacheprovider
+216 passed, 1 warning in 20.34s
+EXIT=0
+
+=== ruff ===
+命令: <existing-python> -m ruff check --no-cache src tests scripts
+All checks passed!
+EXIT=0
+
+=== diff 卫生与实际提交 ===
+命令: git diff --check
+输出为空
+EXIT=0
+提交: ca0e4d9f549cb0708474e1518672d011d4de5e79
+主题: fix(backup): avoid WAL sidecars during verification
+说明: 仅提交 CHANGELOG.md、backup.py、security.py、test_data_contract.py；SPEC、规划证据和钩子未混入该提交。
+
+=== 备注 ===
+1 条 warning 为现有 FastAPI TestClient/httpx 弃用提示，不影响退出码。
+后续看板实现尚未开始；本证据不证明看板、发行物或正式切换通过。

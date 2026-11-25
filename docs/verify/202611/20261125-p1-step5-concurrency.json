@@ -1,0 +1,163 @@
+[11/25/26 14:31:53] INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             ListToolsRequest                                   
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+                    INFO     Processing request of type            server.py:733
+                             CallToolRequest                                    
+{
+  "rounds": [
+    {
+      "round": 1,
+      "mcp": {
+        "ok": true,
+        "code": null,
+        "ms": 20.1
+      },
+      "web": {
+        "status": 200,
+        "ms": 7.7,
+        "body": "{\"schema_version\":\"1.3\",\"ok\":true,\"request_id\":\"probe-web-1\",\"data\":{\"created\":1,\"duplicates\":0,\"items\":[{\"research_id\":null,\"company\":\"并发合成公司1\",\"project\":\"并发合成项目1\",\"region\":\"四川成都\",\"address\":\"合成路1号\",\"source_url\":\"https://example.org/probe/1\",\"source_type\":\"公开网络\",\"evidence\":\"并发探针合成证据，无真实客户。\",\"discove"
+      }
+    },
+    {
+      "round": 2,
+      "mcp": {
+        "ok": true,
+        "code": null,
+        "ms": 3.2
+      },
+      "web": {
+        "status": 200,
+        "ms": 4.4,
+        "body": "{\"schema_version\":\"1.3\",\"ok\":true,\"request_id\":\"probe-web-2\",\"data\":{\"created\":1,\"duplicates\":0,\"items\":[{\"research_id\":null,\"company\":\"并发合成公司2\",\"project\":\"并发合成项目2\",\"region\":\"四川成都\",\"address\":\"合成路2号\",\"source_url\":\"https://example.org/probe/2\",\"source_type\":\"公开网络\",\"evidence\":\"并发探针合成证据，无真实客户。\",\"discove"
+      }
+    },
+    {
+      "round": 3,
+      "mcp": {
+        "ok": true,
+        "code": null,
+        "ms": 3.9
+      },
+      "web": {
+        "status": 200,
+        "ms": 2.3,
+        "body": "{\"schema_version\":\"1.3\",\"ok\":true,\"request_id\":\"probe-web-3\",\"data\":{\"created\":1,\"duplicates\":0,\"items\":[{\"research_id\":null,\"company\":\"并发合成公司3\",\"project\":\"并发合成项目3\",\"region\":\"四川成都\",\"address\":\"合成路3号\",\"source_url\":\"https://example.org/probe/3\",\"source_type\":\"公开网络\",\"evidence\":\"并发探针合成证据，无真实客户。\",\"discove"
+      }
+    },
+    {
+      "round": 4,
+      "mcp": {
+        "ok": true,
+        "code": null,
+        "ms": 3.5
+      },
+      "web": {
+        "status": 200,
+        "ms": 2.2,
+        "body": "{\"schema_version\":\"1.3\",\"ok\":true,\"request_id\":\"probe-web-4\",\"data\":{\"created\":1,\"duplicates\":0,\"items\":[{\"research_id\":null,\"company\":\"并发合成公司4\",\"project\":\"并发合成项目4\",\"region\":\"四川成都\",\"address\":\"合成路4号\",\"source_url\":\"https://example.org/probe/4\",\"source_type\":\"公开网络\",\"evidence\":\"并发探针合成证据，无真实客户。\",\"discove"
+      }
+    },
+    {
+      "round": 5,
+      "mcp": {
+        "ok": true,
+        "code": null,
+        "ms": 3.5
+      },
+      "web": {
+        "status": 200,
+        "ms": 2.1,
+        "body": "{\"schema_version\":\"1.3\",\"ok\":true,\"request_id\":\"probe-web-5\",\"data\":{\"created\":1,\"duplicates\":0,\"items\":[{\"research_id\":null,\"company\":\"并发合成公司5\",\"project\":\"并发合成项目5\",\"region\":\"四川成都\",\"address\":\"合成路5号\",\"source_url\":\"https://example.org/probe/5\",\"source_type\":\"公开网络\",\"evidence\":\"并发探针合成证据，无真实客户。\",\"discove"
+      }
+    },
+    {
+      "round": 6,
+      "mcp": {
+        "ok": true,
+        "code": null,
+        "ms": 3.4
+      },
+      "web": {
+        "status": 200,
+        "ms": 2.0,
+        "body": "{\"schema_version\":\"1.3\",\"ok\":true,\"request_id\":\"probe-web-6\",\"data\":{\"created\":1,\"duplicates\":0,\"items\":[{\"research_id\":null,\"company\":\"并发合成公司6\",\"project\":\"并发合成项目6\",\"region\":\"四川成都\",\"address\":\"合成路6号\",\"source_url\":\"https://example.org/probe/6\",\"source_type\":\"公开网络\",\"evidence\":\"并发探针合成证据，无真实客户。\",\"discove"
+      }
+    },
+    {
+      "round": 7,
+      "mcp": {
+        "ok": true,
+        "code": null,
+        "ms": 3.3
+      },
+      "web": {
+        "status": 200,
+        "ms": 1.9,
+        "body": "{\"schema_version\":\"1.3\",\"ok\":true,\"request_id\":\"probe-web-7\",\"data\":{\"created\":1,\"duplicates\":0,\"items\":[{\"research_id\":null,\"company\":\"并发合成公司7\",\"project\":\"并发合成项目7\",\"region\":\"四川成都\",\"address\":\"合成路7号\",\"source_url\":\"https://example.org/probe/7\",\"source_type\":\"公开网络\",\"evidence\":\"并发探针合成证据，无真实客户。\",\"discove"
+      }
+    },
+    {
+      "round": 8,
+      "mcp": {
+        "ok": true,
+        "code": null,
+        "ms": 2.3
+      },
+      "web": {
+        "status": 200,
+        "ms": 3.5,
+        "body": "{\"schema_version\":\"1.3\",\"ok\":true,\"request_id\":\"probe-web-8\",\"data\":{\"created\":1,\"duplicates\":0,\"items\":[{\"research_id\":null,\"company\":\"并发合成公司8\",\"project\":\"并发合成项目8\",\"region\":\"四川成都\",\"address\":\"合成路8号\",\"source_url\":\"https://example.org/probe/8\",\"source_type\":\"公开网络\",\"evidence\":\"并发探针合成证据，无真实客户。\",\"discove"
+      }
+    },
+    {
+      "round": 9,
+      "mcp": {
+        "ok": true,
+        "code": null,
+        "ms": 3.4
+      },
+      "web": {
+        "status": 200,
+        "ms": 2.1,
+        "body": "{\"schema_version\":\"1.3\",\"ok\":true,\"request_id\":\"probe-web-9\",\"data\":{\"created\":1,\"duplicates\":0,\"items\":[{\"research_id\":null,\"company\":\"并发合成公司9\",\"project\":\"并发合成项目9\",\"region\":\"四川成都\",\"address\":\"合成路9号\",\"source_url\":\"https://example.org/probe/9\",\"source_type\":\"公开网络\",\"evidence\":\"并发探针合成证据，无真实客户。\",\"discove"
+      }
+    },
+    {
+      "round": 10,
+      "mcp": {
+        "ok": true,
+        "code": null,
+        "ms": 2.5
+      },
+      "web": {
+        "status": 200,
+        "ms": 3.2,
+        "body": "{\"schema_version\":\"1.3\",\"ok\":true,\"request_id\":\"probe-web-10\",\"data\":{\"created\":1,\"duplicates\":0,\"items\":[{\"research_id\":null,\"company\":\"并发合成公司10\",\"project\":\"并发合成项目10\",\"region\":\"四川成都\",\"address\":\"合成路10号\",\"source_url\":\"https://example.org/probe/10\",\"source_type\":\"公开网络\",\"evidence\":\"并发探针合成证据，无真实客户。\",\"di"
+      }
+    }
+  ],
+  "web_503": 0,
+  "lock_timeouts": 0,
+  "mcp_failures": 0,
+  "web_failures": 0,
+  "max_ms": 20.1,
+  "candidate_rows": 20,
+  "temp_db": "/var/folders/cr/sgfm84bd435c7pcq2q0plxnr0000gn/T/jxd-concurrency-bc49fmi4/leads.db"
+}

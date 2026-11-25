@@ -1,0 +1,48 @@
+ M docs/INTERNAL-scene-taxonomy.md
+ M docs/verify/202611/20261125-p1-fixes-preflight.txt
+ M src/jxd_leads/__init__.py
+ M src/jxd_leads/dashboard_model.py
+ M src/jxd_leads/desktop.py
+ M src/jxd_leads/mcp_server.py
+ M src/jxd_leads/schemas.py
+ M src/jxd_leads/service.py
+ M src/jxd_leads/static/app.css
+ M src/jxd_leads/static/dashboard_v2.css
+ M src/jxd_leads/templates/candidates.html
+ M src/jxd_leads/templates/dashboard_v2.html
+ M src/jxd_leads/templates/import.html
+ M src/jxd_leads/templates/inbox.html
+ M src/jxd_leads/templates/opportunity.html
+ M src/jxd_leads/templates/projects.html
+ M src/jxd_leads/web.py
+ M src/jxd_leads/workflows.py
+ M tests/test_core.py
+ M tests/test_safety.py
+?? docs/plan/SPEC-20261125-p1-fixes.md
+?? docs/verify/202611/20261125-p1-all.diff
+?? docs/verify/202611/20261125-p1-concurrency-probe.py
+?? docs/verify/202611/20261125-p1-excluded-files.sha256
+?? docs/verify/202611/20261125-p1-fixes-status-r01.md
+?? docs/verify/202611/20261125-p1-git-status.txt
+?? docs/verify/202611/20261125-p1-step1-pytest.txt
+?? docs/verify/202611/20261125-p1-step1.diff
+?? docs/verify/202611/20261125-p1-step2-pytest.txt
+?? docs/verify/202611/20261125-p1-step2-templates.txt
+?? docs/verify/202611/20261125-p1-step2.diff
+?? docs/verify/202611/20261125-p1-step3-pytest.txt
+?? docs/verify/202611/20261125-p1-step3.diff
+?? docs/verify/202611/20261125-p1-step4-pytest.txt
+?? docs/verify/202611/20261125-p1-step4.diff
+?? docs/verify/202611/20261125-p1-step5-concurrency.json
+?? docs/verify/202611/20261125-p1-step5-summary.txt
+?? docs/verify/202611/20261125-p1-step6-propose-tag.md
+?? docs/verify/202611/20261125-p1-step7-full-pytest.txt
+?? docs/verify/202611/20261125-p1-step7-preflight-final.txt
+?? docs/verify/202611/20261125-p1-step7-preflight.txt
+?? docs/verify/202611/20261125-p1-step9-notifications.txt
+?? docs/verify/202611/20261125-p1-step9-tech-debt.md
+?? docs/verify/202611/20261125-p1-step9-version-pytest.txt
+?? docs/verify/202611/20261125-p1-step9.diff
+?? docs/verify/202611/20261125-scope-grep-final.txt
+?? native/
+?? scripts/build-notifications.py

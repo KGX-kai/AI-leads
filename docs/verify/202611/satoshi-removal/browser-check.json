@@ -1,0 +1,1113 @@
+{
+  "viewports": {
+    "desktop": {
+      "initial": {
+        "title": "京小电 · 获客工作台｜总览",
+        "activeView": "overview",
+        "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+        "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+        "fontsStatus": "loaded",
+        "poppins400Loaded": true,
+        "fontFaces": [
+          {
+            "family": "Poppins",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Poppins",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "Poppins",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "Poppins",
+            "weight": "700",
+            "status": "unloaded"
+          }
+        ],
+        "viewCount": 9,
+        "navTargets": [
+          "overview",
+          "overview",
+          "leads",
+          "projects",
+          "opportunities",
+          "schedule",
+          "analytics",
+          "reports",
+          "settings",
+          "schedule",
+          "schedule",
+          "opportunities",
+          "leads",
+          "leads",
+          "overview",
+          "leads",
+          "schedule"
+        ],
+        "clientWidth": 1440,
+        "scrollWidth": 1440,
+        "horizontalOverflow": 0,
+        "bodyClientWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "httpStatus": 200
+      },
+      "views": {
+        "overview": {
+          "title": "京小电 · 获客工作台｜总览",
+          "activeView": "overview",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "unloaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 1440,
+          "bodyScrollWidth": 1440,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        "leads": {
+          "title": "京小电 · 获客工作台｜线索池",
+          "activeView": "leads",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 1440,
+          "bodyScrollWidth": 1440,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        "projects": {
+          "title": "京小电 · 获客工作台｜客户项目",
+          "activeView": "projects",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 1440,
+          "bodyScrollWidth": 1440,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        "opportunities": {
+          "title": "京小电 · 获客工作台｜采购机会",
+          "activeView": "opportunities",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 1440,
+          "bodyScrollWidth": 1440,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        "schedule": {
+          "title": "京小电 · 获客工作台｜跟进日程",
+          "activeView": "schedule",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 1440,
+          "bodyScrollWidth": 1440,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        "analytics": {
+          "title": "京小电 · 获客工作台｜渠道分析",
+          "activeView": "analytics",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 1440,
+          "bodyScrollWidth": 1440,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        "reports": {
+          "title": "京小电 · 获客工作台｜质量摘要",
+          "activeView": "reports",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 1440,
+          "bodyScrollWidth": 1440,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        "settings": {
+          "title": "京小电 · 获客工作台｜设置入口",
+          "activeView": "settings",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 1440,
+          "scrollWidth": 1440,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 1440,
+          "bodyScrollWidth": 1440,
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        }
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "failedRequests": [],
+      "screenshot": "/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/work/ENG-20261117-01-isolated/docs/verify/202611/satoshi-removal/overview-desktop-dark.png"
+    },
+    "mobile": {
+      "initial": {
+        "title": "京小电 · 获客工作台｜总览",
+        "activeView": "overview",
+        "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+        "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+        "fontsStatus": "loaded",
+        "poppins400Loaded": true,
+        "fontFaces": [
+          {
+            "family": "Poppins",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Poppins",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "Poppins",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "Poppins",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "viewCount": 9,
+        "navTargets": [
+          "overview",
+          "overview",
+          "leads",
+          "projects",
+          "opportunities",
+          "schedule",
+          "analytics",
+          "reports",
+          "settings",
+          "schedule",
+          "schedule",
+          "opportunities",
+          "leads",
+          "leads",
+          "overview",
+          "leads",
+          "schedule"
+        ],
+        "clientWidth": 390,
+        "scrollWidth": 390,
+        "horizontalOverflow": 0,
+        "bodyClientWidth": 390,
+        "bodyScrollWidth": 390,
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "httpStatus": 200
+      },
+      "views": {
+        "overview": {
+          "title": "京小电 · 获客工作台｜总览",
+          "activeView": "overview",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 390,
+          "bodyScrollWidth": 390,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        "leads": {
+          "title": "京小电 · 获客工作台｜线索池",
+          "activeView": "leads",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 390,
+          "bodyScrollWidth": 390,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        "projects": {
+          "title": "京小电 · 获客工作台｜客户项目",
+          "activeView": "projects",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 390,
+          "bodyScrollWidth": 390,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        "opportunities": {
+          "title": "京小电 · 获客工作台｜采购机会",
+          "activeView": "opportunities",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 390,
+          "bodyScrollWidth": 390,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        "schedule": {
+          "title": "京小电 · 获客工作台｜跟进日程",
+          "activeView": "schedule",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 390,
+          "bodyScrollWidth": 390,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        "analytics": {
+          "title": "京小电 · 获客工作台｜渠道分析",
+          "activeView": "analytics",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 390,
+          "bodyScrollWidth": 390,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        "reports": {
+          "title": "京小电 · 获客工作台｜质量摘要",
+          "activeView": "reports",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 390,
+          "bodyScrollWidth": 390,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        "settings": {
+          "title": "京小电 · 获客工作台｜设置入口",
+          "activeView": "settings",
+          "bodyFontFamily": "Poppins, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "rootFontBody": "\"Poppins\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+          "fontsStatus": "loaded",
+          "poppins400Loaded": true,
+          "fontFaces": [
+            {
+              "family": "Poppins",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Poppins",
+              "weight": "700",
+              "status": "loaded"
+            }
+          ],
+          "viewCount": 9,
+          "navTargets": [
+            "overview",
+            "overview",
+            "leads",
+            "projects",
+            "opportunities",
+            "schedule",
+            "analytics",
+            "reports",
+            "settings",
+            "schedule",
+            "schedule",
+            "opportunities",
+            "leads",
+            "leads",
+            "overview",
+            "leads",
+            "schedule"
+          ],
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "horizontalOverflow": 0,
+          "bodyClientWidth": 390,
+          "bodyScrollWidth": 390,
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "failedRequests": [],
+      "screenshot": "/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/work/ENG-20261117-01-isolated/docs/verify/202611/satoshi-removal/overview-mobile-dark.png"
+    }
+  },
+  "errors": [],
+  "responses": [
+    [
+      200,
+      "http://127.0.0.1:8877/dashboard-v2"
+    ],
+    [
+      200,
+      "http://127.0.0.1:8877/static/dashboard_v2.css"
+    ],
+    [
+      200,
+      "http://127.0.0.1:8877/static/dashboard_v2.js"
+    ],
+    [
+      200,
+      "http://127.0.0.1:8877/static/theme-init.js"
+    ],
+    [
+      200,
+      "http://127.0.0.1:8877/static/theme-light.css"
+    ],
+    [
+      200,
+      "http://127.0.0.1:8877/static/theme.js"
+    ]
+  ],
+  "satoshi_network_hits": [],
+  "failedResponses": []
+}

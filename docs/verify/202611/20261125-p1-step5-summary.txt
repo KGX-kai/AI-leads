@@ -1,0 +1,27 @@
+第三步 B · 第 5 步并发实测摘要
+日期：2026-11-25
+
+方法
+- 独立临时新库，Vault 使用进程内临时密钥；未接触正式库、钥匙串或 8765。
+- 同一临时库上，真实 MCP stdio 子进程与本地 Web（127.0.0.1:8799）并发写候选，共 10 轮。
+- 每轮同时调用 MCP submit_candidates 与 Web POST /api/v1/candidates。
+- 原始数据：docs/verify/202611/20261125-p1-step5-concurrency.json
+
+结果
+- 轮次：10
+- web_503：0
+- lock_timeouts：0
+- mcp_failures：0
+- web_failures：0
+- 全部 Web 响应：200
+- 全部 MCP 回执：ok=true
+- 最大单轮耗时：20.1 ms
+- 临时库候选行数：20（Web 10 + MCP 10）
+- 临时库路径：/var/folders/cr/sgfm84bd435c7pcq2q0plxnr0000gn/T/jxd-concurrency-bc49fmi4/leads.db
+
+判断
+实测未出现 503 或锁竞争超时，按施工包阈值不实现 O_EXCL 单实例锁，不提前引入复杂度。
+
+监控项
+- 出现第二个使用者，或再次实测出现 503/锁超时，即触发单实例锁评估。
+- 增加并发失败、锁等待和 503 的监控记录；不在本轮加锁。

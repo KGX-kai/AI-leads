@@ -1,0 +1,15 @@
+$ pwd -P && git branch --show-current && git rev-parse --short HEAD && git status --short && ls -ld .venv && .venv/bin/python -B -c 'import jxd_leads; print(jxd_leads.__file__)' && git rev-list --objects --all | grep -i satoshi
+/Users/dkai2024163.com/.codex/worktrees/ab3e/jingxiaodian-leads-v05
+opensource-preflight-20261125
+26943c4
+drwxr-xr-x@ 8 dkai2024163.com  staff  256 Nov 25 16:48 .venv
+/Users/dkai2024163.com/.codex/worktrees/ab3e/jingxiaodian-leads-v05/src/jxd_leads/__init__.py
+45a8e0aaecad18880694cb662443d171eabf9b76 docs/verify/202611/20261124-SATOSHI-REMOVAL.txt
+cc572478c2d1cf2a7294d05ebe50014f6de27a48 docs/verify/202611/satoshi-removal
+0a8fc5693085e3f1be7c8da0d6c3e8ae8233b265 docs/verify/202611/satoshi-removal/browser-check.json
+12bb8e364cf3fa5df5ac3cd255014868914e6126 docs/verify/202611/satoshi-removal/overview-desktop-dark.png
+6b7c08ffcff8b7a8dfaa81a74fd91e859609a4a5 docs/verify/202611/satoshi-removal/overview-mobile-dark.png
+cf18cd4c0c8b230c54bb166ac420bc3efc79cc4d src/jxd_leads/static/dashboard/satoshi-300.woff2
+81c40ab08a87d975b0e61e0d8497fe4dd3c11da4 src/jxd_leads/static/dashboard/satoshi-400.woff2
+ffd0ac96c7b87a1411465f450322b41f5ed875b6 src/jxd_leads/static/dashboard/satoshi-500.woff2
+0a8db7a468b8c16027691be3f5929e7223542438 src/jxd_leads/static/dashboard/satoshi-700.woff2

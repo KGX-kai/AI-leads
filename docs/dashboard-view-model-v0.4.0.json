@@ -1,0 +1,114 @@
+{
+  "$schema": "https://example.local/jxd/dashboard-view-model.schema.json",
+  "meta": {
+    "version": "0.4.0",
+    "generatedAt": "2026-11-16T10:00:00+08:00",
+    "dataWindow": "2026-11-09/2026-11-15",
+    "example": true
+  },
+  "leads": [
+    {
+      "id": "chengnan",
+      "name": "城南产业园 B 区",
+      "org": "产业园 · 成都高新区",
+      "source": "公开网络",
+      "stage": "需求确认",
+      "priority": "High",
+      "next": "今日 16:00 回访",
+      "nextMeta": "今天 · 还剩 2 小时",
+      "nextDate": "2026-11-16",
+      "owner": "Jing",
+      "updated": "3 分钟前",
+      "tone": "orange",
+      "contact": "张经理",
+      "contactMasked": "138 **** 2140",
+      "qty": "约 180 套",
+      "projectId": "xiling",
+      "evidence": "公开招标公告 · 项目地址匹配",
+      "note": "已确认由工程负责人牵头，数量待现场复核。"
+    }
+  ],
+  "projects": [
+    {
+      "id": "xiling",
+      "name": "西岭商务中心",
+      "client": "示例物业",
+      "scene": "商业照明改造",
+      "stage": "需求确认",
+      "stageIndex": 2,
+      "owner": "Jing",
+      "leads": 12,
+      "next": "11.18 报价回访",
+      "nextDate": "2026-11-18",
+      "risk": "预算范围待补充",
+      "tone": "orange",
+      "note": "采购角色已核实，数量待现场复核。"
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "opp-xiling",
+      "projectId": "xiling",
+      "name": "西岭商务中心",
+      "place": "成都 · 商业综合体",
+      "stage": "需求确认",
+      "qty": "约 240 套",
+      "qtyNote": "示例值",
+      "role": "物业工程负责人",
+      "owner": "Jing",
+      "next": "11.18 报价回访",
+      "nextMeta": "2 天后",
+      "risk": "预算范围待补充",
+      "ai": "回访时确认预算区间与报价审批人，不自动写入报价。"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t2",
+      "title": "城南产业园 B 区 · 电话回访",
+      "leadId": "chengnan",
+      "projectId": "xiling",
+      "date": "2026-11-16",
+      "time": "16:00",
+      "owner": "Jing",
+      "priority": "High",
+      "overdue": false,
+      "note": "确认现场数量与报价时间。",
+      "icon": "phone",
+      "tone": "orange"
+    }
+  ],
+  "reports": [
+    {
+      "id": "weekly",
+      "title": "2026.11 第 2 周转化周报",
+      "sub": "11.09 — 11.15 · 全部来源",
+      "status": "已生成",
+      "statusClass": "status-green",
+      "updated": "今天 09:30",
+      "metrics": [
+        ["新增线索", "128", "+18.4%"],
+        ["总转化率", "3.75%", "+0.4pt"],
+        ["有效沟通", "86", "+12.7%"]
+      ],
+      "bars": [36, 48, 42, 58, 54, 70, 62, 86, 74, 92],
+      "summary": "本周线索进入 128，较上一周期增长 18.4%；总转化率 3.75%，主要漏点在需求确认到报价阶段。",
+      "findings": [
+        "公开网络仍是最大来源，但项目关联率低于已有关系。",
+        "报价/试样阶段停留时间偏长，滨江商业广场回访已逾期。"
+      ]
+    }
+  ],
+  "notifications": [
+    {
+      "id": "n1",
+      "title": "报价回访已逾期 2 天",
+      "body": "锦江商务广场的报价回访仍未完成，建议今天优先处理。",
+      "time": "今天 09:12",
+      "icon": "alert",
+      "tone": "orange",
+      "unread": true,
+      "record": "task:t1"
+    }
+  ]
+}

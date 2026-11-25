@@ -1,0 +1,72 @@
+ENG-20261124-01 · SPEC r02 深浅色主题复验 r03
+日期：2026-11-24
+分支：feat/dashboard-v0.4.0
+验收端口：127.0.0.1:8877
+结论：隔离候选的浏览器复验通过；未切换 8765，也未接触正式数据目录或系统钥匙串。
+
+一、本轮修复
+
+1. Content-Security-Policy 增加 font-src 'self' data:
+   - 对应 evidence：src/jxd_leads/web.py:201
+   - 目的：允许现有 dashboard_v2.js 通过 FontFace 加载 data: 字体。
+
+2. 浅色三级文字由 #857A6E 调整为 #73685C。
+   - 对白底对比度：5.435:1
+   - 对纸白 #F4F1EC：4.824:1
+   - 对页面渐变最浅端 #F8F5EF：4.995:1
+   - 对页面渐变最深端 #EFEAE1：4.536:1
+
+3. 看板声明内嵌 favicon。
+   - 消除浏览器自动请求 /favicon.ico 形成的 404。
+   - data 图像受现有 img-src 'self' data: 约束，不引入外部资源。
+
+二、复验环境
+
+- 独立临时 SQLite，合成数据。
+- Vault.ephemeral()；未使用正式钥匙串。
+- 临时服务只监听 127.0.0.1:8877；完成后已停止该自建进程。
+- 使用本机 Google Chrome 158.0.8127.88 headless。
+- 复验结束后访问 /health 不作为正式部署证据。
+
+三、浏览器矩阵
+
+运行状态：10 视图 × 1440/390 × dark/light，共 40 个状态。
+完整原始指标：theme-r03/browser-matrix.json
+
+| 检查项 | 实测 | 结论 |
+|---|---:|---|
+| 状态数 | 40 | 通过 |
+| activeView 与目标不一致 | 0 | 通过 |
+| dataset.theme 与目标不一致 | 0 | 通过 |
+| 页面级横向 overflow 最大值 | 0 | 通过 |
+| 浅色可见纯白业务文字 | 0 | 通过 |
+| 控制台错误 | 0 | 通过 |
+| font-data CSP 错误 | 0 | 通过 |
+| 失败 HTTP 响应 | 0 | 通过 |
+| 已加载 FontFace 数量 | 5–7 | 通过 |
+| document.fonts.status | loaded | 通过 |
+
+矩阵覆盖：overview、leads、projects、opportunities、schedule、
+analytics、reports、settings、detail、overlay。
+
+四、最新截图
+
+本轮视觉变化集中在来源渠道表和机会风险标记，因此重新留存以下 8 张：
+
+- theme-r03/opportunities-1440-dark.png
+- theme-r03/opportunities-1440-light.png
+- theme-r03/opportunities-390-dark.png
+- theme-r03/opportunities-390-light.png
+- theme-r03/analytics-1440-dark.png
+- theme-r03/analytics-1440-light.png
+- theme-r03/analytics-390-dark.png
+- theme-r03/analytics-390-light.png
+
+来源渠道表在移动端保留表内横向滚动，页面级仍无横向溢出。
+
+五、边界
+
+- 本轮验证主题、CSP、字体、关键布局和响应式状态，不扩展为全站 WCAG AA 重构。
+- 深色参考主题保留既有低强调微文案样式；本轮未改变已批准的深色视觉令牌。
+- 未验证 8765、正式数据、正式部署、真实渠道账号或平台权限。
+- 未推送、未移动 v0.4.0-candidate.1 标签、未操作既有 stash。

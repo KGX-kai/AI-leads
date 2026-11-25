@@ -1,0 +1,94 @@
+{
+  "dark": {
+    "errors": [],
+    "task": {
+      "date": "2026-11-23",
+      "href": "/opportunities/e4b7564f-1847-4326-b4c4-21a7691ae1b9",
+      "icon": "alert",
+      "id": "e4b7564f-1847-4326-b4c4-21a7691ae1b9",
+      "kind": "bid_deadline",
+      "note": "投标已截止",
+      "overdue": true,
+      "owner": "本人",
+      "priority": "High",
+      "projectId": "",
+      "time": "全天",
+      "title": "投标截止：待核实采购",
+      "tone": "orange"
+    },
+    "channels": [
+      {
+        "candidates": 0,
+        "inquiries": 0,
+        "name": "物业协会",
+        "opportunities": 0
+      },
+      {
+        "candidates": 0,
+        "inquiries": 0,
+        "name": "展会",
+        "opportunities": 0
+      },
+      {
+        "candidates": 1,
+        "inquiries": 1,
+        "name": "招投标",
+        "opportunities": 1
+      },
+      {
+        "candidates": 0,
+        "inquiries": 0,
+        "name": "未标注",
+        "opportunities": 0
+      }
+    ],
+    "scheduleShowsExpired": true,
+    "analyticsShowsHistorical": true
+  },
+  "light": {
+    "errors": [],
+    "task": {
+      "date": "2026-11-23",
+      "href": "/opportunities/e4b7564f-1847-4326-b4c4-21a7691ae1b9",
+      "icon": "alert",
+      "id": "e4b7564f-1847-4326-b4c4-21a7691ae1b9",
+      "kind": "bid_deadline",
+      "note": "投标已截止",
+      "overdue": true,
+      "owner": "本人",
+      "priority": "High",
+      "projectId": "",
+      "time": "全天",
+      "title": "投标截止：待核实采购",
+      "tone": "orange"
+    },
+    "channels": [
+      {
+        "candidates": 0,
+        "inquiries": 0,
+        "name": "物业协会",
+        "opportunities": 0
+      },
+      {
+        "candidates": 0,
+        "inquiries": 0,
+        "name": "展会",
+        "opportunities": 0
+      },
+      {
+        "candidates": 1,
+        "inquiries": 1,
+        "name": "招投标",
+        "opportunities": 1
+      },
+      {
+        "candidates": 0,
+        "inquiries": 0,
+        "name": "未标注",
+        "opportunities": 0
+      }
+    ],
+    "scheduleShowsExpired": true,
+    "analyticsShowsHistorical": true
+  }
+}

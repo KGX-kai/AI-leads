@@ -1,0 +1,11 @@
+<section class="panel">
+  <h2>近 30 天线索质量</h2>
+  <p class="muted">{{quality.window_start}} 至 {{quality.window_end}}；每项都显示实际分子与分母。</p>
+  <div class="stats">
+    {% for key,label in [('source_verified','来源已核对'),('human_accepted','人工接受'),('demand_confirmed','需求已确认'),('followup_on_time','按期跟进')] %}
+    {% set metric = quality[key] %}
+    <div><span>{{label}}</span><strong>{{metric.rate ~ '%' if metric.rate is not none else '暂无数据'}}</strong><small>{{metric.numerator}} / {{metric.denominator}}</small></div>
+    {% endfor %}
+  </div>
+  <p class="table-note">来源已核对：按同一来源链接与事实主张的最新核验结果计算；仍有未核清冲突的候选不计入，核清后保留历史记录。人工接受：本期已建档数 / 已建档与排除数。需求已确认：本期已建档候选关联项目中，项目需求卡或非历史采购机会需求卡已由本人确认。按期跟进：本期到期任务中在截止时完成的任务。暂缓观察不计入人工接受分母，取消任务不计入按期跟进分母。</p>
+</section>

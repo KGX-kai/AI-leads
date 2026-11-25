@@ -1,0 +1,18 @@
+[INFO] 0 门禁自身 · python 3.12.11
+[INFO] 1 基线 · 基线提交 ca25f56 build(release): prepare Apache-2.0 distribution and record wheel acceptance
+[INFO] 1 基线 · 工作树干净
+[INFO] 2 范围/规划 · 本次 SPEC：docs/plan/SPEC-20261124-dashboard-v0.4.0.md
+[INFO] 2 范围/规划 · base_commit 1b12d42 是 HEAD 的祖先（SPEC 基于较早代码）
+[INFO] 2 范围/规划 · 非目标 7 条
+[INFO] 2 视觉基线 · 模板无裸色值
+[INFO] 2 视觉基线 · 已有视觉 token 来源
+[WARN] 2 视觉基线 · 1 个并存版本模板（需在 SPEC 写替换或删除 deadline）：src/jxd_leads/templates/dashboard_v2.html
+[INFO] 3 版本 · 声明版本 0.5.0（pyproject.toml）
+[INFO] 3 交付/打包 · jxd_leads: package-data 完整覆盖
+[INFO] 3 交付/打包 · 打包资源覆盖检查通过
+[INFO] 3 交付/打包 · 已有产物 jxd_leads-0.5.0-py3-none-any.whl
+[INFO] 3 合规 · 许可证 Apache-2.0 ↔ LICENSE
+[WARN] 3 合规 · 5 个第三方资源（htmx, poppins）但没有 NOTICE.md 台账 → 一行一个：文件、来源 URL、许可证、能否自托管商用
+[INFO] 4 状态 · 证据文件 44 个（docs/verify/）
+======================================================================
+结果：FAIL 0 · WARN 2 → 可以开工（WARN 需自行判断）

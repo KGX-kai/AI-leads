@@ -1,0 +1,11 @@
+--- uv pip show ---
+Name: jxd-leads
+Version: 0.5.0
+Location: /Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/.venv/lib/python3.12/site-packages
+Editable project location: /Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05
+Requires: alembic, cryptography, defusedxml, fastapi, filelock, itsdangerous, jinja2, keyring, mcp, openpyxl, python-multipart, sqlalchemy, uvicorn
+Required-by:
+--- import ---
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/src/jxd_leads/__init__.py
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/src/jxd_leads/web.py
+0.5.0

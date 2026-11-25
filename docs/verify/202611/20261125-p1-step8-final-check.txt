@@ -1,0 +1,23 @@
+final_check_at=2026-11-25T15:37:27+0800
+pid=13511
+13511 10:55 /opt/homebrew/Cellar/python@3.12/3.12.15/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/.venv/bin/jxd-leads serve --data-dir /Users/dkai2024163.com/ai/data/jxd-leads/current --approved-data-dir /Users/dkai2024163.com/ai/data/jxd-leads/current --port 8765
+COMMAND   PID            USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+Python  13511 dkai2024163.com   10u  IPv4 0x4fa230da910cb3f6      0t0  TCP 127.0.0.1:8765 (LISTEN)
+health={"app":"JXD-LEADS-001","version":"0.5.0","last_backup_ok_at":"2026-11-25T15:26:34+08:00","last_reminder_ok_at":"2026-11-25T15:36:34+08:00","backup_error":null,"reminder_error":null}
+migration_head=20261124_marketing_fields
+candidates=0
+projects=0
+audit=1
+--- audit rows ---
+owner|export.csv|projects|0 行|2026-11-25T07:26:57.881341+00:00
+--- snapshot hash ---
+68981d2fa8ff564b3a1d4cbbbce779400511dde6b1cb3f82fe633d1b7071fa64  /Users/dkai2024163.com/ai/archive/jingxiaodian-leads-p1-20261125/pre-p1-cutover-final.db
+/Users/dkai2024163.com/ai/archive/jingxiaodian-leads-p1-20261125/pre-p1-cutover-final.db: OK
+--- old baseline hash ---
+1309e1c2fb1eab358296483aae9f048ba339dc246da06d87ded774cf6435e9b8  /Users/dkai2024163.com/ai/archive/jingxiaodian-leads-0.3.0-20261125/pre-cutover-final.db
+--- git ---
+## p1-fixes-20261125
+--- stash ---
+stash@{0}: On p1-fixes-20261125: native-notify-and-build-script-for-step9
+stash@{1}: On main: ENG-20261124-01: preserve WAL repair before dashboard SPEC
+--- log markers ---

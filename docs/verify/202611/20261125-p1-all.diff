@@ -1,0 +1,618 @@
+diff --git a/docs/verify/202611/20261125-p1-fixes-preflight.txt b/docs/verify/202611/20261125-p1-fixes-preflight.txt
+index ea7831f..a4c02c9 100644
+--- a/docs/verify/202611/20261125-p1-fixes-preflight.txt
++++ b/docs/verify/202611/20261125-p1-fixes-preflight.txt
+@@ -14,3 +14,28 @@
+ 判断与停止点
+ 这次失败发生在开工基线检查。八个既有变更应先由用户决定如何纳入基线。
+ 按失败即停约束，本次只创建分支并记录门禁输出。第 1–9 步均未执行，未改实现代码，未使用 rm，未访问钥匙串、正式数据库或 8765，未生成新快照。
++
++第 0 步复验 · 2026-11-25
++提交：5683098abd06f26623ada7d3de595ce7dc6298ed
++提交信息：docs(scope): land r01/r02 taxonomy and preflight receipt
++提交后 git status --short 输出：
++?? native/
++?? scripts/build-notifications.py
++
++第 9 步取回凭据：
++stash 名称：native-notify-and-build-script-for-step9
++stash 对象：40cd4194301162cd49fb1bba1f5f0e7d2b5d1459
++git ls-tree -r --name-only 'stash@{0}^3' 输出：
++native/notifications/main.swift
++scripts/build-notifications.py
++评估时按对象哈希核对并 apply，保留 stash 至验收。原有其他 stash 保留。
++
++stash 后 git status --porcelain=v1 输出为空。
++命令：.venv/bin/python /Users/dkai2024163.com/.codex/skills/project-planning-gate/scripts/preflight.py .
++退出码：0。关键输出：
++[INFO] 1 基线 · 工作树干净
++[INFO] 2 范围/规划 · 本次 SPEC：docs/plan/SPEC-20261124-dashboard-v0.4.0.md
++[WARN] 2 视觉基线 · 1 个并存版本模板（需在 SPEC 写替换或删除 deadline）：src/jxd_leads/templates/dashboard_v2.html
++[WARN] 3 版本 · 源码手写版本 1 处：src/jxd_leads/web.py:0.5.0
++结果：FAIL 0 · WARN 2 → 可以开工（WARN 需自行判断）
++复验在追加本段、起草 P1 专用 SPEC 之前运行。第 9 步按授权修复版本来源。
+diff --git a/src/jxd_leads/__init__.py b/src/jxd_leads/__init__.py
+index 2486a7d..52b212d 100644
+--- a/src/jxd_leads/__init__.py
++++ b/src/jxd_leads/__init__.py
+@@ -1 +1,5 @@
+ """京小电获客平台。"""
++
++from importlib.metadata import version
++
++__version__ = version("jxd-leads")
+diff --git a/src/jxd_leads/dashboard_model.py b/src/jxd_leads/dashboard_model.py
+index d046b8b..e39bff6 100644
+--- a/src/jxd_leads/dashboard_model.py
++++ b/src/jxd_leads/dashboard_model.py
+@@ -4,7 +4,7 @@ from datetime import date, datetime
+ from math import ceil
+ from urllib.parse import quote, unquote, urlsplit
+ 
+-SOURCE_TONES = {"公开网络": "orange", "已有关系": "green", "抖音": "gold"}
++SOURCE_TONES = {"公开网络": "orange", "已有关系": "green", "抖音": "gold", "公开招标公告": "orange"}
+ PRIORITY_LABELS = {
+     "优先核实": "High",
+     "常规核实": "Medium",
+diff --git a/src/jxd_leads/desktop.py b/src/jxd_leads/desktop.py
+index 9d1591b..427f82f 100644
+--- a/src/jxd_leads/desktop.py
++++ b/src/jxd_leads/desktop.py
+@@ -1,6 +1,7 @@
+ """Narrow native notification adapter. No customer content or arbitrary URL crosses this boundary."""
+ 
+ import json
++import os
+ import subprocess
+ from pathlib import Path
+ 
+@@ -14,7 +15,10 @@ from .models import Notification, Setting, now
+ class DesktopNotifications:
+     def __init__(self, db, helper=None):
+         self.db = db
+-        self.helper = Path(helper or ROOT / "runtime/JXDNotifications.app/Contents/MacOS/JXDNotifications")
++        configured = helper or os.environ.get("JXD_NOTIFICATION_HELPER", "")
++        self.helper = Path(configured) if configured else ROOT / (
++            "runtime/JXDNotifications.app/Contents/MacOS/JXDNotifications"
++        )
+ 
+     def call(self, command, *args):
+         if command not in {"status", "request", "notify", "delivered"}:
+diff --git a/src/jxd_leads/mcp_server.py b/src/jxd_leads/mcp_server.py
+index 9e50537..5ad0888 100644
+--- a/src/jxd_leads/mcp_server.py
++++ b/src/jxd_leads/mcp_server.py
+@@ -79,10 +79,19 @@ def create_mcp(service):
+ 
+     @mcp.tool()
+     def submit_candidates(
+-        task_id: str, candidates: list[CandidateInput], status: str = "completed", note: str = ""
++        task_id: str,
++        candidates: list[CandidateInput],
++        status: str = "completed",
++        note: str = "",
++        request_id: str = "",
+     ) -> CallToolResult:
+-        """用实际 task_id 提交真实来源候选；source_channel 须取自 get_capabilities 列表，可留空；招标类可填 bid_deadline；候选保持待人工审核。"""
+-        return result(lambda: service.submit_candidates(task_id, candidates, actor="agent", status=status, note=note))
++        """用实际 task_id 提交真实来源候选；source_channel 须取自 get_capabilities 列表，可留空；招标类可填 bid_deadline；候选保持待人工审核。重试须复用 request_id。"""
++        return result(
++            lambda: service.submit_candidates(
++                task_id, candidates, actor="agent", status=status, note=note, request_id=request_id
++            ),
++            request_id or None,
++        )
+ 
+     @mcp.tool()
+     def get_project_context(project_id: str) -> CallToolResult:
+diff --git a/src/jxd_leads/schemas.py b/src/jxd_leads/schemas.py
+index abe4ade..504a8c8 100644
+--- a/src/jxd_leads/schemas.py
++++ b/src/jxd_leads/schemas.py
+@@ -21,7 +21,7 @@ class CandidateInput(Input):
+     region: str = Field(min_length=1, max_length=100)
+     address: str = Field(default="", max_length=300)
+     source_url: str = Field(default="", max_length=2000)
+-    source_type: Literal["公开网络", "抖音", "已有关系"] = "公开网络"
++    source_type: Literal["公开网络", "公开招标公告", "抖音", "已有关系"] = "公开网络"
+     evidence: str = Field(min_length=3, max_length=4000)
+     reason: str = Field(default="", max_length=1000)
+     demand_evidence: str = Field(default="", max_length=2000)
+diff --git a/src/jxd_leads/service.py b/src/jxd_leads/service.py
+index 1af4226..d001429 100644
+--- a/src/jxd_leads/service.py
++++ b/src/jxd_leads/service.py
+@@ -147,11 +147,17 @@ class Service(WorkflowService):
+     def _audit(self, s, actor, action, identifier, detail=""):
+         s.add(Audit(actor=actor, action=action, entity_id=identifier, detail=redact(detail)))
+ 
+-    def _allowed(self, s, project):
++    def record_export(self, kind, rows, actor="owner"):
++        with self.db.session() as s:
++            self._audit(s, actor, "export.csv", kind, f"{rows} 行")
++
++    def _allowed(self, s, project, allow_blocked_contact=False):
+         if project.merged_into_id:
+             raise BusinessError("项目已合并，请使用目标项目", "VERSION_CONFLICT")
+         if project.stage == "停止联系":
+             raise BusinessError("该项目已停止联系，不能新增触达建议或任务", "SUPPRESSED")
++        if allow_blocked_contact:
++            return
+         blocked = s.scalar(
+             select(Contact.id)
+             .join(ProjectContact, Contact.id == ProjectContact.contact_id)
+@@ -209,18 +215,44 @@ class Service(WorkflowService):
+             )
+             return data
+ 
+-    def submit_candidates(self, research_id, items: list[CandidateInput], actor="agent", status="completed", note=""):
++    def submit_candidates(
++        self, research_id, items: list[CandidateInput], actor="agent", status="completed", note="", request_id=""
++    ):
++        if not request_id:
++            return self._submit_candidates(research_id, items, actor=actor, status=status, note=note)
++        payload = {
++            "research_id": research_id,
++            "items": [item.model_dump(mode="json") for item in items],
++            "status": status,
++            "note": note,
++        }
++        return self.execute_once(
++            actor,
++            "candidate.submit_batch",
++            request_id,
++            payload,
++            lambda: self._submit_candidates(research_id, items, actor=actor, status=status, note=note),
++        )
++
++    def _submit_candidates(
++        self, research_id, items: list[CandidateInput], actor="agent", status="completed", note=""
++    ):
+         if status not in {"completed", "partial", "failed"}:
+             raise BusinessError("检索状态不正确")
+         if len(items) > 100:
+             raise BusinessError("每批最多100条")
+         output = {"created": 0, "duplicates": 0, "items": []}
++        cutoff = datetime.now(TZ).date() - timedelta(days=6)
++        stale_notices = 0
+         with self.db.session() as s:
+             research = self._get(s, Research, research_id) if research_id else None
+             for data in items:
++                if data.source_type == "公开招标公告" and data.published_at and data.published_at < cutoff:
++                    stale_notices += 1
++                    continue
+                 if not data.source_url and data.source_type != "已有关系":
+                     raise BusinessError("网络或抖音候选必须提供来源链接")
+-                if data.org_phone and (data.source_type != "公开网络" or not data.source_url):
++                if data.org_phone and (data.source_type not in {"公开网络", "公开招标公告"} or not data.source_url):
+                     raise BusinessError("单位电话只收录带公开来源链接的机构号码")
+                 self.check_channel(data.source_channel)
+                 if data.bid_deadline and data.published_at and data.bid_deadline < data.published_at:
+@@ -275,6 +307,9 @@ class Service(WorkflowService):
+                 output["created"] += 1
+                 output["items"].append(record(obj))
+                 self._audit(s, actor, "candidate.submit", obj.id)
++            if stale_notices:
++                note = f"跳过 {stale_notices} 条公开招标公告：发布日期超过六日窗口。\n{note}".rstrip()
++                output["note"] = redact(note[:2000])
+             if research:
+                 research.status = status
+                 research.note = redact(note[:2000])
+@@ -550,7 +585,8 @@ class Service(WorkflowService):
+ 
+     def add_contact(self, pid, data: ContactInput):
+         with self.db.session() as s:
+-            self._get(s, Project, pid)
++            p = self._get(s, Project, pid)
++            self._allowed(s, p, allow_blocked_contact=True)
+             key = self.vault.fingerprint(data.channel)
+             c = s.scalar(select(Contact).where(Contact.fingerprint == key))
+             if not c:
+@@ -749,13 +785,32 @@ class Service(WorkflowService):
+             self._audit(s, "owner", "offer.create", obj.id)
+             return record(obj)
+ 
+-    def update_offer(self, identifier, status, feedback):
++    def update_offer(self, identifier, status, feedback, expected_version=None):
+         if status not in {"待确认", "已确认", "已寄样", "已收到", "已反馈", "已采购", "未接受"}:
+             raise BusinessError("状态不正确")
+         with self.db.session() as s:
+             o = self._get(s, Offer, identifier)
++            p = self._get(s, Project, o.project_id)
++            self._allowed(s, p)
++            opportunity = self._get(s, Opportunity, o.opportunity_id) if o.opportunity_id else None
++            if expected_version is not None and opportunity and opportunity.version != int(expected_version):
++                raise BusinessError("采购机会已更新，请刷新后核对", "VERSION_CONFLICT")
+             o.status = status
+             o.feedback = redact(feedback[:2000])
++            if status in {"已采购", "未接受"}:
++                linked = s.scalars(
++                    select(Todo).where(
++                        Todo.project_id == o.project_id,
++                        Todo.opportunity_id == o.opportunity_id,
++                        Todo.status == "open",
++                        Todo.action == f"{o.kind}回访：{o.product}",
++                    )
++                )
++                for todo in linked:
++                    todo.status = "cancelled"
++            if opportunity:
++                opportunity.version += 1
++            p.version += 1
+             self._audit(s, "owner", "offer.update", o.id)
+ 
+     def overview(self):
+@@ -775,7 +830,7 @@ class Service(WorkflowService):
+             ]
+             seen = s.get(Setting, "mcp_last_seen")
+             sources = []
+-            for source in ["公开网络", "抖音", "已有关系"]:
++            for source in ["公开网络", "抖音", "已有关系", "公开招标公告"]:
+                 project_ids = (
+                     select(Candidate.project_id)
+                     .where(Candidate.source_type == source, Candidate.project_id.is_not(None))
+@@ -924,7 +979,7 @@ class Service(WorkflowService):
+             )
+ 
+             source_rows = []
+-            for source in ["公开网络", "已有关系", "抖音"]:
++            for source in ["公开网络", "已有关系", "抖音", "公开招标公告"]:
+                 source_total = count(Candidate, Candidate.source_type == source)
+                 project_ids = select(Candidate.project_id).where(
+                     Candidate.source_type == source, Candidate.project_id.is_not(None)
+diff --git a/src/jxd_leads/static/app.css b/src/jxd_leads/static/app.css
+index b408f4e..ce8f97c 100644
+--- a/src/jxd_leads/static/app.css
++++ b/src/jxd_leads/static/app.css
+@@ -5,4 +5,5 @@
+ .followup-snapshot{border-left:4px solid var(--accent);background:linear-gradient(135deg,#fff 0%,#f6fbf9 100%)}.snapshot-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.snapshot-grid>div{border:1px solid var(--line);border-radius:8px;padding:14px;background:#fff;min-width:0}.snapshot-grid small{display:block;font-size:11px}.snapshot-grid strong{display:block;margin-top:4px;font-size:15px;overflow-wrap:anywhere}.snapshot-grid p{font-size:12px}
+ .batch-receipt{margin-top:14px;border:1px solid var(--line);border-radius:8px;padding:13px 15px;background:#fafcfb}.batch-receipt strong{margin:0 8px}.batch-receipt p{font-size:12px}.batch-receipt small{font-size:11px}
+ @media(max-width:1100px){.review-grid{grid-template-columns:1fr 1fr}}
++.inline-action{display:inline-flex;align-items:center;margin:0}
+ @media(max-width:760px){.evidence-layers,.evidence-facts,.review-grid,.snapshot-grid{grid-template-columns:1fr}.queue-item-head{flex-direction:column;gap:4px}.queue-date{white-space:normal}}
+diff --git a/src/jxd_leads/static/dashboard_v2.css b/src/jxd_leads/static/dashboard_v2.css
+index 07bdbb9..84d66ac 100644
+--- a/src/jxd_leads/static/dashboard_v2.css
++++ b/src/jxd_leads/static/dashboard_v2.css
+@@ -6464,3 +6464,4 @@ body.is-compact .settings-row { padding-top: 7px; padding-bottom: 7px; }
+ .channel-table { width: 100%; min-width: 360px; }
+ .channel-table td:not(:first-child),
+ .channel-table th:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
++.inline-action { display: inline-flex; align-items: center; margin: 0; }
+diff --git a/src/jxd_leads/templates/candidates.html b/src/jxd_leads/templates/candidates.html
+index 7adad4f..0290820 100644
+--- a/src/jxd_leads/templates/candidates.html
++++ b/src/jxd_leads/templates/candidates.html
+@@ -1,5 +1,5 @@
+ {% extends 'base.html' %}{% from 'ui.html' import hidden,input %}{% block breadcrumb %}线索池{% endblock %}{% block content %}
+-<div class="page-heading"><div><p class="eyebrow">LEADS</p><h1>先看证据，再决定跟进谁</h1><p class="muted">匹配目标客群不等于已有采购需求。接受候选只建立“待核实”项目。</p></div><div class="actions"><a class="button" href="/exports/candidates.csv">导出</a><a class="button" href="/import">导入表格</a><a class="button primary" href="#new">＋ 录入线索</a></div></div>
++<div class="page-heading"><div><p class="eyebrow">LEADS</p><h1>先看证据，再决定跟进谁</h1><p class="muted">匹配目标客群不等于已有采购需求。接受候选只建立“待核实”项目。</p></div><div class="actions"><form class="inline-action" method="post" action="/exports/candidates.csv">{{hidden(csrf)}}<button class="button" type="submit">导出</button></form><a class="button" href="/import">导入表格</a><a class="button primary" href="#new">＋ 录入线索</a></div></div>
+ <form class="filters" method="get" action="/candidates" hx-get="/candidates" hx-target="#candidate-list" hx-push-url="true"><label class="search-label">查找线索<input name="q" value="{{q}}" placeholder="公司、项目或地区"></label><label>状态<select name="status"><option value="">全部状态</option>{% for value,label in [('pending','待审核'),('watch','暂缓观察'),('accepted','已建档'),('rejected','已排除'),('suppressed','停止联系')] %}<option value="{{value}}" {% if status==value %}selected{% endif %}>{{label}}</option>{% endfor %}</select></label><label>场景 / 标签<select name="tag_id"><option value="">全部标签</option>{% for tag in tags %}<option value="{{tag.id}}" {% if tag_id==tag.id %}selected{% endif %}>{{tag.name}}</option>{% endfor %}</select></label><button>筛选</button></form>
+ <div id="candidate-list">{% include 'candidate_rows.html' %}</div>
+ <details class="panel" id="new"><summary>＋ 手工录入一条线索</summary><form hx-boost="true" method="post" action="/actions/candidate" class="form-grid two">{{hidden(csrf)}}{{input('公司全名','company',required=true)}}{{input('具体项目','project',required=true)}}{{input('地区','region',required=true)}}{{input('项目地址','address')}}<label>来源类型<select name="source_type"><option>公开网络</option><option>抖音</option><option>已有关系</option></select></label>{{input('来源链接','source_url',type='url',placeholder='已有关系可留空')}}<label class="span-all">来源证据 / 介绍情况<textarea name="evidence" required minlength="3" placeholder="只记录看到或听到的具体信息，尚未确认的内容请说明。"></textarea></label>{{input('公开单位电话','org_phone',placeholder='仅填写来源可核对的机构号码')}}<label class="span-all">尚需核实的项目（每行一项）<textarea name="unknowns" placeholder="采购角色、预计时间等；未知不猜测"></textarea></label><label>来源渠道<select name="source_channel"><option value="">未标注</option>{% for ch in source_channels() %}<option>{{ch}}</option>{% endfor %}</select></label>{{input('投标截止日（招标类，可留空）','bid_deadline',type='date')}}{{input('匹配理由','reason')}}{{input('明确需求证据（可留空）','demand_evidence')}}<div class="span-all"><button class="primary">保存到待审核线索池</button></div></form></details>
+diff --git a/src/jxd_leads/templates/dashboard_v2.html b/src/jxd_leads/templates/dashboard_v2.html
+index 6ed7df1..dc920b6 100644
+--- a/src/jxd_leads/templates/dashboard_v2.html
++++ b/src/jxd_leads/templates/dashboard_v2.html
+@@ -180,9 +180,9 @@
+               <span class="head-stat"><small>阶段停滞</small><strong>{{ boot.overview.stalledCount | default(0) }}</strong></span>
+             </div>
+             <div class="page-actions">
+-              <a class="button button-glass" href="/exports/candidates.csv">
++              <form class="inline-action" method="post" action="/exports/candidates.csv"><input type="hidden" name="csrf" value="{{ csrf }}"><button class="button button-glass" type="submit">
+                 <svg><use href="#i-file"></use></svg><span>导出候选</span>
+-              </a>
++              </button></form>
+               <a class="button button-white" href="/research">
+                 <svg><use href="#i-plus"></use></svg><span>新建获客任务</span>
+               </a>
+@@ -474,7 +474,7 @@
+         <section class="view" data-view="analytics" aria-label="渠道分析" hidden>
+           <div class="page-head">
+             <div><p class="eyebrow"><span class="live-dot"></span>SOURCE ANALYTICS</p><h1>渠道分析</h1><p class="page-sub">当前快照只提供来源累计规模；没有历史序列时不绘制假曲线。</p></div>
+-            <div class="page-actions"><a class="button button-glass" href="/exports/candidates.csv">导出候选 CSV</a></div>
++            <div class="page-actions"><form class="inline-action" method="post" action="/exports/candidates.csv"><input type="hidden" name="csrf" value="{{ csrf }}"><button class="button button-glass" type="submit">导出候选 CSV</button></form></div>
+           </div>
+           {% if boot.overview.hasSourceData %}
+           <section class="quality-grid">
+@@ -505,7 +505,7 @@
+         <section class="view" data-view="reports" aria-label="质量摘要" hidden>
+           <div class="page-head">
+             <div><p class="eyebrow"><span class="live-dot"></span>REPORT & QUALITY</p><h1>质量摘要</h1><p class="page-sub">没有报告对象时不伪造已生成报告；可查看当前质量分母和现有 CSV 导出。</p></div>
+-            <div class="page-actions"><a class="button button-glass" href="/exports/projects.csv">导出项目 CSV</a><a class="button button-white" href="/exports/candidates.csv">导出候选 CSV</a></div>
++            <div class="page-actions"><form class="inline-action" method="post" action="/exports/projects.csv"><input type="hidden" name="csrf" value="{{ csrf }}"><button class="button button-glass" type="submit">导出项目 CSV</button></form><form class="inline-action" method="post" action="/exports/candidates.csv"><input type="hidden" name="csrf" value="{{ csrf }}"><button class="button button-white" type="submit">导出候选 CSV</button></form></div>
+           </div>
+           <section class="summary-strip" aria-label="质量指标">
+             {% for item in boot.overview.quality %}
+diff --git a/src/jxd_leads/templates/import.html b/src/jxd_leads/templates/import.html
+index ba834f7..40dd30c 100644
+--- a/src/jxd_leads/templates/import.html
++++ b/src/jxd_leads/templates/import.html
+@@ -1 +1 @@
+-{% extends 'base.html' %}{% from 'ui.html' import hidden %}{% block breadcrumb %}线索池 / 导入{% endblock %}{% block content %}<div class="page-heading"><div><p class="eyebrow">IMPORT</p><h1>先预览，再入库</h1><p class="muted">每次最多 100 条、2MB；支持 UTF-8 CSV 和 XLSX 第一张工作表。</p></div><a class="button" href="/exports/template.csv">下载空白模板</a></div><section class="panel"><form hx-boost="true" method="post" action="/actions/import_preview" enctype="multipart/form-data">{{hidden(csrf)}}<label>选择线索表格<input type="file" name="file" accept=".csv,.xlsx" required></label><p class="muted">必填：公司、项目、地区、证据。公开网络与抖音线索还需来源链接。</p><button class="primary">检查并预览</button></form></section>{% if preview %}<section class="panel"><h2>检查结果</h2><p>共 {{preview.total}} 条；可导入 {{preview['items']|length}} 条；错误 {{preview.errors|length}} 条。</p>{% for e in preview.errors %}<div class="notice error">第 {{e.row}} 行：{{e.message}}</div>{% endfor %}<div class="table-scroll"><table><thead><tr><th>公司</th><th>项目</th><th>地区</th><th>来源</th></tr></thead><tbody>{% for r in preview['items'] %}<tr><td>{{r.company}}</td><td>{{r.project}}</td><td>{{r.region}}</td><td>{{r.source_type}}</td></tr>{% endfor %}</tbody></table></div>{% if preview['items'] %}<form hx-boost="true" method="post" action="/actions/import_confirm">{{hidden(csrf)}}<input type="hidden" name="preview" value="{{signed}}"><button class="primary">确认导入 {{preview['items']|length}} 条有效记录</button></form>{% endif %}</section>{% endif %}{% endblock %}
++{% extends 'base.html' %}{% from 'ui.html' import hidden %}{% block breadcrumb %}线索池 / 导入{% endblock %}{% block content %}<div class="page-heading"><div><p class="eyebrow">IMPORT</p><h1>先预览，再入库</h1><p class="muted">每次最多 100 条、2MB；支持 UTF-8 CSV 和 XLSX 第一张工作表。</p></div><form class="inline-action" method="post" action="/exports/template.csv">{{hidden(csrf)}}<button class="button" type="submit">下载空白模板</button></form></div><section class="panel"><form hx-boost="true" method="post" action="/actions/import_preview" enctype="multipart/form-data">{{hidden(csrf)}}<label>选择线索表格<input type="file" name="file" accept=".csv,.xlsx" required></label><p class="muted">必填：公司、项目、地区、证据。公开网络与抖音线索还需来源链接。</p><button class="primary">检查并预览</button></form></section>{% if preview %}<section class="panel"><h2>检查结果</h2><p>共 {{preview.total}} 条；可导入 {{preview['items']|length}} 条；错误 {{preview.errors|length}} 条。</p>{% for e in preview.errors %}<div class="notice error">第 {{e.row}} 行：{{e.message}}</div>{% endfor %}<div class="table-scroll"><table><thead><tr><th>公司</th><th>项目</th><th>地区</th><th>来源</th></tr></thead><tbody>{% for r in preview['items'] %}<tr><td>{{r.company}}</td><td>{{r.project}}</td><td>{{r.region}}</td><td>{{r.source_type}}</td></tr>{% endfor %}</tbody></table></div>{% if preview['items'] %}<form hx-boost="true" method="post" action="/actions/import_confirm">{{hidden(csrf)}}<input type="hidden" name="preview" value="{{signed}}"><button class="primary">确认导入 {{preview['items']|length}} 条有效记录</button></form>{% endif %}</section>{% endif %}{% endblock %}
+diff --git a/src/jxd_leads/templates/inbox.html b/src/jxd_leads/templates/inbox.html
+index 9a7f0f0..3d0b1ed 100644
+--- a/src/jxd_leads/templates/inbox.html
++++ b/src/jxd_leads/templates/inbox.html
+@@ -1,8 +1,8 @@
+ {% extends 'base.html' %}{% from 'ui.html' import hidden,input,empty %}{% block content %}
+-<div class="page-heading"><div><p class="eyebrow">INBOX</p><h1>先接住咨询，再核实需求</h1><p class="muted">已支持手工录入和 CSV/XLSX 导入。尚未连接抖音或企微自动收件。</p></div><a class="button" href="/exports/inquiries.csv">导出脱敏咨询</a></div>
++<div class="page-heading"><div><p class="eyebrow">INBOX</p><h1>先接住咨询，再核实需求</h1><p class="muted">已支持手工录入和 CSV/XLSX 导入。尚未连接抖音或企微自动收件。</p></div><form class="inline-action" method="post" action="/exports/inquiries.csv">{{hidden(csrf)}}<button class="button" type="submit">导出脱敏咨询</button></form></div>
+ <form class="inline-form" method="get"><label>状态<select name="status"><option value="">全部</option>{% for v,l in [('new','待处理'),('processing','跟进中'),('done','已处理'),('blocked','停止联系')] %}<option value="{{v}}" {% if status==v %}selected{% endif %}>{{l}}</option>{% endfor %}</select></label>{{input('公司 / 项目 / 地区','q',q)}}<button>筛选</button></form>
+ {% for i in data['items'] %}<article class="panel"><div class="panel-heading"><h2><a href="/inbox/{{i.id}}">{{i.project_name or '项目待核实'}} · {{i.region or '地区未知'}}</a></h2><span class="badge">{{i.status|status}}</span></div><blockquote>{{i.body}}</blockquote><p class="muted">{{i.platform}} · {{i.occurred_at|local_time}} · {{i.intent}}</p><a class="text-link" href="/inbox/{{i.id}}">核实需求与准备回复 →</a></article>{% else %}{{empty('暂无咨询','将企业号的真实评论或私信原文录入；不猜测对方公司或采购身份。')}}{% endfor %}
+ <p class="muted">共 {{data.total}} 条 · 第 {{data.page}} 页</p><div class="actions">{% if data.page>1 %}<a class="button" href="?n={{data.page-1}}&status={{status|urlencode}}&q={{q|urlencode}}">上一页</a>{% endif %}{% if data.page*data.page_size<data.total %}<a class="button" href="?n={{data.page+1}}&status={{status|urlencode}}&q={{q|urlencode}}">下一页</a>{% endif %}</div>
+ <section class="panel"><details><summary>＋ 录入真实咨询</summary><form hx-boost="true" class="form-grid two" method="post" action="/actions/inquiry_new">{{hidden(csrf,'/inbox')}}<input type="hidden" name="request_id" value="{{operation_id()}}"><label>平台<select name="platform"><option>抖音</option><option>企业微信</option><option>手工</option></select></label>{{input('接收咨询的企业账号ID','account_id',required=true)}}<label>来源事件<select name="event_type"><option value="comment">评论</option><option value="private_message">私信</option><option value="manual">手工</option></select></label>{{input('消息ID（有则填写）','message_id')}}{{input('评论ID（有则填写）','comment_id')}}{{input('视频ID（有则填写）','video_id')}}{{input('平台用户ID（未知留空）','user_id')}}{{input('昵称（仅供识别，不推测身份）','nickname')}}{{input('来源链接','source_url',type='url')}}{{input('发生时间（含时区，如 2026-10-30T10:00:00+08:00）','occurred_at',required=true)}}<label class="span-all">咨询原文<textarea name="body" required></textarea></label><button class="primary">存入咨询收件箱</button></form></details></section>
+-<section class="panel"><h2>批量导入咨询</h2><p class="muted">公司、地区和项目无需预填。保留稳定账号、消息/评论ID，才能可靠去重。时间须带 +08:00 等时区。</p><a class="text-link" href="/exports/inquiry-template.csv">下载导入模板</a><form hx-boost="true" method="post" action="/actions/inquiry_import_preview" enctype="multipart/form-data">{{hidden(csrf,'/inbox')}}<label>选择 UTF-8 CSV / XLSX<input name="file" type="file" accept=".csv,.xlsx" required></label><button>预览导入</button></form>
++<section class="panel"><h2>批量导入咨询</h2><p class="muted">公司、地区和项目无需预填。保留稳定账号、消息/评论ID，才能可靠去重。时间须带 +08:00 等时区。</p><form class="inline-action" method="post" action="/exports/inquiry-template.csv">{{hidden(csrf)}}<button class="text-link" type="submit">下载导入模板</button></form><form hx-boost="true" method="post" action="/actions/inquiry_import_preview" enctype="multipart/form-data">{{hidden(csrf,'/inbox')}}<label>选择 UTF-8 CSV / XLSX<input name="file" type="file" accept=".csv,.xlsx" required></label><button>预览导入</button></form>
+ {% if preview %}<h3>共 {{preview.total}} 行，格式通过 {{preview['items']|length}} 行</h3>{% for error in preview.errors %}<p class="notice error">第 {{error.row}} 行：字段不完整或格式不正确，请核对模板和带时区时间。</p>{% endfor %}{% for item in preview['items'] %}<blockquote>{{item.body}}</blockquote>{% endfor %}<form hx-boost="true" method="post" action="/actions/inquiry_import_confirm">{{hidden(csrf,'/inbox')}}<input type="hidden" name="preview" value="{{signed}}"><button class="primary">确认导入格式通过的行</button></form>{% endif %}</section>{% endblock %}
+diff --git a/src/jxd_leads/templates/opportunity.html b/src/jxd_leads/templates/opportunity.html
+index 506e2d0..8abbc14 100644
+--- a/src/jxd_leads/templates/opportunity.html
++++ b/src/jxd_leads/templates/opportunity.html
+@@ -17,6 +17,6 @@
+ <section class="panel"><h2>沟通与下一步</h2>{% if pace %}<p class="notice">按 {{pace.basis}} 建议下次跟进：{{pace.due_date}}。仅为建议，保存前请自行确认日期。</p>{% endif %}<form method="get" class="inline-form"><label>使用回访建议<select name="sop"><option value="inquiry">新咨询</option><option value="quote">报价后</option><option value="sample">样品签收后</option><option value="replenish">补货</option><option value="paused">暂缓</option></select></label>{{input('样品实际签收日期（未知留空）','received_at',type='date')}}<button>填入建议供我确认</button></form>{% if sop %}<p class="notice">建议：{{sop.next_action}} · {{sop.due_date or '签收时间未知，需另行确认日期'}}。保存前可自行调整。</p>{% endif %}<form hx-boost="true" method="post" action="/actions/followup" class="form-grid two">{{hidden(csrf,back)}}<input type="hidden" name="project_id" value="{{o.project_id}}"><input type="hidden" name="opportunity_id" value="{{o.id}}"><label class="span-all">实际沟通记录<textarea name="summary" required></textarea></label><label>结果<select name="result">{% for x in ['待跟进','有效沟通','无需求','无采购权','时间不合适','报价未接受','试样反馈','已采购','补货'] %}<option>{{x}}</option>{% endfor %}</select></label>{{input('耗时（分钟，未知留空）','minutes',type='number')}}{{input('下一步动作','next_action',sop.next_action if sop else '')}}{{input('到期日期','due_date',(sop.due_date or '') if sop else ((pace.due_date if pace else '')),type='date')}}<button class="primary">保存沟通与待办</button></form><p class="muted">“已采购”沟通结果不会自动修改采购阶段；请按真实结果确认阶段。</p>
+ {% for t in o.tasks %}<div class="task-row"><span class="badge">{{t.status|status}}</span><strong>{{t.action}}</strong><span>{{t.due_date}}</span>{% if t.status=='open' %}<form hx-boost="true" method="post" action="/actions/todo">{{hidden(csrf,back)}}<input type="hidden" name="id" value="{{t.id}}"><button>完成</button></form><details><summary>改期</summary><form hx-boost="true" method="post" action="/actions/todo_reschedule">{{hidden(csrf,back)}}<input type="hidden" name="id" value="{{t.id}}">{{input('新日期/时间（北京时间）','due_at',type='datetime-local',required=true)}}{{input('改期原因','reason',required=true)}}<button>保存改期</button></form></details>{% endif %}</div>{% endfor %}
+ <div class="timeline">{% for f in o.followups %}<article><small>{{f.created_at|local_time}} · {{f.result}} · {{f.minutes if f.minutes_quality=='recorded' else '耗时未知'}}{% if f.minutes_quality=='recorded' %} 分钟{% endif %}</small><p>{{f.summary}}</p></article>{% endfor %}</div>{% if o.page>1 %}<a class="button" href="{{back}}?n={{o.page-1}}">上一页</a>{% endif %}{% if o.page*10<o.followup_count %}<a class="button" href="{{back}}?n={{o.page+1}}">更多历史</a>{% endif %}</section>
+-<section class="panel"><h2>本次报价与试样</h2><p class="muted">金额、型号、交期由本人确定。报价建议2天后回访；样品确认收到后建议3天回访，客户约定优先。</p>{% for offer in o.offers %}<article class="offer"><strong>{{offer.kind}} · {{offer.product}} × {{offer.quantity}} · {{offer.amount_cents|money}}</strong><form hx-boost="true" class="inline-form" method="post" action="/actions/offer_update">{{hidden(csrf,back)}}<input type="hidden" name="id" value="{{offer.id}}"><select name="status" aria-label="状态">{% for x in ['待确认','已确认','已寄样','已收到','已反馈','已采购','未接受'] %}<option {% if offer.status==x %}selected{% endif %}>{{x}}</option>{% endfor %}</select><input name="feedback" aria-label="反馈" value="{{offer.feedback}}"><button>记录实际反馈</button></form></article>{% endfor %}<details><summary>新增报价 / 试样</summary><form hx-boost="true" class="form-grid two" method="post" action="/actions/offer">{{hidden(csrf,back)}}<input type="hidden" name="project_id" value="{{o.project_id}}"><input type="hidden" name="opportunity_id" value="{{o.id}}"><label>类型<select name="kind"><option>报价</option><option>试样</option></select></label>{{input('型号','product',required=true)}}{{input('数量','quantity',type='number',required=true)}}<label>总金额（元，未知留空）<input type="number" name="amount" min="0" step="0.01"></label>{{input('本人确认的回访日期','due_date',type='date')}}<button>保存</button></form></details></section>
++<section class="panel"><h2>本次报价与试样</h2><p class="muted">金额、型号、交期由本人确定。报价建议2天后回访；样品确认收到后建议3天回访，客户约定优先。</p>{% for offer in o.offers %}<article class="offer"><strong>{{offer.kind}} · {{offer.product}} × {{offer.quantity}} · {{offer.amount_cents|money}}</strong><form hx-boost="true" class="inline-form" method="post" action="/actions/offer_update">{{hidden(csrf,back)}}<input type="hidden" name="id" value="{{offer.id}}"><input type="hidden" name="version" value="{{o.version}}"><select name="status" aria-label="状态">{% for x in ['待确认','已确认','已寄样','已收到','已反馈','已采购','未接受'] %}<option {% if offer.status==x %}selected{% endif %}>{{x}}</option>{% endfor %}</select><input name="feedback" aria-label="反馈" value="{{offer.feedback}}"><button>记录实际反馈</button></form></article>{% endfor %}<details><summary>新增报价 / 试样</summary><form hx-boost="true" class="form-grid two" method="post" action="/actions/offer">{{hidden(csrf,back)}}<input type="hidden" name="project_id" value="{{o.project_id}}"><input type="hidden" name="opportunity_id" value="{{o.id}}"><label>类型<select name="kind"><option>报价</option><option>试样</option></select></label>{{input('型号','product',required=true)}}{{input('数量','quantity',type='number',required=true)}}<label>总金额（元，未知留空）<input type="number" name="amount" min="0" step="0.01"></label>{{input('本人确认的回访日期','due_date',type='date')}}<button>保存</button></form></details></section>
+ <section class="panel"><h2>客群与需求判断</h2>{% set target_field='opportunity_id' %}{% set target_id=o.id %}{% set qualification=o.qualification %}{% set selected_tags=o.tags %}{% include 'qualification_form.html' %}</section>
+ {% if o.suggestions %}<section class="panel"><h2>有 AI 联合建议待审核</h2><a class="button primary" href="/reviews">核对摘要、阶段和下一步</a></section>{% endif %}{% endblock %}
+diff --git a/src/jxd_leads/templates/projects.html b/src/jxd_leads/templates/projects.html
+index eaabdf8..6d67817 100644
+--- a/src/jxd_leads/templates/projects.html
++++ b/src/jxd_leads/templates/projects.html
+@@ -1 +1 @@
+-{% extends 'base.html' %}{% from 'ui.html' import empty %}{% block breadcrumb %}客户与项目{% endblock %}{% block content %}<div class="page-heading"><div><p class="eyebrow">CUSTOMERS</p><h1>每个项目，都有清晰的下一步</h1><p class="muted">一家公司可以管理多个项目，跟进与报价分别归属。</p></div><a class="button" href="/exports/projects.csv">导出台账</a></div><form class="filters"><label class="search-label">查找项目<input name="q" value="{{q}}" placeholder="公司、项目或地区"></label><button>搜索</button></form><section class="panel table-panel">{% if rows %}<table><thead><tr><th>项目 / 公司</th><th>地区与地址</th><th>阶段</th><th></th></tr></thead><tbody>{% for p in rows %}<tr><td><a href="/projects/{{p.id}}"><strong>{{p.name}}</strong></a><small>{{p.company}}</small></td><td>{{p.region}}<small>{{p.address or '地址待核实'}}</small></td><td><span class="badge">{{p.stage}}</span></td><td><a class="text-link" href="/projects/{{p.id}}">查看 →</a></td></tr>{% endfor %}</tbody></table>{% else %}{{empty('还没有客户项目','在线索池接受一条候选，即可开始核实和跟进。')}}{% endif %}</section><p class="muted">共 {{listing.total}} 个项目 · 第 {{listing.page}} 页</p>{% if listing.page>1 %}<a class="button" href="?n={{listing.page-1}}&q={{q|urlencode}}">上一页</a>{% endif %}{% if listing.page*listing.page_size<listing.total %}<a class="button" href="?n={{listing.page+1}}&q={{q|urlencode}}">下一页</a>{% endif %}{% endblock %}
++{% extends 'base.html' %}{% from 'ui.html' import empty,hidden %}{% block breadcrumb %}客户与项目{% endblock %}{% block content %}<div class="page-heading"><div><p class="eyebrow">CUSTOMERS</p><h1>每个项目，都有清晰的下一步</h1><p class="muted">一家公司可以管理多个项目，跟进与报价分别归属。</p></div><form class="inline-action" method="post" action="/exports/projects.csv">{{hidden(csrf)}}<button class="button" type="submit">导出台账</button></form></div><form class="filters"><label class="search-label">查找项目<input name="q" value="{{q}}" placeholder="公司、项目或地区"></label><button>搜索</button></form><section class="panel table-panel">{% if rows %}<table><thead><tr><th>项目 / 公司</th><th>地区与地址</th><th>阶段</th><th></th></tr></thead><tbody>{% for p in rows %}<tr><td><a href="/projects/{{p.id}}"><strong>{{p.name}}</strong></a><small>{{p.company}}</small></td><td>{{p.region}}<small>{{p.address or '地址待核实'}}</small></td><td><span class="badge">{{p.stage}}</span></td><td><a class="text-link" href="/projects/{{p.id}}">查看 →</a></td></tr>{% endfor %}</tbody></table>{% else %}{{empty('还没有客户项目','在线索池接受一条候选，即可开始核实和跟进。')}}{% endif %}</section><p class="muted">共 {{listing.total}} 个项目 · 第 {{listing.page}} 页</p>{% if listing.page>1 %}<a class="button" href="?n={{listing.page-1}}&q={{q|urlencode}}">上一页</a>{% endif %}{% if listing.page*listing.page_size<listing.total %}<a class="button" href="?n={{listing.page+1}}&q={{q|urlencode}}">下一页</a>{% endif %}{% endblock %}
+diff --git a/src/jxd_leads/web.py b/src/jxd_leads/web.py
+index 1495684..1a7050c 100644
+--- a/src/jxd_leads/web.py
++++ b/src/jxd_leads/web.py
+@@ -18,6 +18,7 @@ from pydantic import ValidationError
+ from sqlalchemy.exc import SQLAlchemyError
+ from starlette.middleware.sessions import SessionMiddleware
+ 
++from . import __version__
+ from .backup import run_backup
+ from .dashboard_model import build_dashboard_model
+ from .desktop import DesktopNotifications
+@@ -133,7 +134,7 @@ def create_app(service: Service, backup_dir=None, testing=False):
+                 await task
+ 
+     app = FastAPI(
+-        title="京小电获客平台", version="0.5.0", lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None
++        title="京小电获客平台", version=__version__, lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None
+     )
+     app.state.backup_error = None
+     app.state.last_backup_ok_at = None
+@@ -273,7 +274,7 @@ def create_app(service: Service, backup_dir=None, testing=False):
+     def health():
+         return {
+             "app": "JXD-LEADS-001",
+-            "version": "0.5.0",
++            "version": __version__,
+             "last_backup_ok_at": app.state.last_backup_ok_at,
+             "last_reminder_ok_at": app.state.last_reminder_ok_at,
+             "backup_error": app.state.backup_error,
+@@ -510,7 +511,12 @@ def create_app(service: Service, backup_dir=None, testing=False):
+                     oid = data.pop("opportunity_id", None) or None
+                     service.add_offer(pid, OfferInput(**data), oid)
+                 elif action == "offer_update":
+-                    service.update_offer(data["id"], data["status"], data.get("feedback", ""))
++                    service.update_offer(
++                        data["id"],
++                        data["status"],
++                        data.get("feedback", ""),
++                        expected_version=int(data["version"]) if data.get("version") else None,
++                    )
+                 elif action == "backup":
+                     run_backup(service.db, backup_dir, force=True, vault=service.vault)
+                     destination = "/settings"
+@@ -593,8 +599,13 @@ def create_app(service: Service, backup_dir=None, testing=False):
+     def api_reveal(cid: str):
+         return service.reveal_contact(cid)
+ 
+-    @app.get("/exports/{kind}.csv")
+-    def export(request: Request, kind: str):
++    export_kinds = {"inquiry-template", "inquiries", "template", "projects", "candidates"}
++
++    @app.post("/exports/{kind}.csv")
++    async def export(request: Request, kind: str):
++        if kind not in export_kinds:
++            raise BusinessError("导出类型不正确")
++        await form(request)
+         if kind == "inquiry-template":
+             rows = [
+                 [
+@@ -638,8 +649,7 @@ def create_app(service: Service, backup_dir=None, testing=False):
+                 [p[k] for k in ["company", "project", "region", "source_url", "evidence", "status"]]
+                 for p in service.candidates()
+             ]
+-        else:
+-            raise BusinessError("导出类型不正确")
++        service.record_export(kind, len(rows) - 1)
+         return Response(
+             safe_csv(rows),
+             media_type="text/csv; charset=utf-8",
+diff --git a/src/jxd_leads/workflows.py b/src/jxd_leads/workflows.py
+index b8e9908..a90397f 100644
+--- a/src/jxd_leads/workflows.py
++++ b/src/jxd_leads/workflows.py
+@@ -9,6 +9,7 @@ from zoneinfo import ZoneInfo
+ 
+ from sqlalchemy import and_, case, delete, func, or_, select
+ 
++from . import __version__
+ from .errors import BusinessError
+ from .models import (
+     Candidate,
+@@ -1533,7 +1534,7 @@ class WorkflowService:
+     def capabilities(self):
+         return {
+             "application": "JXD-LEADS-001",
+-            "version": "0.5.0",
++            "version": __version__,
+             "schema_version": "1.3",
+             "human_confirmation_required": True,
+             "page_size_default": 20,
+diff --git a/tests/test_core.py b/tests/test_core.py
+index 26c0cc8..22f0888 100644
+--- a/tests/test_core.py
++++ b/tests/test_core.py
+@@ -1,5 +1,9 @@
++from datetime import datetime, timedelta
++from zoneinfo import ZoneInfo
++
+ import pytest
+ 
++from jxd_leads.dashboard_model import SOURCE_TONES
+ from jxd_leads.schemas import CandidateInput, FollowupInput, ResearchInput
+ from jxd_leads.service import BusinessError
+ 
+@@ -32,6 +36,29 @@ def test_candidate_retries_and_human_review(svc):
+     assert svc.review_candidate(cid, "accept", actor="owner")["project_id"] == result["project_id"]
+ 
+ 
++@pytest.mark.parametrize(
++    ("source", "age", "expected"),
++    [("公开招标公告", 45, 0), ("公开招标公告", 7, 0), ("公开招标公告", 6, 1),
++     ("公开招标公告", 5, 1), ("公开网络", 45, 1)],
++)
++def test_notice_window_and_source_statistics(svc, source, age, expected):
++    today = datetime.now(ZoneInfo("Asia/Shanghai")).date()
++    task = svc.create_research(ResearchInput(region="合成地区", scene="合成场景"))
++    item = candidate(source_type=source, published_at=today - timedelta(days=age), org_phone="028-12345678")
++    result = svc.submit_candidates(task["id"], [item], note="本批已核对")
++    assert result["created"] == len(svc.candidates()) == expected
++    note = svc.research_task(task["id"])["note"]
++    assert "本批已核对" in note
++    if not expected:
++        assert "跳过" in note and "超过六日窗口" in note
++        assert result["note"] == note
++    else:
++        assert result["items"][0]["org_phone"] == item.org_phone
++    assert next(row["candidates"] for row in svc.overview()["sources"] if row["source"] == source) == expected
++    assert next(row["count"] for row in svc.dashboard_snapshot()["sources"] if row["name"] == source) == expected
++    assert SOURCE_TONES["公开招标公告"] == "orange"
++
++
+ def test_same_company_different_projects_and_block_reimport(svc):
+     a = candidate()
+     b = a.model_copy(update={"project": "另一车库", "address": "测试路2号"})
+@@ -80,3 +107,16 @@ def test_research_limit_empty_failure_and_retry(svc):
+     with pytest.raises(BusinessError):
+         svc.submit_candidates(task["id"], [candidate().model_copy(update={"project": "超量项目"})])
+     assert len(svc.candidates()) == 1
++
++
++def test_submit_candidates_request_id_idempotency(svc):
++    task = svc.create_research(ResearchInput(region="合成地区", scene="合成场景"))
++    first = svc.submit_candidates(task["id"], [candidate()], note="首次提交", request_id="batch-1")
++    replay = svc.submit_candidates(task["id"], [candidate()], note="首次提交", request_id="batch-1")
++    assert replay == first
++    assert len(svc.candidates()) == 1
++    with pytest.raises(BusinessError) as conflict:
++        svc.submit_candidates(task["id"], [candidate()], note="改写备注", request_id="batch-1")
++    assert conflict.value.code == "IDEMPOTENCY_CONFLICT"
++    saved = svc.research_task(task["id"])
++    assert saved["status"] == "completed" and saved["note"] == "首次提交"
+diff --git a/tests/test_safety.py b/tests/test_safety.py
+index 252a9a8..d64f98d 100644
+--- a/tests/test_safety.py
++++ b/tests/test_safety.py
+@@ -9,11 +9,13 @@ from pathlib import Path
+ import pytest
+ from fastapi.testclient import TestClient
+ from pydantic import ValidationError
++from sqlalchemy import select
+ from test_core import candidate
+ 
+ from jxd_leads.backup import backup_database, restore_database
+ from jxd_leads.db import Database
+ from jxd_leads.imports import preview_import, safe_csv
++from jxd_leads.models import Audit
+ from jxd_leads.schemas import CandidateInput, ContactInput, FollowupInput, OfferInput, RequirementsInput
+ from jxd_leads.service import BusinessError, Service
+ from jxd_leads.web import create_app
+@@ -64,6 +66,44 @@ def test_agent_cannot_supply_confirmation_fields(svc):
+     assert svc.project_context(pid)["offers"][0]["status"] == "已反馈"
+ 
+ 
++def test_contact_rejected_for_suppressed_and_merged_projects(svc):
++    pid = project(svc)
++    other = svc.submit_candidates(
++        None, [candidate().model_copy(update={"project": "另一项目", "address": "测试路9号"})], actor="owner"
++    )["items"][0]
++    target = svc.review_candidate(other["id"], "accept")["project_id"]
++    data = ContactInput(name="测试乙", channel="13900000000", role="采购")
++    svc.suppress_project(target, "明确拒绝联系")
++    with pytest.raises(BusinessError) as suppressed:
++        svc.add_contact(target, data)
++    assert suppressed.value.code == "SUPPRESSED"
++    svc.merge_projects(pid, target, "同一公司重复项目")
++    with pytest.raises(BusinessError) as merged:
++        svc.add_contact(pid, data)
++    assert merged.value.code == "VERSION_CONFLICT"
++
++
++def test_offer_terminal_closes_todo_and_version_lock(svc):
++    pid = project(svc)
++    svc.update_requirements(
++        pid,
++        RequirementsInput(version=1, role="采购", authority="本人有采购权", demand="补货", confirmed=True),
++        actor="owner",
++    )
++    svc.set_stage(pid, "确认需求")
++    offer = svc.add_offer(pid, OfferInput(kind="报价", product="合成型号", quantity=1, due_date="2026-12-01"))
++    oid = offer["opportunity_id"]
++    version = svc.opportunity_context(oid)["version"]
++    with pytest.raises(BusinessError) as stale:
++        svc.update_offer(offer["id"], "已采购", "", expected_version=version + 9)
++    assert stale.value.code == "VERSION_CONFLICT"
++    assert svc.project_context(pid)["offers"][0]["status"] == "待确认"
++    svc.update_offer(offer["id"], "已采购", "客户确认", expected_version=version)
++    context = svc.opportunity_context(oid)
++    assert all(t["status"] != "open" for t in context["tasks"])
++    assert svc.project_context(pid)["offers"][0]["status"] == "已采购"
++
++
+ def test_concurrent_retry_and_conflicting_request_id(svc):
+     with ThreadPoolExecutor(max_workers=2) as pool:
+         results = list(pool.map(lambda _: svc.submit_candidates(None, [candidate()], actor="agent"), range(2)))
+@@ -193,6 +233,23 @@ def test_import_preview_and_csv_injection():
+     assert next(csv.reader(io.StringIO(exported.lstrip("\ufeff"))))[0].startswith("'")
+ 
+ 
++def test_csv_export_requires_post_csrf_and_audits(svc):
++    project(svc)
++    with TestClient(create_app(svc, testing=True)) as client:
++        home = client.get("/")
++        csrf = re.search('name="csrf-token" content="([^"]+)"', home.text).group(1)
++        assert client.get("/exports/projects.csv").status_code == 405
++        denied = client.post("/exports/projects.csv", data={"csrf": "wrong"})
++        assert "会话已失效" in denied.text
++        exported = client.post("/exports/projects.csv", data={"csrf": csrf})
++        assert exported.status_code == 200
++        assert exported.headers["content-type"].startswith("text/csv")
++        assert "公司,项目,地区,地址,阶段" in exported.text
++        with svc.db.read_session() as s:
++            audit = s.scalar(select(Audit).where(Audit.action == "export.csv"))
++        assert audit and audit.entity_id == "projects" and audit.detail.endswith("行")
++
++
+ def test_web_pages_and_csrf(svc, tmp_path):
+     app = create_app(svc, tmp_path / "backups", testing=True)
+     with TestClient(app) as client:
+@@ -225,10 +282,10 @@ def test_web_pages_and_csrf(svc, tmp_path):
+             "/insights",
+             "/settings",
+             "/import",
+-            "/exports/projects.csv",
+         ]:
+             response = client.get(path)
+             assert response.status_code == 200, path
++        assert client.get("/exports/projects.csv").status_code == 405
+         research_page = client.get("/research").text
+         assert "复制获客任务指令" in research_page
+         assert "复制给 WorkBuddy" not in research_page

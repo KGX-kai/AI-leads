@@ -1,0 +1,4 @@
+rollback_import=/Users/dkai2024163.com/ai/archive/jingxiaodian-leads-p1-20261125/code-5683098/src/jxd_leads/__init__.py
+rollback_web=/Users/dkai2024163.com/ai/archive/jingxiaodian-leads-p1-20261125/code-5683098/src/jxd_leads/web.py
+rollback_get_export= True
+rollback_post_export= False

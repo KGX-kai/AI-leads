@@ -1,0 +1,59 @@
+任务：ENG-20261124-01 · 看板注入与敏感字段隔离
+日期：2026-11-24（Asia/Shanghai）
+结论：合成恶意文本、危险链接和候选敏感详情隔离测试通过。
+
+命令：
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  /Users/dkai2024163.com/ai/product/jingxiaodian-leads/.venv/bin/python \
+  -m pytest -q -p no:cacheprovider tests/test_dashboard.py \
+  -k 'renders_real_data_assets_and_safe_text or only_allows_registered_internal_hrefs or server_filters_and_paginates or queue_includes_stop_review'
+
+结果（退出码 0）：
+4 passed, 10 deselected, 1 warning in 0.58s
+
+实际覆盖：
+
+1. 恶意记录文本
+
+输入含：
+- <img src=x onerror=alert(1)>
+- </script><script>alert(2)</script>
+- <svg onload=alert(3)>
+
+断言：
+- 页面没有新增原始 <script> 节点；
+- 没有 style= 内联属性；
+- 文本按 HTML 实体或 JSON \u003c 形式显示；
+- data-boot 中的记录可解析且未被脚本截断。
+
+2. 危险链接
+
+断言以下目标不会原样进入链接：
+- javascript:alert(1)
+- https://evil.example
+- //evil.example/projects
+- /opportunities/%2e%2e/settings
+- /admin
+- /projects/\nsettings
+
+仅白名单内部路由可保留。
+
+3. 候选详情最小化
+
+测试写入：
+- 带 signature 参数的合成来源 URL；
+- 不应发送给浏览器的合成资格建议正文。
+
+断言页面 data-boot.detail 只有：
+id, project, company, region, status, discovered_at, source_type, evidence, open_unknowns
+
+签名 URL 和建议正文均不出现在响应 HTML。
+
+4. 完整待处理队列
+
+合成停联事件与待审建议同时存在时：
+taskTotal=2
+kind={refusal, suggestion}
+页面显示“停联事件待本人复核”和“AI 建议待本人核实”。
+
+未验项：未执行安全工具的外部渗透测试；未使用真实客户数据。

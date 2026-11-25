@@ -1,0 +1,18 @@
+[INFO] 0 门禁自身 · python 3.11.18
+[INFO] 1 基线 · 基线提交 42e30e8 feat(p1): enforce six-day window, csv audit, idempotency and suppress guards
+[INFO] 1 基线 · 工作树干净
+[INFO] 2 范围/规划 · 本次 SPEC：docs/plan/SPEC-20261125-p1-fixes.md
+[INFO] 2 范围/规划 · base_commit 5683098 是 HEAD 的祖先（SPEC 基于较早代码）
+[INFO] 2 范围/规划 · 非目标 2 条
+[INFO] 2 视觉基线 · 模板无裸色值
+[INFO] 2 视觉基线 · 已有视觉 token 来源
+[WARN] 2 视觉基线 · 1 个并存版本模板（需在 SPEC 写替换或删除 deadline）：src/jxd_leads/templates/dashboard_v2.html
+[INFO] 3 版本 · 声明版本 0.5.0（pyproject.toml）
+[INFO] 3 交付/打包 · jxd_leads: package-data 完整覆盖
+[INFO] 3 交付/打包 · 打包资源覆盖检查通过
+[INFO] 3 交付/打包 · 已有产物 jxd_leads-0.5.0-py3-none-any.whl
+[INFO] 3 合规 · 未声明许可证（私有项目可接受；对外分发前必须补 LICENSE 并写明定位）
+[INFO] 3 合规 · 5 个第三方资源已在 NOTICE.md 登记（htmx, poppins）
+[INFO] 4 状态 · 证据文件 28 个（docs/verify/）
+======================================================================
+结果：FAIL 0 · WARN 1 → 可以开工（WARN 需自行判断）

@@ -1,0 +1,55 @@
+diff --git a/src/jxd_leads/__init__.py b/src/jxd_leads/__init__.py
+index 2486a7d..52b212d 100644
+--- a/src/jxd_leads/__init__.py
++++ b/src/jxd_leads/__init__.py
+@@ -1 +1,5 @@
+ """京小电获客平台。"""
++
++from importlib.metadata import version
++
++__version__ = version("jxd-leads")
+diff --git a/src/jxd_leads/desktop.py b/src/jxd_leads/desktop.py
+index 9d1591b..427f82f 100644
+--- a/src/jxd_leads/desktop.py
++++ b/src/jxd_leads/desktop.py
+@@ -1,6 +1,7 @@
+ """Narrow native notification adapter. No customer content or arbitrary URL crosses this boundary."""
+ 
+ import json
++import os
+ import subprocess
+ from pathlib import Path
+ 
+@@ -14,7 +15,10 @@ from .models import Notification, Setting, now
+ class DesktopNotifications:
+     def __init__(self, db, helper=None):
+         self.db = db
+-        self.helper = Path(helper or ROOT / "runtime/JXDNotifications.app/Contents/MacOS/JXDNotifications")
++        configured = helper or os.environ.get("JXD_NOTIFICATION_HELPER", "")
++        self.helper = Path(configured) if configured else ROOT / (
++            "runtime/JXDNotifications.app/Contents/MacOS/JXDNotifications"
++        )
+ 
+     def call(self, command, *args):
+         if command not in {"status", "request", "notify", "delivered"}:
+diff --git a/src/jxd_leads/workflows.py b/src/jxd_leads/workflows.py
+index b8e9908..a90397f 100644
+--- a/src/jxd_leads/workflows.py
++++ b/src/jxd_leads/workflows.py
+@@ -9,6 +9,7 @@ from zoneinfo import ZoneInfo
+ 
+ from sqlalchemy import and_, case, delete, func, or_, select
+ 
++from . import __version__
+ from .errors import BusinessError
+ from .models import (
+     Candidate,
+@@ -1533,7 +1534,7 @@ class WorkflowService:
+     def capabilities(self):
+         return {
+             "application": "JXD-LEADS-001",
+-            "version": "0.5.0",
++            "version": __version__,
+             "schema_version": "1.3",
+             "human_confirmation_required": True,
+             "page_size_default": 20,

@@ -1,0 +1,3 @@
+helper: /Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/runtime/JXDNotifications.app/Contents/MacOS/JXDNotifications
+exists: True
+status: {'alert_setting': 0, 'authorization': 'not_determined', 'notification_center_setting': 2, 'enabled': False}

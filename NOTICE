@@ -1,0 +1,40 @@
+AI获客平台 0.5.0
+Copyright 2026 凯歌行AI (KGX-kai)
+
+本项目代码使用 Apache License, Version 2.0。完整条款随附于 LICENSE。
+第三方资产不自动适用本项目许可证，各组件按下列上游条款使用。
+
+第三方组件
+
+名称 | 版本 | 文件路径 | 许可证 | 上游版权行 | 来源 URL | 是否修改 | 检索日期
+--- | --- | --- | --- | --- | --- | --- | ---
+htmx | 2.0.8 | src/jxd_leads/static/htmx.min.js | 0BSD | 上游 LICENSE 未署名 | https://github.com/bigskysoftware/htmx/tree/v2.0.8 | 否，与上游字节一致 | 2026-11-25
+Poppins 400 | 4.004 | src/jxd_leads/static/dashboard/poppins-400.ttf、src/jxd_leads/static/dashboard_v2.css 内嵌 base64 | OFL-1.1 | Copyright 2020 The Poppins Project Authors | https://github.com/google/fonts/tree/main/ofl/poppins | CSS 仅转码；本地字体与所查 main 版本字节不同，修改来源待核实 | 2026-11-25
+Poppins 500 | 4.004 | src/jxd_leads/static/dashboard/poppins-500.ttf、src/jxd_leads/static/dashboard_v2.css 内嵌 base64 | OFL-1.1 | Copyright 2020 The Poppins Project Authors | https://github.com/google/fonts/tree/main/ofl/poppins | CSS 仅转码；本地字体与所查 main 版本字节不同，修改来源待核实 | 2026-11-25
+Poppins 600 | 4.004 | src/jxd_leads/static/dashboard/poppins-600.ttf、src/jxd_leads/static/dashboard_v2.css 内嵌 base64 | OFL-1.1 | Copyright 2020 The Poppins Project Authors | https://github.com/google/fonts/tree/main/ofl/poppins | CSS 仅转码；本地字体与所查 main 版本字节不同，修改来源待核实 | 2026-11-25
+Poppins 700 | 4.004 | src/jxd_leads/static/dashboard/poppins-700.ttf、src/jxd_leads/static/dashboard_v2.css 内嵌 base64 | OFL-1.1 | Copyright 2020 The Poppins Project Authors | https://github.com/google/fonts/tree/main/ofl/poppins | CSS 仅转码；本地字体与所查 main 版本字节不同，修改来源待核实 | 2026-11-25
+fastapi（运行时依赖） | 0.165.0 | site-packages/fastapi-0.165.0.dist-info/licenses/LICENSE | MIT | Copyright (c) 2018 Sebastián Ramírez | https://pypi.org/project/fastapi/0.165.0/ | 否，环境安装依赖 | 2026-11-25
+uvicorn（运行时依赖） | 0.54.0 | site-packages/uvicorn-0.54.0.dist-info/licenses/LICENSE.md | BSD-3-Clause | Copyright © 2017-present, [Encode OSS Ltd](https://www.encode.io/). | https://pypi.org/project/uvicorn/0.54.0/ | 否，环境安装依赖 | 2026-11-25
+sqlalchemy（运行时依赖） | 2.1.9 | site-packages/sqlalchemy-2.1.9.dist-info/licenses/LICENSE | MIT | Copyright 2005-2026 SQLAlchemy authors and contributors <see AUTHORS file>. | https://pypi.org/project/sqlalchemy/2.1.9/ | 否，环境安装依赖 | 2026-11-25
+alembic（运行时依赖） | 1.20.1 | site-packages/alembic-1.20.1.dist-info/licenses/LICENSE | MIT | Copyright 2009-2026 Michael Bayer. | https://pypi.org/project/alembic/1.20.1/ | 否，环境安装依赖 | 2026-11-25
+jinja2（运行时依赖） | 3.1.6 | site-packages/jinja2-3.1.6.dist-info/licenses/LICENSE.txt | BSD-3-Clause | Copyright 2007 Pallets | https://pypi.org/project/jinja2/3.1.6/ | 否，环境安装依赖 | 2026-11-25
+python-multipart（运行时依赖） | 0.0.34 | site-packages/python_multipart-0.0.34.dist-info/licenses/LICENSE.txt | Apache-2.0 | 随包许可未列具名版权行 | https://pypi.org/project/python-multipart/0.0.34/ | 否，环境安装依赖 | 2026-11-25
+itsdangerous（运行时依赖） | 2.2.0 | site-packages/itsdangerous-2.2.0.dist-info/LICENSE.txt | BSD-3-Clause | Copyright 2011 Pallets | https://pypi.org/project/itsdangerous/2.2.0/ | 否，环境安装依赖 | 2026-11-25
+cryptography（运行时依赖） | 50.0.2 | site-packages/cryptography-50.0.2.dist-info/licenses/LICENSE.BSD | Apache-2.0 OR BSD-3-Clause | Copyright (c) Individual contributors. | https://pypi.org/project/cryptography/50.0.2/ | 否，环境安装依赖 | 2026-11-25
+keyring（运行时依赖） | 25.7.0 | site-packages/keyring-25.7.0.dist-info/licenses/LICENSE | MIT | Copyright (c) 2025 <copyright holders> | https://pypi.org/project/keyring/25.7.0/ | 否，环境安装依赖 | 2026-11-25
+mcp（运行时依赖） | 1.30.0 | site-packages/mcp-1.30.0.dist-info/licenses/LICENSE | MIT | Copyright (c) 2024 Anthropic, PBC | https://pypi.org/project/mcp/1.30.0/ | 否，环境安装依赖 | 2026-11-25
+openpyxl（运行时依赖） | 3.1.5 | site-packages/openpyxl-3.1.5.dist-info/LICENCE.rst | MIT | Copyright (c) 2010 openpyxl | https://pypi.org/project/openpyxl/3.1.5/ | 否，环境安装依赖 | 2026-11-25
+defusedxml（运行时依赖） | 0.7.1 | site-packages/defusedxml-0.7.1.dist-info/LICENSE | PSF-2.0 | Copyright (c) 2013 by Christian Heimes | https://pypi.org/project/defusedxml/0.7.1/ | 否，环境安装依赖 | 2026-11-25
+filelock（运行时依赖） | 4.3.1 | site-packages/filelock-4.3.1.dist-info/licenses/LICENSE | MIT | Copyright (c) 2025 Bernát Gábor and contributors | https://pypi.org/project/filelock/4.3.1/ | 否，环境安装依赖 | 2026-11-25
+pytest（开发依赖） | 9.2.0 | site-packages/pytest-9.2.0.dist-info/licenses/LICENSE | MIT | Copyright (c) 2004 Holger Krekel and others | https://pypi.org/project/pytest/9.2.0/ | 否，环境安装依赖 | 2026-11-25
+httpx（开发依赖） | 0.28.1 | site-packages/httpx-0.28.1.dist-info/licenses/LICENSE.md | BSD-3-Clause | Copyright © 2019, [Encode OSS Ltd](https://www.encode.io/). | https://pypi.org/project/httpx/0.28.1/ | 否，环境安装依赖 | 2026-11-25
+pytest-asyncio（开发依赖） | 1.5.0 | site-packages/pytest_asyncio-1.5.0.dist-info/licenses/LICENSE | Apache-2.0 | 随包许可未列具名版权行 | https://pypi.org/project/pytest-asyncio/1.5.0/ | 否，环境安装依赖 | 2026-11-25
+ruff（开发依赖） | 0.17.6 | site-packages/ruff-0.17.6.dist-info/licenses/LICENSE | MIT | Copyright (c) 2022 Charles Marsh | https://pypi.org/project/ruff/0.17.6/ | 否，环境安装依赖 | 2026-11-25
+pip-audit（开发依赖） | 2.10.1 | site-packages/pip_audit-2.10.1.dist-info/licenses/LICENSE | Apache-2.0 | 随包许可未列具名版权行 | https://pypi.org/project/pip-audit/2.10.1/ | 否，环境安装依赖 | 2026-11-25
+certifi（传递依赖） | 2026.11.20 | site-packages/certifi-2026.11.20.dist-info/licenses/LICENSE | MPL-2.0 | 随包许可未列具名版权行 | https://pypi.org/project/certifi/2026.11.20/ | 否，环境安装依赖 | 2026-11-25
+
+certifi 的 Mozilla CA 证书数据采用 MPL-2.0，具有文件级 copyleft。来源见该发行包 LICENSE 中的 certdata.txt 说明。
+
+owner-avatar.png 由本项目 AI 生成，非真实人物肖像，不涉及第三方授权。
+
+随附许可全文与版权行清单位于 THIRD_PARTY_LICENSES/。

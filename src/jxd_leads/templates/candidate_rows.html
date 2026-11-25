@@ -1,0 +1,55 @@
+{% from 'ui.html' import hidden,empty %}
+{% for c in rows %}
+<article class="panel lead-card">
+  <div class="panel-heading"><div>
+    <p class="eyebrow">{{c.region}} · {{c.source_type}} · {{c.discovered_at}}</p>
+    <h2><a href="/candidates/{{c.id}}">{{c.project}}</a></h2>
+    <p class="muted">{{c.company}}{% if c.address %} · {{c.address}}{% endif %}</p>
+  </div><span class="badge {{'teal' if c.status=='accepted' else ''}}">{{c.status|status}}</span></div>
+  <p class="muted">处理顺序：{{c.priority or '常规核实'}} · 未经确认的信息仍待核实</p>
+  <blockquote>{{c.evidence}}</blockquote>
+  {% if c.org_phone %}<p class="muted">公开单位电话：{{c.org_phone}}</p>{% endif %}
+  {% if c.unknowns %}<p class="muted">待核实：{{c.unknowns|join('、')}}</p>{% endif %}
+  {% if c.status=='watch' %}<p class="notice">暂缓原因：{{c.review_reason}} · 复核日期 {{c.next_review_at}}</p>{% endif %}
+  <div class="lead-details">
+    <div><small>匹配建议（待核实）</small><p>{{c.reason or '待核实地区、项目用途和服务范围'}}</p></div>
+    <div><small>采购需求</small><p>{{c.demand_evidence or '未知 · 尚无明确需求证据'}}</p></div>
+  </div>
+  {% if c.source_url %}<a class="text-link" href="{{c.source_url}}" target="_blank" rel="noopener noreferrer">查看原始来源 ↗</a>{% endif %}
+  {% if c.similar and c.status=='pending' %}<p class="notice">已有同名项目，请核对地址；仅在确认同一项目时选择合并。</p>{% endif %}
+  {% if c.status=='pending' %}
+  <div class="lead-actions">
+    <form hx-boost="true" method="post" action="/actions/review">{{hidden(csrf,'/candidates')}}
+      <input type="hidden" name="id" value="{{c.id}}"><input type="hidden" name="decision" value="accept">
+      <label class="sr-only">合并到现有项目</label><select name="merge_project_id" aria-label="建档或合并">
+        <option value="">新建项目 / 精确匹配已有项目</option>
+        {% for p in projects %}<option value="{{p.id}}">合并：{{p.company}} / {{p.name}} / {{p.address}}</option>{% endfor %}
+      </select><button class="primary">接受并建档</button>
+    </form>
+    <form hx-boost="true" method="post" action="/actions/review">{{hidden(csrf,'/candidates')}}
+      <input type="hidden" name="id" value="{{c.id}}"><input type="hidden" name="decision" value="reject">
+      <select name="reason_code" aria-label="排除原因类型">{% for code,label in reject_reasons.items() %}<option value="{{code}}">{{label}}</option>{% endfor %}</select><input name="reason" placeholder="排除原因" aria-label="排除原因" required maxlength="300"><button>排除</button>
+    </form>
+    <form hx-boost="true" method="post" action="/actions/review">{{hidden(csrf,'/candidates')}}
+      <input type="hidden" name="id" value="{{c.id}}"><input type="hidden" name="decision" value="watch">
+      <label>暂缓原因类型<select name="reason_code"><option value="missing_evidence">资料不足</option><option value="timing">时间未到</option><option value="other">其他</option></select></label>
+      <input name="reason" placeholder="暂缓依据" required maxlength="300" aria-label="暂缓依据">
+      <label>复核日期<input type="date" name="next_review_at" required></label><button>暂缓观察</button>
+    </form>
+  </div>
+  {% elif c.status=='watch' %}
+  <form hx-boost="true" method="post" action="/actions/review">{{hidden(csrf,'/candidates')}}
+    <input type="hidden" name="id" value="{{c.id}}"><input type="hidden" name="decision" value="resume">
+    <input name="reason" placeholder="重新核实的依据" required maxlength="300" aria-label="重新核实的依据"><button>返回待审队列</button>
+  </form>
+  {% elif c.project_id %}<a class="button" href="/projects/{{c.project_id}}">进入项目 →</a>
+  {% else %}<p class="muted">{{c.review_reason}}</p>{% endif %}
+</article>
+{% else %}{{empty('没有符合条件的线索','可以新建获客任务、手工录入，或调整筛选条件。')}}{% endfor %}
+{% if listing %}
+<p class="muted">共 {{listing.total}} 条 · 第 {{listing.page}} 页</p>
+<div class="actions">
+  {% if listing.page>1 %}<a class="button" href="/candidates?n={{listing.page-1}}&status={{status|urlencode}}&q={{q|urlencode}}&tag_id={{tag_id or ''}}">上一页</a>{% endif %}
+  {% if listing.page*listing.page_size<listing.total %}<a class="button" href="/candidates?n={{listing.page+1}}&status={{status|urlencode}}&q={{q|urlencode}}&tag_id={{tag_id or ''}}">下一页</a>{% endif %}
+</div>
+{% endif %}

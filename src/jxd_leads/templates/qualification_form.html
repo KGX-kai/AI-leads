@@ -1,0 +1,9 @@
+{% from 'ui.html' import hidden %}
+<form hx-boost="true" method="post" action="/actions/qualification" class="form-grid two">
+{{hidden(csrf,back)}}<input type="hidden" name="expected_version" value="{{qualification.version if qualification else 0}}"><input type="hidden" name="{{target_field}}" value="{{target_id}}">
+{% set current=qualification.dimensions if qualification else {} %}
+{% for field,label,options in [('fit','客群匹配',['待核实','符合','不符合']),('need','需求证据',['未知','明确需求','有问题但采购未定','明确暂无计划']),('role','采购角色',['未知','已核实采购角色','可影响/可引荐','明确无权限']),('timing','采购时间',['未知','已明确日期/窗口','明确延期']),('confidence','证据状态',['待核对','原文已核对','存在冲突']),('priority','推进建议',['常规核实','优先核实','暂缓','建议排除'])] %}
+<label>{{label}}<select name="{{field}}">{% for value in options %}<option {% if current.get(field)==value %}selected{% endif %}>{{value}}</option>{% endfor %}</select></label>{% endfor %}
+<label class="span-all">确认依据（客户原话或已核对来源）<textarea name="evidence" required>{{qualification.evidence if qualification else ''}}</textarea></label>
+<label class="span-all">标签（可多选，⌘ 点击）<select name="tag_ids" multiple size="4">{% for tag in tags %}<option value="{{tag.id}}" {% if tag.id in selected_tags|map(attribute='id')|list %}selected{% endif %}>{{tag.name}}</option>{% endfor %}</select></label>
+<p class="muted">未知预算、未知采购角色和暂无回复，均不等于无效客户。标签用于整理资料。</p><div><button class="primary">本人核实并保存判断</button></div></form>

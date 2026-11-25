@@ -1,0 +1,595 @@
+
+[asset-comparison.txt]
+983676516167748b74de6f4771fb384c664fd913acb8b471122ecacf5da5ea6c  /var/folders/cr/sgfm84bd435c7pcq2q0plxnr0000gn/T/jxd-public-4b.hlwURVk54t/Poppins-Bold.ttf
+90373e7d838d32468438fc3e152dca0bdb12edcab99ea639f158790b1ba1fd05  /var/folders/cr/sgfm84bd435c7pcq2q0plxnr0000gn/T/jxd-public-4b.hlwURVk54t/Poppins-Medium.ttf
+7e65201e9b79159e2300267cc885e16c8dcef2424cdfa09a29bfb0980a94a7ba  /var/folders/cr/sgfm84bd435c7pcq2q0plxnr0000gn/T/jxd-public-4b.hlwURVk54t/Poppins-Regular.ttf
+d3bf1bdaf0550e83da9ac0b1d1d9fe6db086835a83aa28578e609a394b9a0286  /var/folders/cr/sgfm84bd435c7pcq2q0plxnr0000gn/T/jxd-public-4b.hlwURVk54t/Poppins-SemiBold.ttf
+22283ef68cb7545914f0a88a1bdedc7256a703d1d580c1d255217d0a50d31313  /var/folders/cr/sgfm84bd435c7pcq2q0plxnr0000gn/T/jxd-public-4b.hlwURVk54t/htmx.min.js
+cdedb1729acac414ed01744a11da7badb86adf13108e7bd3fa161b9323f7fe54  src/jxd_leads/static/dashboard/poppins-400.ttf
+fcff04f4bec2b3636f05ed894dc1f9a752c4cb587ee49857ec7a82abaf6ca016  src/jxd_leads/static/dashboard/poppins-500.ttf
+dae40ca7b35fe7501bda2e4140a6860b1db47330be5d3c8ab6971fd83a70e9a5  src/jxd_leads/static/dashboard/poppins-600.ttf
+1984efdda0fbe207d7ac20feac2ba7c2768c92a90094b02a206c9d58cc30ff2e  src/jxd_leads/static/dashboard/poppins-700.ttf
+22283ef68cb7545914f0a88a1bdedc7256a703d1d580c1d255217d0a50d31313  src/jxd_leads/static/htmx.min.js
+
+[requirements-freeze.txt]
+alembic==1.20.1
+annotated-doc==0.0.7
+annotated-types==0.8.0
+anyio==4.16.0
+attrs==26.1.0
+boolean-py==5.0
+cachecontrol==0.15.0
+certifi==2026.11.20
+cffi==2.1.1
+charset-normalizer==3.5.3
+click==8.5.1
+cryptography==50.0.2
+cyclonedx-python-lib==11.12.0
+defusedxml==0.7.1
+et-xmlfile==2.0.0
+fastapi==0.165.0
+filelock==4.3.1
+h11==0.16.0
+httpcore==1.0.9
+httpx==0.28.1
+httpx-sse==0.4.3
+idna==3.20
+iniconfig==2.3.1
+itsdangerous==2.2.0
+jaraco-classes==3.4.0
+jaraco-context==6.1.2
+jaraco-functools==4.6.0
+jinja2==3.1.6
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+-e file:///Users/dkai2024163.com/.codex/worktrees/ab3e/jingxiaodian-leads-v05
+keyring==25.7.0
+license-expression==30.4.4
+mako==1.4.3
+markdown-it-py==4.3.0
+markupsafe==3.0.4
+mcp==1.30.0
+mdurl==0.1.2
+more-itertools==11.2.1
+msgpack==1.2.4
+openpyxl==3.1.5
+opentelemetry-api==1.45.2
+packageurl-python==0.17.6
+packaging==26.4
+pip==26.3
+pip-api==0.0.35
+pip-audit==2.10.1
+pip-requirements-parser==32.0.1
+platformdirs==4.14.8
+pluggy==1.7.0
+py-serializable==2.2.0
+pycparser==3.12
+pydantic==2.14.4
+pydantic-core==2.50.5
+pydantic-settings==2.16.3
+pygments==2.21.0
+pyjwt==2.15.1
+pyparsing==3.3.3
+pytest==9.2.0
+pytest-asyncio==1.5.0
+python-dotenv==1.2.4
+python-multipart==0.0.34
+referencing==0.37.0
+requests==2.34.2
+rich==15.0.0
+rpds-py==2026.9.1
+ruff==0.17.6
+sortedcontainers==2.4.0
+sqlalchemy==2.1.9
+sse-starlette==3.7.1
+starlette==1.10.0
+tomli==2.5.0
+tomli-w==1.2.0
+typing-extensions==4.16.0
+typing-inspection==0.4.5
+urllib3==2.8.0
+uvicorn==0.54.0
+
+[build-frontend.txt]
+Using CPython 3.12.11 interpreter at: .venv/bin/python
+Resolved 3 packages in 4.82s
+Prepared 2 packages in 776ms
+Installed 3 packages in 5ms
+ + build==1.6.1
+ + packaging==26.4
+ + pyproject-hooks==1.3.3
+
+[build.log]
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=77.0.3
+* Getting build dependencies for sdist...
+running egg_info
+writing src/jxd_leads.egg-info/PKG-INFO
+writing dependency_links to src/jxd_leads.egg-info/dependency_links.txt
+writing entry points to src/jxd_leads.egg-info/entry_points.txt
+writing requirements to src/jxd_leads.egg-info/requires.txt
+writing top-level names to src/jxd_leads.egg-info/top_level.txt
+reading manifest file 'src/jxd_leads.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+adding license file 'NOTICE'
+writing manifest file 'src/jxd_leads.egg-info/SOURCES.txt'
+* Installed build dependency versions:
+  - setuptools==84.2.1
+* Building sdist...
+running sdist
+running egg_info
+writing src/jxd_leads.egg-info/PKG-INFO
+writing dependency_links to src/jxd_leads.egg-info/dependency_links.txt
+writing entry points to src/jxd_leads.egg-info/entry_points.txt
+writing requirements to src/jxd_leads.egg-info/requires.txt
+writing top-level names to src/jxd_leads.egg-info/top_level.txt
+reading manifest file 'src/jxd_leads.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+adding license file 'NOTICE'
+writing manifest file 'src/jxd_leads.egg-info/SOURCES.txt'
+running check
+creating jxd_leads-0.5.0
+creating jxd_leads-0.5.0/THIRD_PARTY_LICENSES
+creating jxd_leads-0.5.0/migrations
+creating jxd_leads-0.5.0/migrations/versions
+creating jxd_leads-0.5.0/src/jxd_leads
+creating jxd_leads-0.5.0/src/jxd_leads.egg-info
+creating jxd_leads-0.5.0/src/jxd_leads/static
+creating jxd_leads-0.5.0/src/jxd_leads/static/dashboard
+creating jxd_leads-0.5.0/src/jxd_leads/templates
+creating jxd_leads-0.5.0/tests
+copying files to jxd_leads-0.5.0...
+copying LICENSE -> jxd_leads-0.5.0
+copying NOTICE -> jxd_leads-0.5.0
+copying README.md -> jxd_leads-0.5.0
+copying alembic.ini -> jxd_leads-0.5.0
+copying pyproject.toml -> jxd_leads-0.5.0
+copying THIRD_PARTY_LICENSES/0BSD.txt -> jxd_leads-0.5.0/THIRD_PARTY_LICENSES
+copying THIRD_PARTY_LICENSES/Apache-2.0.txt -> jxd_leads-0.5.0/THIRD_PARTY_LICENSES
+copying THIRD_PARTY_LICENSES/DEPENDENCY-COPYRIGHT.txt -> jxd_leads-0.5.0/THIRD_PARTY_LICENSES
+copying THIRD_PARTY_LICENSES/MPL-2.0.txt -> jxd_leads-0.5.0/THIRD_PARTY_LICENSES
+copying THIRD_PARTY_LICENSES/OFL-1.1.txt -> jxd_leads-0.5.0/THIRD_PARTY_LICENSES
+copying migrations/env.py -> jxd_leads-0.5.0/migrations
+copying migrations/script.py.mako -> jxd_leads-0.5.0/migrations
+copying migrations/versions/20261030_project_aliases.py -> jxd_leads-0.5.0/migrations/versions
+copying migrations/versions/20261030_reliability.py -> jxd_leads-0.5.0/migrations/versions
+copying migrations/versions/20261117_candidate_quality.py -> jxd_leads-0.5.0/migrations/versions
+copying migrations/versions/20261124_marketing_fields.py -> jxd_leads-0.5.0/migrations/versions
+copying migrations/versions/4f162dbfa398_initial_schema.py -> jxd_leads-0.5.0/migrations/versions
+copying migrations/versions/bbad41c2a094_opportunities_inbox_reminders.py -> jxd_leads-0.5.0/migrations/versions
+copying src/jxd_leads/__init__.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/backup.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/cli.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/dashboard_model.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/db.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/desktop.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/errors.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/imports.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/mcp_server.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/models.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/qualification.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/schemas.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/security.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/service.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/sources.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/web.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/workflows.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads/workspace_web.py -> jxd_leads-0.5.0/src/jxd_leads
+copying src/jxd_leads.egg-info/PKG-INFO -> jxd_leads-0.5.0/src/jxd_leads.egg-info
+copying src/jxd_leads.egg-info/SOURCES.txt -> jxd_leads-0.5.0/src/jxd_leads.egg-info
+copying src/jxd_leads.egg-info/dependency_links.txt -> jxd_leads-0.5.0/src/jxd_leads.egg-info
+copying src/jxd_leads.egg-info/entry_points.txt -> jxd_leads-0.5.0/src/jxd_leads.egg-info
+copying src/jxd_leads.egg-info/requires.txt -> jxd_leads-0.5.0/src/jxd_leads.egg-info
+copying src/jxd_leads.egg-info/top_level.txt -> jxd_leads-0.5.0/src/jxd_leads.egg-info
+copying src/jxd_leads/static/app.css -> jxd_leads-0.5.0/src/jxd_leads/static
+copying src/jxd_leads/static/app.js -> jxd_leads-0.5.0/src/jxd_leads/static
+copying src/jxd_leads/static/dashboard_v2.css -> jxd_leads-0.5.0/src/jxd_leads/static
+copying src/jxd_leads/static/dashboard_v2.js -> jxd_leads-0.5.0/src/jxd_leads/static
+copying src/jxd_leads/static/htmx.min.js -> jxd_leads-0.5.0/src/jxd_leads/static
+copying src/jxd_leads/static/theme-init.js -> jxd_leads-0.5.0/src/jxd_leads/static
+copying src/jxd_leads/static/theme-light.css -> jxd_leads-0.5.0/src/jxd_leads/static
+copying src/jxd_leads/static/theme.js -> jxd_leads-0.5.0/src/jxd_leads/static
+copying src/jxd_leads/static/dashboard/owner-avatar.png -> jxd_leads-0.5.0/src/jxd_leads/static/dashboard
+copying src/jxd_leads/static/dashboard/poppins-400.ttf -> jxd_leads-0.5.0/src/jxd_leads/static/dashboard
+copying src/jxd_leads/static/dashboard/poppins-500.ttf -> jxd_leads-0.5.0/src/jxd_leads/static/dashboard
+copying src/jxd_leads/static/dashboard/poppins-600.ttf -> jxd_leads-0.5.0/src/jxd_leads/static/dashboard
+copying src/jxd_leads/static/dashboard/poppins-700.ttf -> jxd_leads-0.5.0/src/jxd_leads/static/dashboard
+copying src/jxd_leads/templates/base.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/candidate.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/candidate_rows.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/candidates.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/dashboard.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/dashboard_v2.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/error.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/import.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/inbox.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/inquiry.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/insights.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/notification_badge.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/notifications.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/opportunity.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/project.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/projects.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/qualification_form.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/quality_metrics.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/research.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/reviews.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/settings.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying src/jxd_leads/templates/ui.html -> jxd_leads-0.5.0/src/jxd_leads/templates
+copying tests/test_a5_upgrade.py -> jxd_leads-0.5.0/tests
+copying tests/test_agent_call.py -> jxd_leads-0.5.0/tests
+copying tests/test_core.py -> jxd_leads-0.5.0/tests
+copying tests/test_dashboard.py -> jxd_leads-0.5.0/tests
+copying tests/test_data_contract.py -> jxd_leads-0.5.0/tests
+copying tests/test_inquiry_fields.py -> jxd_leads-0.5.0/tests
+copying tests/test_marketing_fields.py -> jxd_leads-0.5.0/tests
+copying tests/test_mcp_transport.py -> jxd_leads-0.5.0/tests
+copying tests/test_qualification_cases.py -> jxd_leads-0.5.0/tests
+copying tests/test_quality_workbench.py -> jxd_leads-0.5.0/tests
+copying tests/test_safety.py -> jxd_leads-0.5.0/tests
+copying tests/test_upgrade.py -> jxd_leads-0.5.0/tests
+copying tests/test_upgrade_review.py -> jxd_leads-0.5.0/tests
+copying tests/test_vault.py -> jxd_leads-0.5.0/tests
+copying tests/test_workflows.py -> jxd_leads-0.5.0/tests
+Writing jxd_leads-0.5.0/setup.cfg
+Creating tar archive
+removing 'jxd_leads-0.5.0' (and everything under it)
+* Building wheel from sdist
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=77.0.3
+* Getting build dependencies for wheel...
+running egg_info
+writing src/jxd_leads.egg-info/PKG-INFO
+writing dependency_links to src/jxd_leads.egg-info/dependency_links.txt
+writing entry points to src/jxd_leads.egg-info/entry_points.txt
+writing requirements to src/jxd_leads.egg-info/requires.txt
+writing top-level names to src/jxd_leads.egg-info/top_level.txt
+reading manifest file 'src/jxd_leads.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+adding license file 'NOTICE'
+writing manifest file 'src/jxd_leads.egg-info/SOURCES.txt'
+* Installed build dependency versions:
+  - setuptools==84.2.1
+* Building wheel...
+running bdist_wheel
+running build
+running build_py
+creating build/lib/jxd_leads
+copying src/jxd_leads/service.py -> build/lib/jxd_leads
+copying src/jxd_leads/db.py -> build/lib/jxd_leads
+copying src/jxd_leads/backup.py -> build/lib/jxd_leads
+copying src/jxd_leads/web.py -> build/lib/jxd_leads
+copying src/jxd_leads/models.py -> build/lib/jxd_leads
+copying src/jxd_leads/security.py -> build/lib/jxd_leads
+copying src/jxd_leads/__init__.py -> build/lib/jxd_leads
+copying src/jxd_leads/imports.py -> build/lib/jxd_leads
+copying src/jxd_leads/sources.py -> build/lib/jxd_leads
+copying src/jxd_leads/schemas.py -> build/lib/jxd_leads
+copying src/jxd_leads/cli.py -> build/lib/jxd_leads
+copying src/jxd_leads/workspace_web.py -> build/lib/jxd_leads
+copying src/jxd_leads/qualification.py -> build/lib/jxd_leads
+copying src/jxd_leads/workflows.py -> build/lib/jxd_leads
+copying src/jxd_leads/errors.py -> build/lib/jxd_leads
+copying src/jxd_leads/dashboard_model.py -> build/lib/jxd_leads
+copying src/jxd_leads/mcp_server.py -> build/lib/jxd_leads
+copying src/jxd_leads/desktop.py -> build/lib/jxd_leads
+running egg_info
+writing src/jxd_leads.egg-info/PKG-INFO
+writing dependency_links to src/jxd_leads.egg-info/dependency_links.txt
+writing entry points to src/jxd_leads.egg-info/entry_points.txt
+writing requirements to src/jxd_leads.egg-info/requires.txt
+writing top-level names to src/jxd_leads.egg-info/top_level.txt
+reading manifest file 'src/jxd_leads.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+adding license file 'NOTICE'
+writing manifest file 'src/jxd_leads.egg-info/SOURCES.txt'
+creating build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/base.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/notification_badge.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/research.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/notifications.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/ui.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/dashboard.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/projects.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/inquiry.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/qualification_form.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/opportunity.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/inbox.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/quality_metrics.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/import.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/candidate_rows.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/candidate.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/project.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/dashboard_v2.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/insights.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/settings.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/reviews.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/error.html -> build/lib/jxd_leads/templates
+copying src/jxd_leads/templates/candidates.html -> build/lib/jxd_leads/templates
+creating build/lib/jxd_leads/static
+copying src/jxd_leads/static/theme-init.js -> build/lib/jxd_leads/static
+copying src/jxd_leads/static/htmx.min.js -> build/lib/jxd_leads/static
+copying src/jxd_leads/static/theme-light.css -> build/lib/jxd_leads/static
+copying src/jxd_leads/static/app.css -> build/lib/jxd_leads/static
+copying src/jxd_leads/static/theme.js -> build/lib/jxd_leads/static
+copying src/jxd_leads/static/dashboard_v2.css -> build/lib/jxd_leads/static
+copying src/jxd_leads/static/dashboard_v2.js -> build/lib/jxd_leads/static
+copying src/jxd_leads/static/app.js -> build/lib/jxd_leads/static
+creating build/lib/jxd_leads/static/dashboard
+copying src/jxd_leads/static/dashboard/owner-avatar.png -> build/lib/jxd_leads/static/dashboard
+copying src/jxd_leads/static/dashboard/poppins-700.ttf -> build/lib/jxd_leads/static/dashboard
+copying src/jxd_leads/static/dashboard/poppins-500.ttf -> build/lib/jxd_leads/static/dashboard
+copying src/jxd_leads/static/dashboard/poppins-400.ttf -> build/lib/jxd_leads/static/dashboard
+copying src/jxd_leads/static/dashboard/poppins-600.ttf -> build/lib/jxd_leads/static/dashboard
+installing to build/bdist.macosx-11.0-arm64/wheel
+running install
+running install_lib
+creating build/bdist.macosx-11.0-arm64/wheel
+creating build/bdist.macosx-11.0-arm64/wheel/jxd_leads
+copying build/lib/jxd_leads/service.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/db.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/backup.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/web.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/models.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/security.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/imports.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/sources.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/schemas.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/cli.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/workspace_web.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/qualification.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+creating build/bdist.macosx-11.0-arm64/wheel/jxd_leads/static
+copying build/lib/jxd_leads/static/theme-init.js -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static
+copying build/lib/jxd_leads/static/htmx.min.js -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static
+copying build/lib/jxd_leads/static/theme-light.css -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static
+copying build/lib/jxd_leads/static/app.css -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static
+copying build/lib/jxd_leads/static/theme.js -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static
+creating build/bdist.macosx-11.0-arm64/wheel/jxd_leads/static/dashboard
+copying build/lib/jxd_leads/static/dashboard/owner-avatar.png -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static/dashboard
+copying build/lib/jxd_leads/static/dashboard/poppins-700.ttf -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static/dashboard
+copying build/lib/jxd_leads/static/dashboard/poppins-500.ttf -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static/dashboard
+copying build/lib/jxd_leads/static/dashboard/poppins-400.ttf -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static/dashboard
+copying build/lib/jxd_leads/static/dashboard/poppins-600.ttf -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static/dashboard
+copying build/lib/jxd_leads/static/dashboard_v2.css -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static
+copying build/lib/jxd_leads/static/dashboard_v2.js -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static
+copying build/lib/jxd_leads/static/app.js -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/static
+copying build/lib/jxd_leads/workflows.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+creating build/bdist.macosx-11.0-arm64/wheel/jxd_leads/templates
+copying build/lib/jxd_leads/templates/base.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/notification_badge.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/research.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/notifications.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/ui.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/dashboard.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/projects.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/inquiry.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/qualification_form.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/opportunity.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/inbox.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/quality_metrics.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/import.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/candidate_rows.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/candidate.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/project.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/dashboard_v2.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/insights.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/settings.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/reviews.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/error.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/templates/candidates.html -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads/templates
+copying build/lib/jxd_leads/errors.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/dashboard_model.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/mcp_server.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+copying build/lib/jxd_leads/desktop.py -> build/bdist.macosx-11.0-arm64/wheel/./jxd_leads
+running install_data
+creating build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data
+creating build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads
+copying alembic.ini -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads
+creating build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES
+copying THIRD_PARTY_LICENSES/0BSD.txt -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES
+copying THIRD_PARTY_LICENSES/Apache-2.0.txt -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES
+copying THIRD_PARTY_LICENSES/DEPENDENCY-COPYRIGHT.txt -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES
+copying THIRD_PARTY_LICENSES/MPL-2.0.txt -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES
+copying THIRD_PARTY_LICENSES/OFL-1.1.txt -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES
+creating build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/migrations
+copying migrations/env.py -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/migrations
+copying migrations/script.py.mako -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/migrations
+creating build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions
+copying migrations/versions/20261030_project_aliases.py -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions
+copying migrations/versions/20261030_reliability.py -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions
+copying migrations/versions/20261117_candidate_quality.py -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions
+copying migrations/versions/20261124_marketing_fields.py -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions
+copying migrations/versions/4f162dbfa398_initial_schema.py -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions
+copying migrations/versions/bbad41c2a094_opportunities_inbox_reminders.py -> build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions
+running install_egg_info
+Copying src/jxd_leads.egg-info to build/bdist.macosx-11.0-arm64/wheel/./jxd_leads-0.5.0-py3.12.egg-info
+running install_scripts
+creating build/bdist.macosx-11.0-arm64/wheel/jxd_leads-0.5.0.dist-info/WHEEL
+creating '/Users/dkai2024163.com/.codex/worktrees/ab3e/jingxiaodian-leads-v05/dist/.tmp-s4f29kyr/jxd_leads-0.5.0-py3-none-any.whl' and adding 'build/bdist.macosx-11.0-arm64/wheel' to it
+adding 'jxd_leads/__init__.py'
+adding 'jxd_leads/backup.py'
+adding 'jxd_leads/cli.py'
+adding 'jxd_leads/dashboard_model.py'
+adding 'jxd_leads/db.py'
+adding 'jxd_leads/desktop.py'
+adding 'jxd_leads/errors.py'
+adding 'jxd_leads/imports.py'
+adding 'jxd_leads/mcp_server.py'
+adding 'jxd_leads/models.py'
+adding 'jxd_leads/qualification.py'
+adding 'jxd_leads/schemas.py'
+adding 'jxd_leads/security.py'
+adding 'jxd_leads/service.py'
+adding 'jxd_leads/sources.py'
+adding 'jxd_leads/web.py'
+adding 'jxd_leads/workflows.py'
+adding 'jxd_leads/workspace_web.py'
+adding 'jxd_leads/static/app.css'
+adding 'jxd_leads/static/app.js'
+adding 'jxd_leads/static/dashboard_v2.css'
+adding 'jxd_leads/static/dashboard_v2.js'
+adding 'jxd_leads/static/htmx.min.js'
+adding 'jxd_leads/static/theme-init.js'
+adding 'jxd_leads/static/theme-light.css'
+adding 'jxd_leads/static/theme.js'
+adding 'jxd_leads/static/dashboard/owner-avatar.png'
+adding 'jxd_leads/static/dashboard/poppins-400.ttf'
+adding 'jxd_leads/static/dashboard/poppins-500.ttf'
+adding 'jxd_leads/static/dashboard/poppins-600.ttf'
+adding 'jxd_leads/static/dashboard/poppins-700.ttf'
+adding 'jxd_leads/templates/base.html'
+adding 'jxd_leads/templates/candidate.html'
+adding 'jxd_leads/templates/candidate_rows.html'
+adding 'jxd_leads/templates/candidates.html'
+adding 'jxd_leads/templates/dashboard.html'
+adding 'jxd_leads/templates/dashboard_v2.html'
+adding 'jxd_leads/templates/error.html'
+adding 'jxd_leads/templates/import.html'
+adding 'jxd_leads/templates/inbox.html'
+adding 'jxd_leads/templates/inquiry.html'
+adding 'jxd_leads/templates/insights.html'
+adding 'jxd_leads/templates/notification_badge.html'
+adding 'jxd_leads/templates/notifications.html'
+adding 'jxd_leads/templates/opportunity.html'
+adding 'jxd_leads/templates/project.html'
+adding 'jxd_leads/templates/projects.html'
+adding 'jxd_leads/templates/qualification_form.html'
+adding 'jxd_leads/templates/quality_metrics.html'
+adding 'jxd_leads/templates/research.html'
+adding 'jxd_leads/templates/reviews.html'
+adding 'jxd_leads/templates/settings.html'
+adding 'jxd_leads/templates/ui.html'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/alembic.ini'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES/0BSD.txt'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES/Apache-2.0.txt'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES/DEPENDENCY-COPYRIGHT.txt'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES/MPL-2.0.txt'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES/OFL-1.1.txt'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/env.py'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/script.py.mako'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions/20261030_project_aliases.py'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions/20261030_reliability.py'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions/20261117_candidate_quality.py'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions/20261124_marketing_fields.py'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions/4f162dbfa398_initial_schema.py'
+adding 'jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions/bbad41c2a094_opportunities_inbox_reminders.py'
+adding 'jxd_leads-0.5.0.dist-info/licenses/LICENSE'
+adding 'jxd_leads-0.5.0.dist-info/licenses/NOTICE'
+adding 'jxd_leads-0.5.0.dist-info/METADATA'
+adding 'jxd_leads-0.5.0.dist-info/WHEEL'
+adding 'jxd_leads-0.5.0.dist-info/entry_points.txt'
+adding 'jxd_leads-0.5.0.dist-info/top_level.txt'
+adding 'jxd_leads-0.5.0.dist-info/RECORD'
+removing build/bdist.macosx-11.0-arm64/wheel
+Successfully built jxd_leads-0.5.0.tar.gz and jxd_leads-0.5.0-py3-none-any.whl
+
+[unzip.txt]
+Archive:  dist/jxd_leads-0.5.0-py3-none-any.whl
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+      107  11-25-2026 08:44   jxd_leads/__init__.py
+    12613  11-25-2026 08:44   jxd_leads/backup.py
+     3091  11-25-2026 08:44   jxd_leads/cli.py
+    19728  11-25-2026 08:44   jxd_leads/dashboard_model.py
+    13914  11-25-2026 08:44   jxd_leads/db.py
+     3942  11-25-2026 08:44   jxd_leads/desktop.py
+      596  11-25-2026 08:44   jxd_leads/errors.py
+     2923  11-25-2026 08:44   jxd_leads/imports.py
+     9864  11-25-2026 08:44   jxd_leads/mcp_server.py
+    12202  11-25-2026 08:44   jxd_leads/models.py
+      800  11-25-2026 08:44   jxd_leads/qualification.py
+     7746  11-25-2026 08:44   jxd_leads/schemas.py
+     8887  11-25-2026 08:44   jxd_leads/security.py
+    57147  11-25-2026 08:44   jxd_leads/service.py
+      545  11-25-2026 08:44   jxd_leads/sources.py
+    29357  11-25-2026 08:44   jxd_leads/web.py
+    93124  11-25-2026 08:44   jxd_leads/workflows.py
+    10102  11-25-2026 08:44   jxd_leads/workspace_web.py
+    14191  11-25-2026 08:44   jxd_leads/static/app.css
+     1579  11-25-2026 08:44   jxd_leads/static/app.js
+   978571  11-25-2026 08:44   jxd_leads/static/dashboard_v2.css
+    16605  11-25-2026 08:44   jxd_leads/static/dashboard_v2.js
+    51250  11-25-2026 08:44   jxd_leads/static/htmx.min.js
+      252  11-25-2026 08:44   jxd_leads/static/theme-init.js
+    18296  11-25-2026 08:44   jxd_leads/static/theme-light.css
+     2556  11-25-2026 08:44   jxd_leads/static/theme.js
+   103114  11-25-2026 08:44   jxd_leads/static/dashboard/owner-avatar.png
+   154628  11-25-2026 08:44   jxd_leads/static/dashboard/poppins-400.ttf
+   152860  11-25-2026 08:44   jxd_leads/static/dashboard/poppins-500.ttf
+   151516  11-25-2026 08:44   jxd_leads/static/dashboard/poppins-600.ttf
+   150292  11-25-2026 08:44   jxd_leads/static/dashboard/poppins-700.ttf
+     2068  11-25-2026 08:44   jxd_leads/templates/base.html
+    11614  11-25-2026 08:44   jxd_leads/templates/candidate.html
+     4564  11-25-2026 08:44   jxd_leads/templates/candidate_rows.html
+     3079  11-25-2026 08:44   jxd_leads/templates/candidates.html
+     5973  11-25-2026 08:44   jxd_leads/templates/dashboard.html
+    46566  11-25-2026 08:44   jxd_leads/templates/dashboard_v2.html
+      326  11-25-2026 08:44   jxd_leads/templates/error.html
+     1782  11-25-2026 08:44   jxd_leads/templates/import.html
+     4327  11-25-2026 08:44   jxd_leads/templates/inbox.html
+     6628  11-25-2026 08:44   jxd_leads/templates/inquiry.html
+     2073  11-25-2026 08:44   jxd_leads/templates/insights.html
+       94  11-25-2026 08:44   jxd_leads/templates/notification_badge.html
+     2031  11-25-2026 08:44   jxd_leads/templates/notifications.html
+     9769  11-25-2026 08:44   jxd_leads/templates/opportunity.html
+     6490  11-25-2026 08:44   jxd_leads/templates/project.html
+     1649  11-25-2026 08:44   jxd_leads/templates/projects.html
+     1761  11-25-2026 08:44   jxd_leads/templates/qualification_form.html
+     1150  11-25-2026 08:44   jxd_leads/templates/quality_metrics.html
+     2327  11-25-2026 08:44   jxd_leads/templates/research.html
+     5457  11-25-2026 08:44   jxd_leads/templates/reviews.html
+     4860  11-25-2026 08:44   jxd_leads/templates/settings.html
+      656  11-25-2026 08:44   jxd_leads/templates/ui.html
+       80  11-25-2026 08:44   jxd_leads-0.5.0.data/data/share/jxd-leads/alembic.ini
+      642  11-25-2026 09:29   jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES/0BSD.txt
+    11358  11-25-2026 09:29   jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES/Apache-2.0.txt
+     2299  11-25-2026 09:29   jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES/DEPENDENCY-COPYRIGHT.txt
+    16726  11-25-2026 09:29   jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES/MPL-2.0.txt
+     4385  11-25-2026 09:29   jxd_leads-0.5.0.data/data/share/jxd-leads/THIRD_PARTY_LICENSES/OFL-1.1.txt
+      479  11-25-2026 08:44   jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/env.py
+      353  11-25-2026 08:44   jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/script.py.mako
+      737  11-25-2026 08:44   jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions/20261030_project_aliases.py
+     1487  11-25-2026 08:44   jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions/20261030_reliability.py
+     1960  11-25-2026 08:44   jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions/20261117_candidate_quality.py
+     2659  11-25-2026 08:44   jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions/20261124_marketing_fields.py
+     8899  11-25-2026 08:44   jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions/4f162dbfa398_initial_schema.py
+    15225  11-25-2026 08:44   jxd_leads-0.5.0.data/data/share/jxd-leads/migrations/versions/bbad41c2a094_opportunities_inbox_reminders.py
+    11352  11-25-2026 09:29   jxd_leads-0.5.0.dist-info/licenses/LICENSE
+     6682  11-25-2026 09:29   jxd_leads-0.5.0.dist-info/licenses/NOTICE
+      920  11-25-2026 09:29   jxd_leads-0.5.0.dist-info/METADATA
+       91  11-25-2026 09:29   jxd_leads-0.5.0.dist-info/WHEEL
+       49  11-25-2026 09:29   jxd_leads-0.5.0.dist-info/entry_points.txt
+       10  11-25-2026 09:29   jxd_leads-0.5.0.dist-info/top_level.txt
+     7112  11-25-2026 09:29   jxd_leads-0.5.0.dist-info/RECORD
+---------                     -------
+  2301147                     74 files
+
+[wheel-check.txt]
+satoshi_woff2_paths []
+css_satoshi_mentions 0
+embedded_font_blocks 4 font_data_uris 4
+Poppins 400 sha256 cdedb1729acac414ed01744a11da7badb86adf13108e7bd3fa161b9323f7fe54
+Poppins 500 sha256 fcff04f4bec2b3636f05ed894dc1f9a752c4cb587ee49857ec7a82abaf6ca016
+Poppins 600 sha256 dae40ca7b35fe7501bda2e4140a6860b1db47330be5d3c8ab6971fd83a70e9a5
+Poppins 700 sha256 1984efdda0fbe207d7ac20feac2ba7c2768c92a90094b02a206c9d58cc30ff2e
+jxd_leads/static/dashboard/owner-avatar.png 103114
+jxd_leads-0.5.0.dist-info/licenses/LICENSE 11352
+jxd_leads-0.5.0.dist-info/licenses/NOTICE 6682
+License-Expression Apache-2.0
+wheel_sha256 79869b2dc312bf0861186d1de44cc1ef3efa06fed50f00f61afc06e3d65a9964
+
+[pytest.txt]
+........................................................................ [ 28%]
+........................................................................ [ 56%]
+........................................................................ [ 85%]
+.....................................                                    [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/dkai2024163.com/.codex/worktrees/ab3e/jingxiaodian-leads-v05/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+253 passed, 1 warning in 28.18s

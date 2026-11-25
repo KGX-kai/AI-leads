@@ -1,0 +1,6 @@
+ok
+candidates=0
+projects=0
+audit=0
+migration_head=20261124_marketing_fields
+/Users/dkai2024163.com/ai/archive/jingxiaodian-leads-p1-20261125/pre-p1-cutover-final.db: OK

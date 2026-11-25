@@ -1,0 +1,91 @@
+任务：ENG-20261124-01 · wheel 与源码外独立安装
+日期：2026-11-24（Asia/Shanghai）
+结论：最新 wheel 内容、独立安装、空库迁移和 ASGI 路由验收通过。
+
+一、构建
+
+构建源码来自实施提交 24c70f9 的完整工作树，排除 .git、缓存和旧 dist。
+
+命令要点：
+/tmp/jxd-wheel-verify.ecTRN0/build-venv/bin/python -m pip wheel \
+  --no-build-isolation --no-deps \
+  --wheel-dir /tmp/jxd-dashboard-final.DvQinb/dist \
+  /tmp/jxd-dashboard-final.DvQinb/source
+
+产物：
+dist/jxd_leads-0.4.0-py3-none-any.whl
+size=1125653
+sha256=f7e0f5606b129290b9bb1f1f76335773297a6ba2660759042b70d6a3a6ca4b2e
+
+wheel CRC 检查：
+No errors detected in compressed data.
+
+工作树与 wheel 逐文件哈希核对：
+checked=36 missing=0 mismatch=0
+
+其中包含：
+- templates/dashboard_v2.html
+- static/dashboard_v2.css
+- static/dashboard_v2.js
+- 14/14 个 static 资源
+- alembic.ini、迁移 env.py、模板和全部当前迁移版本
+
+二、新运行时
+
+新 venv：
+/tmp/jxd-dashboard-final.DvQinb/runtime-venv
+
+安装命令：
+env -u PYTHONPATH PYTHONNOUSERSITE=1 \
+  runtime-venv/bin/python -m pip install --no-index --no-deps \
+  jxd_leads-0.4.0-py3-none-any.whl
+
+结果：
+Successfully installed jxd-leads-0.4.0
+
+安装包实际加载位置：
+/private/tmp/jxd-dashboard-final.DvQinb/runtime-venv/lib/python3.12/site-packages/jxd_leads/__init__.py
+
+sys.path 中没有 /work/ENG-20261117-01-isolated 或原工程 /src。
+
+依赖复用方式：
+runtime-venv 通过 00-existing-deps.pth 只复用原虚拟环境已安装依赖；应用代码、模板、静态资源和迁移资源均从新 wheel 读取。pip check 返回 No broken requirements found。
+
+三、空库迁移
+
+先运行：
+runtime-venv/bin/jxd-leads migrate \
+  --data-dir /tmp/jxd-dashboard-final.DvQinb/empty-data \
+  --approved-data-dir /tmp/jxd-dashboard-final.DvQinb/empty-data
+
+结果：
+数据库迁移完成，迁移后校验通过
+
+数据库检查：
+expected_head=20261117_candidate_quality
+database_head=20261117_candidate_quality
+integrity_check=ok
+foreign_key_violations=0
+
+四、ASGI 路由
+
+使用：
+- 安装 wheel 中的 Database / Service / create_app；
+- Vault.ephemeral()；
+- 上述临时空库；
+- FastAPI TestClient。
+
+结果：
+/health                   200，version=0.4.0
+/dashboard-v2             200，含 v0.4.0
+/static/dashboard_v2.css  200，1111063 bytes
+/static/dashboard_v2.js   200，16605 bytes
+全部 static 资源          14/14 返回 200，失败项 []
+
+五、未验项
+
+- 未启动真实 TCP 监听，未对临时端口执行 curl；
+- 未调用 Vault.macos()，未读写系统钥匙串；
+- 未启动正式 8765，未使用正式数据目录；
+- 未执行 WorkBuddy 原生客户端联调；
+- 运行时依赖通过 .pth 复用既有 venv，只用于验证应用发行物可脱离源码运行。

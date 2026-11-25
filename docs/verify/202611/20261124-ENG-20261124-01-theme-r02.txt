@@ -1,0 +1,133 @@
+ENG-20261124-01 · SPEC r02 第 11 节深浅色主题验收
+日期：2026-11-24
+分支：feat/dashboard-v0.4.0
+后续：r02 中 CSP 字体错误与浅色三级文字对比度问题已在 r03 修复并复验；
+最终状态以 docs/verify/202611/20261124-ENG-20261124-01-theme-r03.txt 为准。
+验收端口：127.0.0.1:8877
+运行方式：独立临时 SQLite schema + Vault.ephemeral()；未连接、启动或停止 8765
+截图目录：docs/verify/202611/theme-r02/
+
+一、实现核对
+
+1. CSP 与加载顺序
+- /static/theme-init.js 为同步外部脚本，位于样式之前。
+- /static/dashboard_v2.css 后加载 /static/theme-light.css。
+- /static/dashboard_v2.js 后加载 /static/theme.js，两者均有 defer。
+- /dashboard-v2 只有三个外链 script：
+  /static/theme-init.js
+  /static/dashboard_v2.js
+  /static/theme.js
+- HTML 无内联 script 正文；主题初始化未触发 script-src CSP。
+- 三个主题资源均返回 HTTP 200。
+
+2. 失效类名映射
+- lead-table -> .data-table
+- lead-meta -> .lead-copy small、.next-cell small、.updated-cell
+- funnel-meta -> .funnel-row > div small、.funnel-row > em
+- section-title -> .card-header h2
+- 另补齐现有 DOM 中仍使用 color: #fff 的覆盖：
+  .funnel-row > strong、.project-card h3、.opp-card h4、
+  .agenda-copy strong、.quality-row strong。
+- 浅色模式下九个业务视图的计算文本颜色无纯白文本。
+- 新增机会风险标记使用浅色 var(--orange-light)，截止提示为 #B8430F；
+  浅色逾期时间使用 var(--danger)，实测为 #B3362A。
+
+3. color-scheme
+- theme-light.css 的 :root[data-theme="light"] 计算值为 color-scheme: light。
+- 40 个截图状态中，浅色 20 个状态均为 light；无失败。
+
+二、单元与静态检查
+
+1. 看板测试
+- 命令：
+  PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 \
+  /Users/dkai2024163.com/ai/product/jingxiaodian-leads/.venv/bin/python \
+  -m pytest -q -p no:cacheprovider tests/test_dashboard.py
+- 直接执行结果：15 errors，均在 tests/conftest.py 的 db.migrate() 前置阶段失败。
+  当前并行迁移被执行后，_check_unfinished_initialization 报：
+  RuntimeError: 初始化中断后已有新增数据，请人工核对，禁止自动清理
+  该错误尚未进入任何看板或主题断言。
+- 隔离诊断：测试进程内仅将 Database.migrate 替换为 Base.metadata.create_all，
+  不修改仓库文件，执行同一 tests/test_dashboard.py：
+  15 passed, 1 warning in 1.03s
+  唯一 warning 为第三方 StarletteDeprecationWarning。
+- HTTP 资源核对：
+  /static/theme-light.css 200 text/css; charset=utf-8
+  /static/theme.js 200 text/javascript; charset=utf-8
+  /static/theme-init.js 200 text/javascript; charset=utf-8
+  /dashboard-v2 200；无 "<script>"；五个资源位置顺序正确。
+
+2. Lint 与语法
+- ruff check --no-cache tests/test_dashboard.py：All checks passed!
+- node --check src/jxd_leads/static/theme.js：通过
+- node --check src/jxd_leads/static/theme-init.js：通过
+- git diff --check：通过
+
+三、浏览器视觉验收
+
+矩阵：10 个视图 × 1440/390 × dark/light，共 40 张。
+视图包括：overview、leads、detail、projects、opportunities、schedule、
+analytics、reports、settings、overlay。
+当前模板没有单独的“设计基线”业务 view，因此以现有“渠道分析”作为第十个
+业务/覆盖层组合中的业务页；overlay 单独覆盖命令面板。
+
+| 视图 | 1440 dark/light | 390 dark/light | 结论 |
+|---|---|---|---|
+| overview | overview-1440-dark/light.png | overview-390-dark/light.png | 通过；关键文本对比度最低 13.52 |
+| leads | leads-1440-dark/light.png | leads-390-dark/light.png | 无白字/溢出；浅色三级文字 3.94–4.18 |
+| detail | detail-1440-dark/light.png | detail-390-dark/light.png | 无白字/溢出；浅色 dt 为 4.18 |
+| projects | projects-1440-dark/light.png | projects-390-dark/light.png | 通过；关键文本最低 7.52 |
+| opportunities | opportunities-1440-dark/light.png | opportunities-390-dark/light.png | 截止标记可见且对比度合规；浅色 place 为 4.15 |
+| schedule | schedule-1440-dark/light.png | schedule-390-dark/light.png | 浅色逾期色已修正为 6.04；三级文字为 4.18 |
+| analytics | analytics-1440-dark/light.png | analytics-390-dark/light.png | 渠道表四组均 9 行；无页面级溢出；移动端仅表内 326→360 横滑 |
+| reports | reports-1440-dark/light.png | reports-390-dark/light.png | 无白字/溢出；辅助文字 4.18–4.47 |
+| settings | settings-1440-dark/light.png | settings-390-dark/light.png | 无白字/溢出；浅色 helper 为 4.18 |
+| overlay | overlay-1440-dark/light.png | overlay-390-dark/light.png | 面板/遮罩正确；次级项 4.13–4.23 |
+
+逐项结论：
+- 白底白字：浅色 20 个状态均未检测到可见纯白文本。
+- 横向溢出：40 个状态页面级 overflow 均为 0。
+- 首屏主题：40 个状态 dataset.theme 与预期一致；theme-init 在 CSS 前执行。
+- 刷新保持与跨标签同步：1440/390 × dark/light 四组切换、刷新均保持；
+  双标签 storage 同步通过。
+- 切换按钮：40 个状态均挂载在通知入口之前；aria-pressed 状态随主题更新。
+- reduced motion：全部截图中使用 prefers-reduced-motion: reduce，无运行错误。
+- 移动 dock：八个业务视图滚到底后，footer 均位于 dock 上方，内容未被遮挡。
+- 图表：总览坐标轴与网格在浅色下可读，系列色保持不变。
+- 表单 select option：当前 dashboard-v2 没有原生 select；该项不适用。
+
+四、未通过或未验项
+
+1. 控制台并非 0 错误
+- 48 次页面生命周期共观测到 384 次 font-data-csp，即每页 8 次。
+- 来源是 src/jxd_leads/static/dashboard_v2.js:430 通过 FontFace 加载 data: 字体；
+  当前 CSP 未允许 font-src data:。
+- 该文件不在本轮允许改动范围，主题脚本本身没有新增 CSP 错误。
+- 因此 QA 清单“控制台 0 错误”结论为 FAIL，不能写成视觉验收全通过。
+
+2. 对比度仍有低于 4.5:1 的既有辅助文字
+- 浅色 --text-3: #857A6E 在白色/纸白背景实测约 3.94–4.18:1，
+  涉及表头、详情 dt、列表 meta、报告标签、设置 helper 和命令面板次行。
+- 深色既有辅助文字也有 3.85–4.47:1 的观测值，涉及机会地点、报告标签和命令次行。
+- 这些颜色来自参考主题/现有深色设计令牌；本轮未静默改动令牌。
+
+3. 直接迁移验收
+- 当前并行迁移使 test fixture 无法完成空的正式初始化；
+  本回执仅证明静态 schema 下的看板与主题行为，不证明迁移链可运行。
+
+4. 正式环境
+- 未验收 8765、正式数据目录、系统钥匙串、正式部署或真实业务数据。
+- 未推送、未移动标签、未操作 stash。
+
+五、截图清单
+
+- overview: 1440/390 × dark/light
+- leads: 1440/390 × dark/light
+- detail: 1440/390 × dark/light
+- projects: 1440/390 × dark/light
+- opportunities: 1440/390 × dark/light
+- schedule: 1440/390 × dark/light
+- analytics: 1440/390 × dark/light
+- reports: 1440/390 × dark/light
+- settings: 1440/390 × dark/light
+- overlay: 1440/390 × dark/light

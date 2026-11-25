@@ -1,0 +1,25 @@
+任务: 0.4.0 上线阻塞项修复（SPEC-20261123）+ 迁移前备份兼容旧 head（2026-11-24）
+commit: 9a8942b
+工作树: 干净
+-------------------------------------------------------------
+命令: PYTHONPATH=src <正式工程>/.venv/bin/python -m pytest -q
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+215 passed, 1 warning in 21.59s
+EXIT=0
+-------------------------------------------------------------
+命令: <正式工程>/.venv/bin/python -m ruff check --no-cache src tests scripts
+All checks passed!
+EXIT=0
+-------------------------------------------------------------
+命令: python3 <gate>/scripts/preflight.py .
+结果：FAIL 0 · WARN 5 → 可以开工
+EXIT=0
+-------------------------------------------------------------
+本次提交 9a8942b（4 files changed, 195 insertions(+), 21 deletions(-)）:
+ src/jxd_leads/backup.py     |  40 +++++++----
+ src/jxd_leads/cli.py        |   8 ++-
+ tests/test_data_contract.py |   2 +-
+ tests/test_upgrade.py       | 166 +++++++++++++++++++++++++++++++++++++++++++-
+-------------------------------------------------------------
+行为: 迁移前备份跳过 head 相等性，仍查完整性/外键/必需表/密钥可解密；
+      migrate 完成后按 head 严格校验；restore 与日常 backup 未放宽。

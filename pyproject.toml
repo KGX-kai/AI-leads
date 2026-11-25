@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jxd-leads"
+version = "0.5.0"
+description = "京小电本地获客与跟进工作台"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+requires-python = ">=3.12,<3.13"
+dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1", "sqlalchemy>=2.0,<3", "alembic>=1.14,<2", "jinja2>=3.1.6,<4", "python-multipart>=0.0.20,<1", "itsdangerous>=2.2,<3", "cryptography>=44", "keyring>=25,<26", "mcp>=1.12,<2", "openpyxl>=3.1.5,<4", "defusedxml>=0.7,<1", "filelock>=3.18,<5"]
+
+[project.optional-dependencies]
+dev = ["pytest>=9.0.3,<10", "httpx>=0.28,<1", "pytest-asyncio>=0.25,<2", "ruff>=0.11", "pip-audit>=2.9"]
+
+[project.scripts]
+jxd-leads = "jxd_leads.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.setuptools.package-data]
+jxd_leads = ["templates/*.html", "static/*", "static/dashboard/*"]
+
+[tool.setuptools.data-files]
+"share/jxd-leads" = ["alembic.ini"]
+"share/jxd-leads/THIRD_PARTY_LICENSES" = ["THIRD_PARTY_LICENSES/*.txt"]
+"share/jxd-leads/migrations" = ["migrations/*.py", "migrations/*.mako"]
+"share/jxd-leads/migrations/versions" = ["migrations/versions/*.py"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"

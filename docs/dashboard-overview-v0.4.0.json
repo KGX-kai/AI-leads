@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "version": "0.4.0",
+    "dataWindow": "2026-11-18/2026-11-24",
+    "generatedAt": "2026-11-24T10:00:00+08:00",
+    "example": true
+  },
+  "overview": {
+    "window": {
+      "from": "2026-11-18",
+      "to": "2026-11-24",
+      "compare": "prev7d"
+    },
+    "kpis": [
+      {
+        "id": "pending",
+        "label": "待核实线索",
+        "value": 0,
+        "unit": "leads",
+        "scope": "当前",
+        "delta": null,
+        "deltaBasis": "较上一个 7 天",
+        "foot": "先看来源与证据",
+        "tone": "orange"
+      },
+      {
+        "id": "projects",
+        "label": "客户项目",
+        "value": 0,
+        "unit": "projects",
+        "scope": "当前",
+        "delta": null,
+        "deltaBasis": "较上一个 7 天",
+        "foot": "按采购需求推进",
+        "tone": "green"
+      },
+      {
+        "id": "communications",
+        "label": "有效沟通",
+        "value": 0,
+        "unit": "conversations",
+        "scope": "累计",
+        "delta": null,
+        "deltaBasis": "较上一个 7 天",
+        "foot": "记录真实反馈",
+        "tone": "blue"
+      },
+      {
+        "id": "opportunities",
+        "label": "采购机会",
+        "value": 0,
+        "unit": "opportunities",
+        "scope": "当前",
+        "delta": null,
+        "deltaBasis": "较上一个 7 天",
+        "foot": "查看采购阶段",
+        "tone": "gold"
+      }
+    ],
+    "funnel": [
+      { "stage": "待核实", "count": 0, "rate": 100.0 },
+      { "stage": "已联系", "count": 0, "rate": 0.0 },
+      { "stage": "需求确认", "count": 0, "rate": 0.0 },
+      { "stage": "报价 / 试样", "count": 0, "rate": 0.0 },
+      { "stage": "采购 / 复购", "count": 0, "rate": 0.0 }
+    ],
+    "channels": [
+      { "name": "公开网络", "count": 0, "share": 0.0, "projects": 0 },
+      { "name": "已有关系", "count": 0, "share": 0.0, "projects": 0 },
+      { "name": "抖音", "count": 0, "share": 0.0, "projects": 0 }
+    ],
+    "trend": {
+      "range": "8w",
+      "labels": ["10-06", "10-13", "10-20", "10-27", "11-03", "11-10", "11-17", "11-24"],
+      "series": [
+        { "id": "leads", "label": "新增线索", "values": [0, 0, 0, 0, 0, 0, 0, 0] }
+      ]
+    }
+  }
+}

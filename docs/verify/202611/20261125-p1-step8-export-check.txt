@@ -1,0 +1,13 @@
+csrf_len=43
+audit_before=0
+GET_exports_projects_csv=405
+POST_no_csrf_status=200
+POST_no_csrf_body_marker=会话已失效，请刷新页面重试
+POST_with_csrf_status=200
+content-disposition: attachment; filename="jxd-projects.csv"
+csv_bytes=52
+csv_first_line=﻿项目编号,公司,项目,地区,地址,阶段
+audit_after=1
+
+--- audit rows ---
+owner|export.csv|projects|0 行|2026-11-25T07:26:57.881341+00:00

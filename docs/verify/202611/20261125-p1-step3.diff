@@ -1,0 +1,169 @@
+diff --git a/src/jxd_leads/mcp_server.py b/src/jxd_leads/mcp_server.py
+index 9e50537..5ad0888 100644
+--- a/src/jxd_leads/mcp_server.py
++++ b/src/jxd_leads/mcp_server.py
+@@ -79,10 +79,19 @@ def create_mcp(service):
+ 
+     @mcp.tool()
+     def submit_candidates(
+-        task_id: str, candidates: list[CandidateInput], status: str = "completed", note: str = ""
++        task_id: str,
++        candidates: list[CandidateInput],
++        status: str = "completed",
++        note: str = "",
++        request_id: str = "",
+     ) -> CallToolResult:
+-        """用实际 task_id 提交真实来源候选；source_channel 须取自 get_capabilities 列表，可留空；招标类可填 bid_deadline；候选保持待人工审核。"""
+-        return result(lambda: service.submit_candidates(task_id, candidates, actor="agent", status=status, note=note))
++        """用实际 task_id 提交真实来源候选；source_channel 须取自 get_capabilities 列表，可留空；招标类可填 bid_deadline；候选保持待人工审核。重试须复用 request_id。"""
++        return result(
++            lambda: service.submit_candidates(
++                task_id, candidates, actor="agent", status=status, note=note, request_id=request_id
++            ),
++            request_id or None,
++        )
+ 
+     @mcp.tool()
+     def get_project_context(project_id: str) -> CallToolResult:
+diff --git a/src/jxd_leads/service.py b/src/jxd_leads/service.py
+index 1af4226..d001429 100644
+--- a/src/jxd_leads/service.py
++++ b/src/jxd_leads/service.py
+@@ -147,11 +147,17 @@ class Service(WorkflowService):
+     def _audit(self, s, actor, action, identifier, detail=""):
+         s.add(Audit(actor=actor, action=action, entity_id=identifier, detail=redact(detail)))
+ 
+-    def _allowed(self, s, project):
++    def record_export(self, kind, rows, actor="owner"):
++        with self.db.session() as s:
++            self._audit(s, actor, "export.csv", kind, f"{rows} 行")
++
++    def _allowed(self, s, project, allow_blocked_contact=False):
+         if project.merged_into_id:
+             raise BusinessError("项目已合并，请使用目标项目", "VERSION_CONFLICT")
+         if project.stage == "停止联系":
+             raise BusinessError("该项目已停止联系，不能新增触达建议或任务", "SUPPRESSED")
++        if allow_blocked_contact:
++            return
+         blocked = s.scalar(
+             select(Contact.id)
+             .join(ProjectContact, Contact.id == ProjectContact.contact_id)
+@@ -209,18 +215,44 @@ class Service(WorkflowService):
+             )
+             return data
+ 
+-    def submit_candidates(self, research_id, items: list[CandidateInput], actor="agent", status="completed", note=""):
++    def submit_candidates(
++        self, research_id, items: list[CandidateInput], actor="agent", status="completed", note="", request_id=""
++    ):
++        if not request_id:
++            return self._submit_candidates(research_id, items, actor=actor, status=status, note=note)
++        payload = {
++            "research_id": research_id,
++            "items": [item.model_dump(mode="json") for item in items],
++            "status": status,
++            "note": note,
++        }
++        return self.execute_once(
++            actor,
++            "candidate.submit_batch",
++            request_id,
++            payload,
++            lambda: self._submit_candidates(research_id, items, actor=actor, status=status, note=note),
++        )
++
++    def _submit_candidates(
++        self, research_id, items: list[CandidateInput], actor="agent", status="completed", note=""
++    ):
+         if status not in {"completed", "partial", "failed"}:
+             raise BusinessError("检索状态不正确")
+         if len(items) > 100:
+             raise BusinessError("每批最多100条")
+         output = {"created": 0, "duplicates": 0, "items": []}
++        cutoff = datetime.now(TZ).date() - timedelta(days=6)
++        stale_notices = 0
+         with self.db.session() as s:
+             research = self._get(s, Research, research_id) if research_id else None
+             for data in items:
++                if data.source_type == "公开招标公告" and data.published_at and data.published_at < cutoff:
++                    stale_notices += 1
++                    continue
+                 if not data.source_url and data.source_type != "已有关系":
+                     raise BusinessError("网络或抖音候选必须提供来源链接")
+-                if data.org_phone and (data.source_type != "公开网络" or not data.source_url):
++                if data.org_phone and (data.source_type not in {"公开网络", "公开招标公告"} or not data.source_url):
+                     raise BusinessError("单位电话只收录带公开来源链接的机构号码")
+                 self.check_channel(data.source_channel)
+                 if data.bid_deadline and data.published_at and data.bid_deadline < data.published_at:
+@@ -275,6 +307,9 @@ class Service(WorkflowService):
+                 output["created"] += 1
+                 output["items"].append(record(obj))
+                 self._audit(s, actor, "candidate.submit", obj.id)
++            if stale_notices:
++                note = f"跳过 {stale_notices} 条公开招标公告：发布日期超过六日窗口。\n{note}".rstrip()
++                output["note"] = redact(note[:2000])
+             if research:
+                 research.status = status
+                 research.note = redact(note[:2000])
+@@ -550,7 +585,8 @@ class Service(WorkflowService):
+ 
+     def add_contact(self, pid, data: ContactInput):
+         with self.db.session() as s:
+-            self._get(s, Project, pid)
++            p = self._get(s, Project, pid)
++            self._allowed(s, p, allow_blocked_contact=True)
+             key = self.vault.fingerprint(data.channel)
+             c = s.scalar(select(Contact).where(Contact.fingerprint == key))
+             if not c:
+@@ -749,13 +785,32 @@ class Service(WorkflowService):
+             self._audit(s, "owner", "offer.create", obj.id)
+             return record(obj)
+ 
+-    def update_offer(self, identifier, status, feedback):
++    def update_offer(self, identifier, status, feedback, expected_version=None):
+         if status not in {"待确认", "已确认", "已寄样", "已收到", "已反馈", "已采购", "未接受"}:
+             raise BusinessError("状态不正确")
+         with self.db.session() as s:
+             o = self._get(s, Offer, identifier)
++            p = self._get(s, Project, o.project_id)
++            self._allowed(s, p)
++            opportunity = self._get(s, Opportunity, o.opportunity_id) if o.opportunity_id else None
++            if expected_version is not None and opportunity and opportunity.version != int(expected_version):
++                raise BusinessError("采购机会已更新，请刷新后核对", "VERSION_CONFLICT")
+             o.status = status
+             o.feedback = redact(feedback[:2000])
++            if status in {"已采购", "未接受"}:
++                linked = s.scalars(
++                    select(Todo).where(
++                        Todo.project_id == o.project_id,
++                        Todo.opportunity_id == o.opportunity_id,
++                        Todo.status == "open",
++                        Todo.action == f"{o.kind}回访：{o.product}",
++                    )
++                )
++                for todo in linked:
++                    todo.status = "cancelled"
++            if opportunity:
++                opportunity.version += 1
++            p.version += 1
+             self._audit(s, "owner", "offer.update", o.id)
+ 
+     def overview(self):
+@@ -775,7 +830,7 @@ class Service(WorkflowService):
+             ]
+             seen = s.get(Setting, "mcp_last_seen")
+             sources = []
+-            for source in ["公开网络", "抖音", "已有关系"]:
++            for source in ["公开网络", "抖音", "已有关系", "公开招标公告"]:
+                 project_ids = (
+                     select(Candidate.project_id)
+                     .where(Candidate.source_type == source, Candidate.project_id.is_not(None))
+@@ -924,7 +979,7 @@ class Service(WorkflowService):
+             )
+ 
+             source_rows = []
+-            for source in ["公开网络", "已有关系", "抖音"]:
++            for source in ["公开网络", "已有关系", "抖音", "公开招标公告"]:
+                 source_total = count(Candidate, Candidate.source_type == source)
+                 project_ids = select(Candidate.project_id).where(
+                     Candidate.source_type == source, Candidate.project_id.is_not(None)

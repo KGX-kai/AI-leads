@@ -1,0 +1,9 @@
+第三步 A · 旧口径最终 grep · 2026-11-25
+范围：README.md、docs/INTERNAL-scene-taxonomy.md、docs/workbuddy-v1.2.md、hub/AGENTS.md、hub/operations.md
+排除：docs/verify/、docs/review/、docs/plan/ 历史证据
+
+命令：
+rg -n "成都及周边物业直采|物业、停车场照明|物业.*测试场景|停车场.*测试场景|不是正式默认范围|测试场景，不作正式默认范围" README.md docs/INTERNAL-scene-taxonomy.md docs/workbuddy-v1.2.md /Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/AGENTS.md /Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/operations.md
+
+结果：无输出，exit=1（未命中）。
+判定：现行文档中旧“物业/停车场为测试场景、非默认范围”表述已清除。

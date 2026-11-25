@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "name": "JXD Growth Dashboard Theme",
+    "version": "0.4.1-theme",
+    "base": "0.4.0",
+    "date": "2026-11-24",
+    "mode_default": "dark",
+    "available_modes": ["dark", "light"]
+  },
+  "switch": {
+    "attribute": "data-theme",
+    "storage_key": "jxd-theme",
+    "default": "dark",
+    "toggle_location": "topbar-right, before notifications",
+    "labels": {
+      "light": "切换到浅色主题",
+      "dark": "切换到深色主题"
+    }
+  },
+  "color": {
+    "bg": { "dark": "#1A1A1A", "light": "#F4F1EC" },
+    "main": { "dark": "#2D2D2D", "light": "#FFFFFF" },
+    "nav": { "dark": "rgba(45, 45, 45, 0.8)", "light": "rgba(255, 255, 255, 0.86)" },
+    "sidebar": { "dark": "rgba(45, 45, 45, 0.6)", "light": "rgba(255, 255, 255, 0.70)" },
+    "glass_1": { "dark": "rgba(255, 255, 255, 0.075)", "light": "rgba(255, 255, 255, 0.82)" },
+    "glass_2": { "dark": "rgba(255, 255, 255, 0.06)", "light": "rgba(255, 255, 255, 0.66)" },
+    "glass_3": { "dark": "rgba(255, 255, 255, 0.04)", "light": "rgba(255, 255, 255, 0.48)" },
+    "border_soft": { "dark": "rgba(255, 255, 255, 0.07)", "light": "rgba(28, 24, 20, 0.07)" },
+    "border": { "dark": "rgba(255, 255, 255, 0.10)", "light": "rgba(28, 24, 20, 0.11)" },
+    "border_bright": { "dark": "rgba(255, 255, 255, 0.30)", "light": "rgba(28, 24, 20, 0.22)" },
+    "border_glint": { "dark": "rgba(255, 255, 255, 0.40)", "light": "rgba(28, 24, 20, 0.30)" },
+    "text": { "dark": "#FFFFFF", "light": "#1B1712" },
+    "text_2": { "dark": "#CCCCCC", "light": "#4B443C" },
+    "text_3": { "dark": "#999999", "light": "#857A6E" },
+    "orange": { "dark": "#FF6B35", "light": "#E2571F" },
+    "orange_light": { "dark": "#FFB347", "light": "#B8430F" },
+    "orange_pale": { "dark": "rgba(255, 107, 53, 0.15)", "light": "rgba(226, 87, 31, 0.12)" },
+    "orange_glow": { "dark": "rgba(255, 107, 53, 0.30)", "light": "rgba(226, 87, 31, 0.25)" },
+    "gold": { "dark": "#FFD700", "light": "#C08A00" },
+    "gold_light": { "dark": "#FFC300", "light": "#96690A" },
+    "gold_pale": { "dark": "rgba(255, 215, 0, 0.15)", "light": "rgba(192, 138, 0, 0.16)" },
+    "success": { "dark": "#4CAF50", "light": "#2E7D46" },
+    "warning": { "dark": "#FFC107", "light": "#A96A12" },
+    "danger": { "dark": "#F44336", "light": "#B3362A" },
+    "info": { "dark": "#2196F3", "light": "#1A6CA8" },
+    "pink": { "dark": "#FF6B9D", "light": "#B44372" }
+  },
+  "material": {
+    "blur": { "hero": "22px", "card": "22px", "kpi": "20px", "nav": "24px", "overlay": "26px" },
+    "saturate": "120%",
+    "shadow": {
+      "dark": {
+        "card": "0 24px 60px rgba(0,0,0,0.33)",
+        "hero": "0 24px 60px rgba(0,0,0,0.30)",
+        "overlay": "-24px 0 70px rgba(0,0,0,0.45)"
+      },
+      "light": {
+        "card": "0 8px 28px rgba(72,54,34,0.10)",
+        "hero": "0 16px 44px rgba(72,54,34,0.12)",
+        "overlay": "-24px 0 70px rgba(72,54,34,0.22)"
+      }
+    },
+    "radius": { "small": "8px", "medium": "12px", "card": "16px", "hero": "20px", "shell": "24px" }
+  },
+  "rules": {
+    "no_pure_inversion": true,
+    "keep_photography": true,
+    "charts_follow_tokens": true,
+    "status_color_not_sole_signal": true,
+    "min_body_contrast": "4.5:1",
+    "min_large_text_contrast": "3:1"
+  }
+}

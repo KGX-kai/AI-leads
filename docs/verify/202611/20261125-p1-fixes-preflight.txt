@@ -1,0 +1,41 @@
+第三步 B · preflight.py . · exit 1 · d086ec00d30617a5ebcf9e6ba4028e3e69033b1c
+
+事实
+工作分支：p1-fixes-20261125，从 feat/dashboard-v0.4.0 的当前 HEAD 创建。
+切分支前的 git status 已列出 2 个已修改文档、4 个未跟踪文档、native/ 和 scripts/build-notifications.py。
+命令：.venv/bin/python /Users/dkai2024163.com/.codex/skills/project-planning-gate/scripts/preflight.py .
+门禁版本：preflight 4.0.0
+关键输出：
+[FAIL] 1 基线 · 8 个文件未提交（例：docs/workbuddy-v1.2.md, docs/京小电获客工作台-Codex与WorkBuddy协作操作手册-r03.md, README.md）；提交或 stash，临时放行用 --allow-dirty
+[WARN] 2 视觉基线 · 1 个并存版本模板（需在 SPEC 写替换或删除 deadline）：src/jxd_leads/templates/dashboard_v2.html
+[WARN] 3 版本 · 源码手写版本 1 处：src/jxd_leads/web.py:0.5.0
+结果：FAIL 1 · WARN 2 → 不能开工
+
+判断与停止点
+这次失败发生在开工基线检查。八个既有变更应先由用户决定如何纳入基线。
+按失败即停约束，本次只创建分支并记录门禁输出。第 1–9 步均未执行，未改实现代码，未使用 rm，未访问钥匙串、正式数据库或 8765，未生成新快照。
+
+第 0 步复验 · 2026-11-25
+提交：5683098abd06f26623ada7d3de595ce7dc6298ed
+提交信息：docs(scope): land r01/r02 taxonomy and preflight receipt
+提交后 git status --short 输出：
+?? native/
+?? scripts/build-notifications.py
+
+第 9 步取回凭据：
+stash 名称：native-notify-and-build-script-for-step9
+stash 对象：40cd4194301162cd49fb1bba1f5f0e7d2b5d1459
+git ls-tree -r --name-only 'stash@{0}^3' 输出：
+native/notifications/main.swift
+scripts/build-notifications.py
+评估时按对象哈希核对并 apply，保留 stash 至验收。原有其他 stash 保留。
+
+stash 后 git status --porcelain=v1 输出为空。
+命令：.venv/bin/python /Users/dkai2024163.com/.codex/skills/project-planning-gate/scripts/preflight.py .
+退出码：0。关键输出：
+[INFO] 1 基线 · 工作树干净
+[INFO] 2 范围/规划 · 本次 SPEC：docs/plan/SPEC-20261124-dashboard-v0.4.0.md
+[WARN] 2 视觉基线 · 1 个并存版本模板（需在 SPEC 写替换或删除 deadline）：src/jxd_leads/templates/dashboard_v2.html
+[WARN] 3 版本 · 源码手写版本 1 处：src/jxd_leads/web.py:0.5.0
+结果：FAIL 0 · WARN 2 → 可以开工（WARN 需自行判断）
+复验在追加本段、起草 P1 专用 SPEC 之前运行。第 9 步按授权修复版本来源。

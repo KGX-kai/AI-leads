@@ -1,0 +1,46 @@
+--- old scope hits ---
+NO_OLD_SCOPE_HITS
+--- new scope tokens ---
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/README.md:11:正式地区主要范围为四川、西南地区、西北地区，按三级记录：省级（四川）、大区级（西南/西北）、执行级（本人逐次指定具体省市）。`region` 仍是单字符串，写“省+市”，大区写任务说明。正式场景按采购组织方式分 5 类：
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/README.md:15:| 公共建筑 | 学校、医院 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/README.md:16:| 商业地产 | 酒店、商业综合体、大型商超 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/README.md:17:| 居住社区 | 中大型物业小区 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/README.md:18:| 工业与连锁 | 工厂、车间、仓库、连锁商超/药店 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/README.md:19:| 市政与公共空间 | 市政路灯、地下停车场、地铁站、机场 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/README.md:21:`scene` 写一级分类，可带子场景后缀（如 `商业地产-大型商超`）；`tags` 写采购触发类型：新建扩建、存量改造、连锁展店、政策驱动、更换周期，可加子场景标记。不改表结构、不新增枚举。地区+场景仍须本人逐次明确；六日窗口只对公开招标公告类生效。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:9:- 正式地区：主要范围为四川、西南地区、西北地区。按三级结构记录，不压成单一字符串：
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:10:  - 省级：四川
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:11:  - 大区级：西南、西北
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:12:  - 执行级：由本人逐次明确到具体省市（如“四川成都”“陕西西安”），不设固定默认省市
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:14:- `scene`：自由文本，写一级分类，可带子场景后缀（如 `商业地产-大型商超`）。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:25:| ① | 公共建筑 | 学校、医院 | 事业单位、公共机构 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:26:| ② | 商业地产 | 酒店、商业综合体、大型商超 | 业主方、运营方、资产管理方 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:27:| ③ | 居住社区 | 中大型物业小区 | 物业公司、业委会、社区管理方 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:28:| ④ | 工业与连锁 | 工厂、车间、仓库、连锁商超/药店 | 工厂业主、连锁总部、区域运营方、物流仓储方 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:29:| ⑤ | 市政与公共空间 | 市政路灯、地下停车场、地铁站、机场 | 市政单位、城投、公共设施管理方、交通枢纽建设运营方 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:33:二级场景（r02 新增）：`scene` 写“一级分类-子场景”，如 `商业地产-大型商超`、`工业与连锁-车间/仓库`、`市政与公共空间-地铁站/机场`。子场景是描述，不是新枚举；一级分类仍为 5 类。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:41:| 大型商超 | 商业地产 | 单店体量大、独立大卖场或购物中心主力店；业主/运营方主导 | 项目制改造、整体照明更新 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:42:| 车间、仓库 | 工业与连锁 | 生产车间、物流仓库、配送中心；工厂或仓储业主主导 | 新建扩建或存量改造，按厂房/库区整体招标 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:43:| 地铁站、机场 | 市政与公共空间 | 交通枢纽，政府或国企项目制；与市政路灯同为招投标采购 | 招投标为主，周期长、资质门槛高 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:45:易混边界：`大型商超`（商业地产）指单体卖场空间；`连锁商超/药店`（工业与连锁）指连锁品牌的多门店网络与总部统一采购。前者按物业空间立项，后者按连锁展店或区域运营立项。两者不得混用同一 `scene` 写法；判断不了就在任务说明写明依据并请本人确认。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:51:| 研究任务 | `research.scene` | 一级分类，可带子场景 | `create_research_task` 的 `scene`，如 `商业地产-大型商超`；细分业态写任务说明 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:52:| 研究任务 | `research.region` | 省+市 | 如 `四川成都`；所属大区（西南/西北）写任务说明，不塞进 `region` |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:78:- `region` 至少写到省市，如 `四川成都`、`陕西西安`；主要范围是四川、西南、西北，只写大区或“中国”不足以执行，除非本人明确要求该范围并接受数量限制。三级结构（省级/大区级/执行级）记在本文件和任务说明，`region` 保持单字符串。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:79:- `scene` 写 5 个一级分类之一，可带子场景后缀（如 `工业与连锁-车间/仓库`）；细分业态写任务说明、候选项目名和匹配理由。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:87:- 旧版“正式地区为中国”的单一表述已废止；r02 起按省级（四川）、大区级（西南、西北）、执行级（逐次指定省市）三级结构记录，执行时仍要求具体省市。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:88:- 旧版把物业服务与停车场照明整体排除在正式获客范围之外的判断已废止。现在“中大型物业小区”归入居住社区，“地下停车场”归入市政与公共空间；两者仍须本人在每次任务中明确地区和细分业态，不是默认范围。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/INTERNAL-scene-taxonomy.md:95:- 版本记录：r01 2026-11-25 建五类场景与 `scene`/`tags` 落库方式；r02 2026-11-25 增补地区三级结构、3 个子场景（大型商超、车间/仓库、地铁站/机场）和标签自动创建说明。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/operations.md:14:正式地区主要范围为四川、西南地区、西北地区，按三级记录：
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/operations.md:18:| 省级 | 四川 | 本表与口径文件 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/operations.md:19:| 大区级 | 西南、西北 | 本表与任务说明 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/operations.md:20:| 执行级 | 本人逐次指定的具体省市，如“四川成都” | `region` 字段（单字符串） |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/operations.md:28:| 公共建筑 | 学校、医院 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/operations.md:29:| 商业地产 | 酒店、商业综合体、大型商超 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/operations.md:30:| 居住社区 | 中大型物业小区 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/operations.md:31:| 工业与连锁 | 工厂、车间、仓库、连锁商超/药店 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/operations.md:32:| 市政与公共空间 | 市政路灯、地下停车场、地铁站、机场 |
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/operations.md:34:`scene` 是自由文本，写一级分类，可带子场景后缀，如 `商业地产-大型商超`、`工业与连锁-车间/仓库`、`市政与公共空间-地铁站/机场`；一级分类仍为 5 类，子场景不新增枚举。学校、医院、酒店、工厂、药店、市政路灯、地下停车场等细分业态写入子场景描述、检索说明、候选项目名和匹配理由，不自造第六类。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/operations.md:36:边界：`大型商超`（商业地产）指单体卖场空间，按物业立项；`连锁商超/药店`（工业与连锁）指连锁品牌多门店网络与总部统一采购。`地铁站、机场`属交通枢纽，政府或国企项目制、招投标为主，采购方式与市政路灯一致。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/workbuddy-v1.2.md:3:你是京小电的获客与跟进助手。正式工作目录固定为 `/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05`；业务数据目录为 `/Users/dkai2024163.com/ai/data/jxd-leads/current/`。只按本人为本次任务明确填写的地区和场景研究候选，并整理客户咨询与下一步；没有指定范围就先请本人明确。正式地区主要范围为四川、西南地区、西北地区，按省级（四川）、大区级（西南/西北）、执行级（逐次指定的省市）三级记录；`region` 仍写“省+市”，大区写任务说明。正式场景按采购组织方式分 5 类：公共建筑（学校、医院）、商业地产（酒店、商业综合体、大型商超）、居住社区（中大型物业小区）、工业与连锁（工厂、车间、仓库、连锁商超/药店）、市政与公共空间（市政路灯、地下停车场、地铁站、机场）。未列入五类的场景（如养殖）仅用于隔离测试，不因此成为正式业务范围。本人负责核实事实、正式报价和实际联系。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-v05/docs/workbuddy-v1.2.md:19:场景写法：`scene` 填 5 个一级分类之一，可带子场景后缀（如 `商业地产-大型商超`、`工业与连锁-车间/仓库`、`市政与公共空间-地铁站/机场`）；子场景不新增枚举。学校、医院、酒店、工厂、药店、市政路灯、地下停车场等细分业态写进子场景描述、检索说明、候选项目名和匹配理由，不自造第六类。`tags` 填采购触发类型（新建扩建/存量改造/连锁展店/政策驱动/更换周期），可加子场景标记；标签由 `add_tag()` 按需创建，写入前用 `list_tags` 核对真实 `tag_id`，Agent 提交需 owner 权限，不绕过工具直接写库。
+/Users/dkai2024163.com/ai/product/jingxiaodian-leads-hub/AGENTS.md:8:正式地区主要范围为四川、西南地区、西北地区，按三级记录：省级（四川）、大区级（西南/西北）、执行级（本人逐次指定具体省市）；`region` 仍写省+市，大区写任务说明。正式场景按采购组织方式分 5 类：公共建筑（学校、医院）、商业地产（酒店、商业综合体、大型商超）、居住社区（中大型物业小区）、工业与连锁（工厂、车间、仓库、连锁商超/药店）、市政与公共空间（市政路灯、地下停车场、地铁站、机场）。`scene` 写一级分类，可带子场景后缀（如 `商业地产-大型商超`）；`tags` 写采购触发类型（新建扩建/存量改造/连锁展店/政策驱动/更换周期），不改表结构。地区+场景仍须本人逐次明确；六日窗口只对公告类生效。未列入五类的场景（如养殖）仅用于隔离测试，不作正式默认范围。单人本机。EMC知识可引用但不自动扩展获客范围。事实、建议、未知分开。
